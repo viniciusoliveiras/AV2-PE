@@ -2,6 +2,7 @@
 
 <h2>Questão 1 – Valor: 2,0 pontos</h2>
 <p>Faça um algoritmo que crie e implemente uma agenda eletrônica. Agenda deverá armazenar no máximo 100 elementos, contendo nome, idade, telefone e e-mail cada. O programa deve ter um menu com as seguintes opções (UTILIZE FUNÇÕES):</p>
+<br/>
 <dl>
 	<dt>&emsp;&emsp;&emsp;&emsp;&emsp;Adicionar:</dt>
 		<dd>Adiciona uma entrada na agenda com o nome, idade, telefone e e-mail de uma pessoa</dd>
@@ -11,10 +12,14 @@
 		<dd>Exiba todas as informações de pessoas da agenda eletrônica.</dd>
 </dl>
 
+<br/>
+<hr/>
+<br/>
 
 <h2>Questão 2 – Valor: 3,0 pontos</h2>
 <p>Faça um programa, utilizando o Dev-C++, para armazenar os dados de um aluno(a), contendo os seguintes dados:</p>
 
+<br/>
 <table align="center">
 <thead align="center">
   <tr>
@@ -47,7 +52,7 @@
 </table>
 
 <h5 align="center">(UTILIZE UMA MATRIZ PARA ARMAZENAR AS NOTAS)</h5>
-
+<br/>
 <p>O usuário poderá armazenar no máximo 50 alunos. O programa terá a opção de adicionar, exibir ou salvar/carregar os dados. O programa deverá ter as seguintes condições:</p>
 
 <h4><em>&emsp;&emsp;Adicionar:</em></h4>
@@ -77,6 +82,9 @@
 	<dd>&emsp;•&emsp;Ao selecionar a opção de carregar dados, o sistema deve ler todas as informações do arquivo externo e adicionar no programa</dd>
 </dl>
 
+<br/>
+<hr/>
+<br/>
 
 <h2>Questão 3 – Valor: 3,0 pontos</h2>
 <p>Faça um programa, utilizando o Dev-C++, para armazenar os dados de um funcionário(a), contendo os seguintes dados:</p>
@@ -123,7 +131,7 @@
 </table>
 
 <h5 align="center">(salário líquido - DEVE SER CALCULADO ATRAVÉS DA QUANTIDADE DE HORAS, VALOR DA MESMA E TABELA DO INSS)</h5>
-
+<br/>
 <p>O usuário poderá armazenar no máximo 50 funcionários. O programa terá a opção de adicionar, buscar, exibir ou salvar/carregar os dados. O programa deverá ter as seguintes condições:</p>
 
 <h4><em>&emsp;&emsp;Adicionar:</em></h4>
@@ -159,7 +167,7 @@
 </tbody>
 </table>
 
- 
+<br/>
 <h4><em>&emsp;&emsp;Pesquisar:</em></h4>
 <dl>
 	<dd>A pesquisa será realizada utilizando o CPF do funcionário(a)</dd>
