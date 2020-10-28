@@ -78,11 +78,13 @@
 	<dd>Para calcular o salário líquido utilize os valores informados na quantidade de horas trabalhadas, o valor da hora e a tabela de desconto de INSS que se encontra abaixo:</dd>
 </dl>
 
-					  SALÁRIO DE CONTRIBUIÇÃO (R$)	       ALÍQUOTA INSS
-						  até 1.751,81	                    8%
-					    de 1.751,82 até 2.919,72	            9%
-					    de 2.919,73 até 5.839,45	           11%
+SALÁRIO DE CONTRIBUIÇÃO (R$)	    |   ALÍQUOTA INSS
+  :---------------------------------: | :-----------------:
+até 1.751,81|8%
+de 1.751,82 até 2.919,72|9%
+de 2.919,73 até 5.839,45|11%
 
+ <br/>
  
 <h4><em>&emsp;&emsp;Pesquisar:</em></h4>
 <dl>
