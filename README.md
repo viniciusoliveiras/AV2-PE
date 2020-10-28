@@ -14,15 +14,39 @@
 
 <h2>Questão 2 – Valor: 3,0 pontos</h2>
 <p>Faça um programa, utilizando o Dev-C++, para armazenar os dados de um aluno(a), contendo os seguintes dados:</p>
-<blockquote>
-	<h4 align="center">
-		matricula: inteiro<br/>
-		nome: caractere<br/>
-		sexo: caractere<br/>
-		idade: inteiro<br/>
-		av1, av2, av3 e media: real	(UTILIZE UMA MATRIZ PARA ARMAZENAR AS NOTAS)
-	</h4>
-</blockquote>
+
+<table align="center">
+<thead align="center">
+  <tr>
+    <th>Variáveis</th>
+    <th>Tipos</th>
+  </tr>
+</thead>
+<tbody align="center">
+  <tr>
+    <td>Matricula</td>
+    <td>inteiro</td>
+  </tr>
+  <tr>
+    <td>Nome</td>
+    <td>caractere</td>
+  </tr>
+  <tr>
+    <td>Sexo</td>
+    <td>caractere</td>
+  </tr>
+  <tr>
+    <td>Idade</td>
+    <td>inteiro</td>
+  </tr>
+  <tr>
+    <td>AV1, AV2, AV3 e Media</td>
+    <td>real</td>
+  </tr>
+</tbody>
+</table>
+
+<h5 align="center">(UTILIZE UMA MATRIZ PARA ARMAZENAR AS NOTAS)</h5>
 
 <p>O usuário poderá armazenar no máximo 50 alunos. O programa terá a opção de adicionar, exibir ou salvar/carregar os dados. O programa deverá ter as seguintes condições:</p>
 
@@ -56,17 +80,49 @@
 
 <h2>Questão 3 – Valor: 3,0 pontos</h2>
 <p>Faça um programa, utilizando o Dev-C++, para armazenar os dados de um funcionário(a), contendo os seguintes dados:</p>
-<blockquote>
-	<h4 align="center">
-		CPF: inteiro<br/>
-		nome: caractere<br/>
-		sexo: caractere<br/>
-		idade: inteiro<br/>
-		horas trabalhadas: real<br/>
-		valor hora trabalhada: real<br/>
-		salário líquido: real (DEVE SER CALCULADO ATRAVÉS DA QUANTIDADE DE HORAS, VALOR DA MESMA E TABELA DO INSS)
-	</h4>
-</blockquote>
+
+<br/>
+
+<table align="center">
+<thead align="center">
+  <tr>
+    <th>Variáveis</th>
+    <th>Tipo</th>
+  </tr>
+</thead>
+<tbody align="center">
+  <tr>
+    <td>CPF</td>
+    <td>inteiro</td>
+  </tr>
+  <tr>
+    <td>Nome</td>
+    <td>caractere</td>
+  </tr>
+  <tr>
+    <td>Sexo</td>
+    <td>caractere</td>
+  </tr>
+  <tr>
+    <td>Idade</td>
+    <td>inteiro</td>
+  </tr>
+  <tr>
+    <td>Horas Trabalhadas</td>
+    <td>real</td>
+  </tr>
+  <tr>
+    <td>Valor Hora Trabalhada</td>
+    <td>real</td>
+  </tr>
+  <tr>
+    <td>Salário Líquido</td>
+    <td>real</td>
+  </tr>
+</tbody>
+</table>
+
+<h5 align="center">(salário líquido - DEVE SER CALCULADO ATRAVÉS DA QUANTIDADE DE HORAS, VALOR DA MESMA E TABELA DO INSS)</h5>
 
 <p>O usuário poderá armazenar no máximo 50 funcionários. O programa terá a opção de adicionar, buscar, exibir ou salvar/carregar os dados. O programa deverá ter as seguintes condições:</p>
 
@@ -76,27 +132,29 @@
 	<dd>&emsp;•&emsp;Se existir, informar que o funcionário(a) já se encontra presente e não adicione</dd>
 	<dd>&emsp;•&emsp;Caso não exista, verifique se o sistema está ou não lotado antes de inserir</dd>
 	<dd>Para calcular o salário líquido utilize os valores informados na quantidade de horas trabalhadas, o valor da hora e a tabela de desconto de INSS que se encontra abaixo:</dd>
-</dl><br/>
+</dl>
+
+<br/>
 
 <table align="center">
-<thead>
+<thead align="center">
   <tr>
-    <th align="center">SALÁRIO DE CONTRIBUIÇÃO (R$)</th>
-    <th align="center">ALÍQUOTA INSS</th>
+    <th>SALÁRIO DE CONTRIBUIÇÃO (R$)</th>
+    <th>ALÍQUOTA INSS</th>
   </tr>
 </thead>
-<tbody>
+<tbody align="center">
   <tr>
-    <td align="center">até 1.751,81</td>
-    <td align="center">8%</td>
+    <td>até 1.751,81</td>
+    <td>8%</td>
   </tr>
   <tr>
-    <td align="center">de 1.751,82 até 2.919,72</td>
-    <td align="center">9%</td>
+    <td>de 1.751,82 até 2.919,72</td>
+    <td>9%</td>
   </tr>
   <tr>
-    <td align="center">de 2.919,73 até 5.839,45</td>
-    <td align="center">11%</td>
+    <td>de 2.919,73 até 5.839,45</td>
+    <td>11%</td>
   </tr>
 </tbody>
 </table>
