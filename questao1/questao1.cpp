@@ -16,12 +16,43 @@ Pesquisar pelo nome de um usuário. Exiba todas as informações de pessoas com 
 Exiba todas as informações de pessoas da agenda eletrônica.
 */
 
+typedef struct
+{
+    char nome[20], email[50];
+    int idade, telefone;
+} user;
+
+user contato;
+
 void Adicionar()
 {
     system("cls");
     cout << "AGENDA" << endl;
     cout << endl;
-    cout << "Function Adicionar () is working, bitch" << endl;
+
+    cout << "ADICIONAR NOVO CONTATO" << endl;
+    cout << endl;
+    cout << endl;
+
+    cout << "Nome: ";
+    cin >> contato.nome;
+
+    cout << endl;
+    cout << "Idade: ";
+    cin >> contato.idade;
+
+    cout << endl;
+    cout << "Telefone: ";
+    cin >> contato.telefone;
+
+    cout << endl;
+    cout << "E-mail: ";
+    cin >> contato.email;
+
+    system("cls");
+    cout << "Nome do contato: " << contato.nome << " | idade: " << contato.idade << " | telefone: " << contato.telefone << " | email: " << contato.email;
+    cout << endl;
+
     system("pause");
 }
 
@@ -56,7 +87,7 @@ main()
         cout << "[2] Pesquisar" << endl;
         cout << "[3] Exibir" << endl;
         cout << "[0] Sair" << endl;
-        cout<<endl;
+        cout << endl;
         cout << "OPCAO: ";
         cin >> op;
 
