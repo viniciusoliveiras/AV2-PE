@@ -16,3 +16,35 @@ Pesquisar pelo nome de um usuário. Exiba todas as informações de pessoas com 
 Exiba todas as informações de pessoas da agenda eletrônica.
 */
 
+main()
+{
+    int op;
+
+    do
+    {
+        system("pause");
+
+        cout << "AGENDA" << endl;
+
+        cout << "[1] Adicionar" << endl;
+        cout << "[2] Pesquisar" << endl;
+        cout << "[3] Exibir" << endl;
+        cout << "[0] Sair" << endl;
+
+        cout << "OPCAO: ";
+        cin >> op;
+
+        switch (op)
+        {
+        case 1:
+            Adicionar();
+            break;
+        case 2:
+            Pesquisar();
+            break;
+        case 3:
+            Exibir();
+            break;
+        }
+    } while (op != 0);
+}
