@@ -52,6 +52,7 @@ void Adicionar()
 
     counter++;
 
+    cout << endl;
     system("pause");
 }
 
@@ -60,7 +61,7 @@ void Pesquisar()
     system("cls");
     cout << "AGENDA" << endl;
     cout << endl;
-    cout << "Function Pesquisar () is working, bitch" << endl;
+    cout << "[ERROR] Function unavailable. Try again later" << endl;
     system("pause");
 }
 
@@ -69,7 +70,29 @@ void Exibir()
     system("cls");
     cout << "AGENDA" << endl;
     cout << endl;
-    cout << "Function Exibir () is working, bitch" << endl;
+    cout << "EXIBIR TODOS OS CONTATOS" << endl;
+    cout << endl;
+    cout << endl;
+
+    if (contato[0].idade == NULL)
+    {
+        cout << "Nao ha contatos salvos na agenda."<<endl;
+        cout<<endl;
+    }
+    else
+    {
+        for (int i = 0; i < counter; i++)
+        {
+            cout << "NOME: " << contato[i].nome << endl;
+            cout << "IDADE: " << contato[i].idade << endl;
+            cout << "TELEFONE: " << contato[i].telefone << endl;
+            cout << "E-MAIL: " << contato[i].email << endl;
+            cout << endl;
+            cout << "------------------------" << endl;
+            cout << endl;
+        }
+    }
+
     system("pause");
 }
 
