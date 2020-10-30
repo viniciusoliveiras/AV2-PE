@@ -16,21 +16,47 @@ Pesquisar pelo nome de um usuário. Exiba todas as informações de pessoas com 
 Exiba todas as informações de pessoas da agenda eletrônica.
 */
 
+void Adicionar()
+{
+    system("cls");
+    cout << "AGENDA" << endl;
+    cout << endl;
+    cout << "Function Adicionar () is working, bitch" << endl;
+    system("pause");
+}
+
+void Pesquisar()
+{
+    system("cls");
+    cout << "AGENDA" << endl;
+    cout << endl;
+    cout << "Function Pesquisar () is working, bitch" << endl;
+    system("pause");
+}
+
+void Exibir()
+{
+    system("cls");
+    cout << "AGENDA" << endl;
+    cout << endl;
+    cout << "Function Exibir () is working, bitch" << endl;
+    system("pause");
+}
+
 main()
 {
     int op;
 
     do
     {
-        system("pause");
-
+        system("cls");
         cout << "AGENDA" << endl;
-
+        cout << endl;
         cout << "[1] Adicionar" << endl;
         cout << "[2] Pesquisar" << endl;
         cout << "[3] Exibir" << endl;
         cout << "[0] Sair" << endl;
-
+        cout<<endl;
         cout << "OPCAO: ";
         cin >> op;
 
