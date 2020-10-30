@@ -22,7 +22,8 @@ typedef struct
     int idade, telefone;
 } user;
 
-user contato;
+user contato[2];
+int counter = 0;
 
 void Adicionar()
 {
@@ -35,23 +36,21 @@ void Adicionar()
     cout << endl;
 
     cout << "Nome: ";
-    cin >> contato.nome;
+    cin >> contato[counter].nome;
 
     cout << endl;
     cout << "Idade: ";
-    cin >> contato.idade;
+    cin >> contato[counter].idade;
 
     cout << endl;
     cout << "Telefone: ";
-    cin >> contato.telefone;
+    cin >> contato[counter].telefone;
 
     cout << endl;
     cout << "E-mail: ";
-    cin >> contato.email;
+    cin >> contato[counter].email;
 
-    system("cls");
-    cout << "Nome do contato: " << contato.nome << " | idade: " << contato.idade << " | telefone: " << contato.telefone << " | email: " << contato.email;
-    cout << endl;
+    counter++;
 
     system("pause");
 }
