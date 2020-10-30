@@ -28,7 +28,7 @@ int counter = 0;
 void Adicionar()
 {
     system("cls");
-    cout << "AGENDA" << endl;
+    cout << "AGENDA ELETRÔNICA" << endl;
     cout << endl;
 
     cout << "ADICIONAR NOVO CONTATO" << endl;
@@ -59,16 +59,24 @@ void Adicionar()
 void Pesquisar()
 {
     system("cls");
-    cout << "AGENDA" << endl;
+    cout << "AGENDA ELETRÔNICA" << endl;
     cout << endl;
-    cout << "[ERROR] Function unavailable. Try again later" << endl;
+    cout << "PESQUISAR CONTATO" << endl;
+    cout << endl;
+    cout << endl;
+
+    char nomeContato[20];
+
+    cout << "DIGITE O NOME DO CONTATO QUE DESEJA PESQUISAR: ";
+    cin >> nomeContato;
+
     system("pause");
 }
 
 void Exibir()
 {
     system("cls");
-    cout << "AGENDA" << endl;
+    cout << "AGENDA ELETRÔNICA" << endl;
     cout << endl;
     cout << "EXIBIR TODOS OS CONTATOS" << endl;
     cout << endl;
@@ -76,14 +84,14 @@ void Exibir()
 
     if (contato[0].idade == NULL)
     {
-        cout << "Nao ha contatos salvos na agenda."<<endl;
-        cout<<endl;
+        cout << "Nao ha contatos salvos na agenda." << endl;
+        cout << endl;
     }
     else
     {
         for (int i = 0; i < counter; i++)
         {
-            cout << "NOME: " << contato[i].nome << endl;
+            cout << "NOME: " << contato[i].nome << " POSICAO: " << i << endl;
             cout << "IDADE: " << contato[i].idade << endl;
             cout << "TELEFONE: " << contato[i].telefone << endl;
             cout << "E-MAIL: " << contato[i].email << endl;
@@ -103,7 +111,7 @@ main()
     do
     {
         system("cls");
-        cout << "AGENDA" << endl;
+        cout << "AGENDA ELETRÔNICA" << endl;
         cout << endl;
         cout << "[1] Adicionar" << endl;
         cout << "[2] Pesquisar" << endl;
