@@ -28,7 +28,7 @@ int counter = 0;
 void Adicionar()
 {
     system("cls");
-    cout << "AGENDA ELETRÔNICA" << endl;
+    cout << "AGENDA ELETRONICA" << endl;
     cout << endl;
 
     cout << "ADICIONAR NOVO CONTATO" << endl;
@@ -59,7 +59,7 @@ void Adicionar()
 void Pesquisar()
 {
     system("cls");
-    cout << "AGENDA ELETRÔNICA" << endl;
+    cout << "AGENDA ELETRONICA" << endl;
     cout << endl;
     cout << "PESQUISAR CONTATO" << endl;
     cout << endl;
@@ -76,7 +76,7 @@ void Pesquisar()
 void Exibir()
 {
     system("cls");
-    cout << "AGENDA ELETRÔNICA" << endl;
+    cout << "AGENDA ELETRONICA" << endl;
     cout << endl;
     cout << "EXIBIR TODOS OS CONTATOS" << endl;
     cout << endl;
@@ -111,7 +111,7 @@ main()
     do
     {
         system("cls");
-        cout << "AGENDA ELETRÔNICA" << endl;
+        cout << "AGENDA ELETRONICA" << endl;
         cout << endl;
         cout << "[1] Adicionar" << endl;
         cout << "[2] Pesquisar" << endl;
