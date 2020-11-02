@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <iostream>
+#include <string.h>
 using namespace std;
 
 /*  QUESTÃO
@@ -22,7 +23,7 @@ typedef struct
     int idade, telefone;
 } user;
 
-user contato[2];
+user contato[100];
 int counter = 0;
 
 void Adicionar()
@@ -35,19 +36,19 @@ void Adicionar()
     cout << endl;
     cout << endl;
 
-    cout << "Nome: ";
+    cout << "NOME: ";
     cin >> contato[counter].nome;
 
     cout << endl;
-    cout << "Idade: ";
+    cout << "IDADE: ";
     cin >> contato[counter].idade;
 
     cout << endl;
-    cout << "Telefone: ";
+    cout << "TELEFONE: ";
     cin >> contato[counter].telefone;
 
     cout << endl;
-    cout << "E-mail: ";
+    cout << "E-MAIL: ";
     cin >> contato[counter].email;
 
     counter++;
@@ -66,9 +67,44 @@ void Pesquisar()
     cout << endl;
 
     char nomeContato[20];
+    int k;
 
     cout << "DIGITE O NOME DO CONTATO QUE DESEJA PESQUISAR: ";
     cin >> nomeContato;
+
+    for (int i = 0; i < 100; i++)
+    {
+        if (strcmp(contato[i].nome, nomeContato) == 0)
+        {
+            k = i;
+            system("cls");
+            cout << "AGENDA ELETRONICA" << endl;
+            cout << endl;
+            cout << "PESQUISAR CONTATO" << endl;
+            cout << endl;
+            cout << endl;
+            cout << "NOME: " << contato[k].nome << endl;
+            cout << "IDADE: " << contato[k].idade << endl;
+            cout << "TELEFONE: " << contato[k].telefone << endl;
+            cout << "E-MAIL: " << contato[k].email << endl;
+            cout << endl;
+            break;
+        }
+        else
+        {
+            system("cls");
+            cout << "AGENDA ELETRONICA" << endl;
+            cout << endl;
+            cout << "PESQUISAR CONTATO" << endl;
+            cout << endl;
+            cout << endl;
+            cout << "O CONTATO PESQUISADO NAO EXISTE. TENTE NOVAMENTE OU ADICIONE O CONTATO NA AGENDA" << endl;
+            break;
+        }
+    }
+
+    cout << endl;
+    cout << endl;
 
     system("pause");
 }
@@ -84,14 +120,14 @@ void Exibir()
 
     if (contato[0].idade == NULL)
     {
-        cout << "Nao ha contatos salvos na agenda." << endl;
+        cout << "NAO HA CONTATOS SALVOS NA AGENDA." << endl;
         cout << endl;
     }
     else
     {
         for (int i = 0; i < counter; i++)
         {
-            cout << "NOME: " << contato[i].nome << " POSICAO: " << i << endl;
+            cout << "NOME: " << contato[i].nome << endl;
             cout << "IDADE: " << contato[i].idade << endl;
             cout << "TELEFONE: " << contato[i].telefone << endl;
             cout << "E-MAIL: " << contato[i].email << endl;
@@ -113,10 +149,10 @@ main()
         system("cls");
         cout << "AGENDA ELETRONICA" << endl;
         cout << endl;
-        cout << "[1] Adicionar" << endl;
-        cout << "[2] Pesquisar" << endl;
-        cout << "[3] Exibir" << endl;
-        cout << "[0] Sair" << endl;
+        cout << "[1] ADICIONAR" << endl;
+        cout << "[2] PESQUISAR" << endl;
+        cout << "[3] EXIBIR" << endl;
+        cout << "[0] SAIR" << endl;
         cout << endl;
         cout << "OPCAO: ";
         cin >> op;
