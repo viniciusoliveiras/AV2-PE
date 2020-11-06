@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <string.h>
 using namespace std;
-#define NUMERO_ALUNO 2
+#define NUMERO_ALUNO 3
 
 /*  QUESTÃO 2
 Faça um programa, utilizando o Dev-C++, para armazenar os dados de um aluno(a), contendo os seguintes dados:
@@ -28,6 +29,7 @@ O usuário poderá exibir os alunos(as) com os seguintes critérios de média:
  • Alunos reprovados com média inferior a 5
  • Alunos reprovados com média inferior a 7
  • Alunos reprovados
+
  • Alunos aprovados com média superior ou igual a 7
  • Alunos aprovados com média superior ou igual a 9
  • Alunos aprovados
@@ -78,8 +80,6 @@ void Adicionar()
     cout << "INSIRA A NOTA DA AV3: ";
     cin >> notas[counter][2];
 
-    float maior1 = notas[counter][0], maior2 = notas[counter][1];
-
     float av1 = notas[counter][0], av2 = notas[counter][1], av3 = notas[counter][2];
 
     if (av3 > av1 && av2 > av1)
@@ -101,19 +101,39 @@ void Adicionar()
     system("pause");
 }
 
-void aluno_aprovado()
+void aluno_aprovado(int opcao_usuario)
 {
-  for (int i = 0; i < NUMERO_ALUNO; i++){
-
-    if (notas[i][3] >= 9){
-      printf("\nAlunos aprovados com media superior ou igual a 9\n");
-      printf("Aluno: %d\n", aluno[i].matricula);
-      printf("Media: %2.f\n",notas[i][3]);
-      
-    } else if (notas[i][3] >= 7){
-      printf("\nAlunos aprovados com media superior ou igual a 7\n");
-      printf("Aluno: %d\n", aluno[i].matricula);
-      printf("Media: %2.f\n",notas[i][3]);
+  system("cls");
+  if (opcao_usuario == 1)
+  {
+    printf("ALUNOS APROVADOS COM MEDIA SUPERIOR OU IGUAL A 9\n");
+    for (int i = 0; i < NUMERO_ALUNO; i++)
+    {
+      if (notas[i][3] >= 9)
+      {
+        printf("\n\tAluno: %d\n", aluno[i].matricula);
+        printf("\tMedia: %2.f\n", notas[i][3]);
+      }
+      else if (i == NUMERO_ALUNO)
+      {
+        printf("NENHUM ALUNO ENCONTRADO");
+      }
+    }
+  }
+  else if (opcao_usuario == 2)
+  {
+    printf("ALUNOS APROVADOS COM MEDIA SUPERIOR OU IGUAL A 7\n");
+    for (int i = 0; i < NUMERO_ALUNO; i++)
+    {
+      if (notas[i][3] >= 7)
+      {
+        printf("\n\tAluno: %d\n", aluno[i].matricula);
+        printf("\tMedia: %2.f\n", notas[i][3]);
+      }
+      else if (i == NUMERO_ALUNO)
+      {
+        printf("NENHUM ALUNO ENCONTRADO");
+      }
     }
   }
   system("pause");
@@ -148,83 +168,98 @@ void aluno_reprovado(int opcao_usuario)
 
 void Exibir()
 {
-  // int opcao=1;
-  // aluno_reprovado(opcao);
-  aluno_aprovado();
-/*
-  • Alunos reprovados com média inferior a 7
-  • Alunos reprovados
-  • Alunos reprovados com média inferior a 5
-
-
-   • Alunos aprovados com média superior ou igual a 9 (apenas opcao)
-   • Alunos aprovados com média superior ou igual a 7 (opcao) Caso 4
-   • Alunos aprovados   Caso 2
+  int opcao = 0;
+  do
+  {
+    system("cls");
+    cout << "EXIBIR APROVADOS E REPROVADOS\n" << endl;
+    cout << "[1] Alunos aprovados com media superior ou igual a 9" << endl;
+    cout << "[2] Alunos aprovados (com media superior ou igual 7)" << endl;
+    cout << "[7] Todos os alunos" << endl;
+    cout << endl;
+    cout << "OPCAO: ";
+    cin >> opcao;
+    switch (opcao)
+    {
+      case 1:
+        aluno_aprovado(opcao);
+        break;
+      case 2:
+        aluno_aprovado(opcao);
+        break;
+      default:
+        break;
+    }
+  } while (opcao != 0);
   
-  Exit Caso 0 
-
-  • Todos os alunos (opcao) Caso 5
-*/
-
 }
 
-void Salvar()
+/*void Salvar()
 {
-    // FILE *arquivo;
+  system("cls");
+  cout << "PROGRAMA PARA SALVAR ARQUIVO EXTERNO" << endl;
+  cout << "SALVAR ARQUIVO" << endl;
+  
+  FILE *arquivo;
+  char nome_arquivo[50];
 
-    // char nome_arquivo[50];
+  cout << "Digite o nome do arquivo externo: "; cin >> nome_arquivo;
+  strcat (nome_arquivo,".txt");
 
-    // printf("Digite o nome do arquivo: ");
-    // scanf("%s ", nome_arquivo);
+  arquivo = fopen(nome_arquivo, "w");
 
-    // strcat(nome_arquivo,".txt");
-    // arquivo = fopen(nome_arquivo, "w");
+  if (arquivo != NULL){
+    fprintf(arquivo,"Alunos reprovados com media inferior a 5: %d\n");
+    fprintf(arquivo,"Alunos reprovados com media inferior a 7: %d\n");
+    fprintf(arquivo,"Alunos reprovados: %d\n");
+    fprintf(arquivo,"Alunos aprovados com media superior a 7: %d\n");
+    fprintf(arquivo,"Alunos aprovados com media superior a 9: %d\n");
+    fprintf(arquivo,"Alunos aprovados: %d\n");
+    fprintf(arquivo,"Todos os Alunos: %d\n", counter);
+  }
+  else
+    cout << "ERRO NA GRAVACAO DO ARQUIVO EXTERNO" << endl;
 
-    // if (arquivo == NULL)
-    //     cout << "ERRO NA GRAVACAO DO ARQUIVO EXTERNO" << endl;
-    // else
-    //     fprintf("Salvei o meu arquivo");
+  fclose(arquivo);
+  system("pause");
 
-    // fclose(arquivo);
-    // system("pause");
-
-    // COTELLI
-    // FILE *arq;
-    // char nome_arq[50];
-    // cout<<"Nome do arquivo externo: "; cin>>nome_arq;
-    // strcat(nome_arq,".txt");
-    // arq = fopen(nome_arq,"w");
-}
+  // COTELLI
+  // FILE *arq;
+  // char nome_arq[50];
+  // cout<<"Nome do arquivo externo: "; cin>>nome_arq;
+  // strcat(nome_arq,".txt");
+  // arq = fopen(nome_arq,"w");
+}*/
 
 int main()
 {
-    int op;
+  int op;
 
-    do
+  do
+  {
+    system("cls");
+    cout << "PROGRAMA DE MATRICULA" << endl;
+    cout << endl;
+    cout << "[1] ADICIONAR" << endl;
+    cout << "[2] EXIBIR" << endl;
+    cout << "[3] SALVAR / CARREGAR" << endl;
+    cout << "[0] SAIR" << endl;
+    cout << endl;
+    cout << "OPCAO: ";
+    cin >> op;
+
+    switch (op)
     {
-        system("cls");
-        cout << "PROGRAMA DE MATRICULA" << endl;
-        cout << endl;
-        cout << "[1] ADICIONAR" << endl;
-        cout << "[2] EXIBIR" << endl;
-        cout << "[3] SALVAR / CARREGAR" << endl;
-        cout << "[0] SAIR" << endl;
-        cout << endl;
-        cout << "OPCAO: ";
-        cin >> op;
-
-        switch (op)
-        {
-        case 1:
-            Adicionar();
-            break;
-        case 2:
-            Exibir();
-            break;
-        case 3:
-            Salvar();
-            break;
-        }
-    } while (op != 0);
-    return 0;
+    case 1:
+      Adicionar();
+      break;
+    case 2:
+      Exibir();
+      break;
+    case 3:
+      // Salvar();
+      break;
+    }
+  } while (op != 0);
+  return 0;
 }
