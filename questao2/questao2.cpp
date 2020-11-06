@@ -66,6 +66,7 @@ void Adicionar()
         return;
       }
     }
+
     if (counter >= NUMERO_ALUNO)
     {
       cout << "\n[ERROR] SISTEMA LOTADO" << endl;
@@ -80,7 +81,7 @@ void Adicionar()
     cout << "INSIRA A NOTA DA AV3: ";
     cin >> notas[counter][2];
 
-    float av1 = notas[counter][0], av2 = notas[counter][1], av3 = notas[counter][2];
+    float *av1 = &notas[counter][0], *av2 = &notas[counter][1], *av3 = &notas[counter][2], *media = &notas[counter][3];
 
     if (av3 > av1 && av2 > av1)
     {
@@ -90,6 +91,8 @@ void Adicionar()
     {
       av2 = av3;
     }
+    else if (av1 == av2)
+      av1 = av3;
 
     cout << "MAIOR NOTA 1: " << av1 << endl;
     cout << "MAIOR NOTA 2: " << av2 << endl;
@@ -113,6 +116,7 @@ void aluno_aprovado(int opcao_usuario)
       {
         printf("\n\tAluno: %d\n", aluno[i].matricula);
         printf("\tMedia: %2.f\n", notas[i][3]);
+        quant_aluno[0]++;
       }
       else if (i == NUMERO_ALUNO)
       {
@@ -129,6 +133,8 @@ void aluno_aprovado(int opcao_usuario)
       {
         printf("\n\tAluno: %d\n", aluno[i].matricula);
         printf("\tMedia: %2.f\n", notas[i][3]);
+        quant_aluno[1]++;
+        quant_aluno[4]++;
       }
       else if (i == NUMERO_ALUNO)
       {
@@ -151,6 +157,7 @@ void aluno_reprovado(int opcao_usuario)
       {
         printf("\n\tAluno: %d\n", aluno[i].matricula);
         printf("\tMedia: %2.f\n", notas[i][3]);
+        quant_aluno[2]++;
       }
       else if (i == NUMERO_ALUNO)
       {
@@ -167,6 +174,7 @@ void aluno_reprovado(int opcao_usuario)
       {
         printf("\n\tAluno: %d\n", aluno[i].matricula);
         printf("\tMedia: %2.f\n", notas[i][3]);
+        quant_aluno[3]++;
       }
       else if (i == NUMERO_ALUNO)
       {
@@ -206,6 +214,12 @@ void Exibir()
       case 4:
         aluno_reprovado(opcao);
         break;
+      case 5:
+        system("cls");
+        printf("TODOS OS ALUNOS\n");
+        for (int i = 0; i < NUMERO_ALUNO; i++)
+          printf("\n\tAluno: %d\n", aluno[i].matricula);
+        system("pause");
       default:
         break;
     }
@@ -228,11 +242,11 @@ void Exibir()
   arquivo = fopen(nome_arquivo, "w");
 
   if (arquivo != NULL){
-    fprintf(arquivo,"Alunos reprovados com media inferior a 5: %d\n");
-    fprintf(arquivo,"Alunos reprovados com media inferior a 7: %d\n");
+    fprintf(arquivo,"Alunos reprovados com media inferior a 5: %d\n", quant_aluno[3];);
+    fprintf(arquivo,"Alunos reprovados com media inferior a 7: %d\n", quant_aluno[2];);
     fprintf(arquivo,"Alunos reprovados: %d\n");
-    fprintf(arquivo,"Alunos aprovados com media superior a 7: %d\n");
-    fprintf(arquivo,"Alunos aprovados com media superior a 9: %d\n");
+    fprintf(arquivo,"Alunos aprovados com media superior a 7: %d\n", quant_aluno[1];);
+    fprintf(arquivo,"Alunos aprovados com media superior a 9: %d\n", quant_aluno[0];);
     fprintf(arquivo,"Alunos aprovados: %d\n");
     fprintf(arquivo,"Todos os Alunos: %d\n", counter);
   }
