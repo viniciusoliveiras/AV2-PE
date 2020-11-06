@@ -106,16 +106,15 @@ void aluno_aprovado()
   for (int i = 0; i < NUMERO_ALUNO; i++){
 
     if (notas[i][3] >= 9){
-      printf("Alunos aprovados com media superior ou igual a 9\n");
-      printf("Aluno %d: %d ",i+1 , aluno[i].matricula);
-      system("pause");
+      printf("\nAlunos aprovados com media superior ou igual a 9\n");
+      printf("Aluno: %d\n", aluno[i].matricula);
+      printf("Media: %2.f\n",notas[i][3]);
+      
+    } else if (notas[i][3] >= 7){
+      printf("\nAlunos aprovados com media superior ou igual a 7\n");
+      printf("Aluno: %d\n", aluno[i].matricula);
+      printf("Media: %2.f\n",notas[i][3]);
     }
-    else if (notas[i][3] >= 7){
-      printf("Alunos aprovados com mddia superior ou igual a 7\n");
-      printf("Aluno %d: %d ",i+1 , aluno[i].matricula);
-      system("pause");
-    }
-
   }
   system("pause");
 }
