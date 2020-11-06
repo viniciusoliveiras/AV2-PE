@@ -49,7 +49,7 @@ typedef struct {
 DADOS aluno[NUMERO_ALUNO];
 
 float notas[NUMERO_ALUNO][4];
-int counter = 0;
+int counter = 0, quant_aluno[6];
 
 void Adicionar()
 {
@@ -141,28 +141,39 @@ void aluno_aprovado(int opcao_usuario)
 
 void aluno_reprovado(int opcao_usuario)
 {
-  // for (int j = 0; j < NUMERO_ALUNO; j++)
-  // {
-    system("cls");
-    if (notas[counter][3] < 5)
+  system("cls");
+  if (opcao_usuario == 3)
+  {
+    printf("ALUNOS REPROVADOS COM MEDIA INFERIOR A 7\n");
+    for (int i = 0; i < NUMERO_ALUNO; i++)
     {
-      cout<<"ALUNOS REPROVADOS COM MEDIA INFERIOR A 5\n";
-      for (int i = 0; i < NUMERO_ALUNO; i++)
+      if (notas[i][3] < 7)
       {
-        cout<<"Aluno: "<<aluno[i].matricula<<endl;
-        cout<<"Media: "<<notas[i][3]<<endl<<endl;
+        printf("\n\tAluno: %d\n", aluno[i].matricula);
+        printf("\tMedia: %2.f\n", notas[i][3]);
+      }
+      else if (i == NUMERO_ALUNO)
+      {
+        printf("NENHUM ALUNO ENCONTRADO");
       }
     }
-    else if (notas[counter][3] < 7)
+  }
+  else if (opcao_usuario == 4)
+  {
+    printf("ALUNOS REPROVADOS COM MEDIA INFERIOR A 5\n");
+    for (int i = 0; i < NUMERO_ALUNO; i++)
     {
-      (opcao_usuario == 1) ? cout<<"ALUNOS REPROVADOS COM MEDIA INFERIOR A 7\n" : cout<<"ALUNOS REPROVADOS\n";
-      for (int i = 0; i < NUMERO_ALUNO; i++)
+      if (notas[i][3] < 5)
       {
-        cout<<"Aluno: "<<aluno[i].matricula<<endl;
-        cout<<"Media: "<<notas[i][3]<<endl<<endl;
+        printf("\n\tAluno: %d\n", aluno[i].matricula);
+        printf("\tMedia: %2.f\n", notas[i][3]);
+      }
+      else if (i == NUMERO_ALUNO)
+      {
+        printf("NENHUM ALUNO ENCONTRADO");
       }
     }
-  // }
+  }
   system("pause");
 }
 
@@ -175,7 +186,9 @@ void Exibir()
     cout << "EXIBIR APROVADOS E REPROVADOS\n" << endl;
     cout << "[1] Alunos aprovados com media superior ou igual a 9" << endl;
     cout << "[2] Alunos aprovados (com media superior ou igual 7)" << endl;
-    cout << "[7] Todos os alunos" << endl;
+    cout << "[3] Alunos reprovados (com media inferior a 7)" << endl;
+    cout << "[4] Alunos reprovados com media inferior a 5" << endl;
+    cout << "[5] Todos Alunos" << endl;
     cout << endl;
     cout << "OPCAO: ";
     cin >> opcao;
@@ -186,6 +199,12 @@ void Exibir()
         break;
       case 2:
         aluno_aprovado(opcao);
+        break;
+      case 3:
+        aluno_reprovado(opcao);
+        break;
+      case 4:
+        aluno_reprovado(opcao);
         break;
       default:
         break;
