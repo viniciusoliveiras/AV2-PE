@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <iostream>
 using namespace std;
+#define NUMERO_ALUNO 2
 
 /*  QUESTÃO 2
 Faça um programa, utilizando o Dev-C++, para armazenar os dados de um aluno(a), contendo os seguintes dados:
