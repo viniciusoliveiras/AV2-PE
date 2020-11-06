@@ -39,10 +39,9 @@ O usuário irá escolher entre salvar ou carregar um arquivo externo
  • Ao selecionar a opção de carregar dados, o sistema deve ler todas as informações do arquivo externo e adicionar no programa
 */
 
-typedef struct
-{
-    char nome[20], sexo[20];
-    int matricula, idade;
+typedef struct {
+  char nome[20], sexo[20];
+  int matricula, idade;
 } DADOS;
 
 DADOS aluno[NUMERO_ALUNO];
@@ -102,10 +101,72 @@ void Adicionar()
     system("pause");
 }
 
+void aluno_aprovado()
+{
+  for (int i = 0; i < NUMERO_ALUNO; i++){
+
+    if (notas[i][3] >= 9){
+      printf("Alunos aprovados com media superior ou igual a 9\n");
+      printf("Aluno %d: %d ",i+1 , aluno[i].matricula);
+      system("pause");
+    }
+    else if (notas[i][3] >= 7){
+      printf("Alunos aprovados com mddia superior ou igual a 7\n");
+      printf("Aluno %d: %d ",i+1 , aluno[i].matricula);
+      system("pause");
+    }
+
+  }
+  system("pause");
+}
+
+void aluno_reprovado(int opcao_usuario)
+{
+  // for (int j = 0; j < NUMERO_ALUNO; j++)
+  // {
+    system("cls");
+    if (notas[counter][3] < 5)
+    {
+      cout<<"ALUNOS REPROVADOS COM MEDIA INFERIOR A 5\n";
+      for (int i = 0; i < NUMERO_ALUNO; i++)
+      {
+        cout<<"Aluno: "<<aluno[i].matricula<<endl;
+        cout<<"Media: "<<notas[i][3]<<endl<<endl;
+      }
+    }
+    else if (notas[counter][3] < 7)
+    {
+      (opcao_usuario == 1) ? cout<<"ALUNOS REPROVADOS COM MEDIA INFERIOR A 7\n" : cout<<"ALUNOS REPROVADOS\n";
+      for (int i = 0; i < NUMERO_ALUNO; i++)
+      {
+        cout<<"Aluno: "<<aluno[i].matricula<<endl;
+        cout<<"Media: "<<notas[i][3]<<endl<<endl;
+      }
+    }
+  // }
+  system("pause");
+}
+
 void Exibir()
 {
+  // int opcao=1;
+  // aluno_reprovado(opcao);
+  aluno_aprovado();
+/*
+  • Alunos reprovados com média inferior a 7
+  • Alunos reprovados
+  • Alunos reprovados com média inferior a 5
 
-    printf("ALUNOS APROVADOS E REPROVADOS!!");
+
+   • Alunos aprovados com média superior ou igual a 9 (apenas opcao)
+   • Alunos aprovados com média superior ou igual a 7 (opcao) Caso 4
+   • Alunos aprovados   Caso 2
+  
+  Exit Caso 0 
+
+  • Todos os alunos (opcao) Caso 5
+*/
+
 }
 
 void Salvar()
