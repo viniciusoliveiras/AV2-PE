@@ -81,21 +81,21 @@ void Adicionar()
     cout << "INSIRA A NOTA DA AV3: ";
     cin >> notas[counter][2];
 
-    float *av1 = &notas[counter][0], *av2 = &notas[counter][1], *av3 = &notas[counter][2], media;
+    float *av1 = &notas[counter][0], *av2 = &notas[counter][1], *av3 = &notas[counter][2], *media = &notas[counter][3];
 
     if (*av3 > *av1 && *av2 > *av1)
-      media = notas[counter][3] = (*av3 + *av2) / 2;
+      *media = (*av3 + *av2) / 2;
 
     else if (av3 > av2 && av1 > av2)
-      media = notas[counter][3] = (*av3 + *av1) / 2;
+      *media = (*av3 + *av1) / 2;
 
     else if (av1 == av2 && av1 < av3)
-      media = notas[counter][3] = (*av3 + *av1) / 2;
+      *media = (*av3 + *av1) / 2;
 
     else
-      media = notas[counter][3] = (*av1 + *av2) / 2;
+      *media = (*av1 + *av2) / 2;
 
-    cout << "MEDIA: " << media << endl << endl;
+    cout << "MEDIA: " << *media << endl << endl;
 
     counter++;
     system("pause");
@@ -224,6 +224,7 @@ void Exibir()
 }
 /* Salvar_Carregar()
 {
+  int opcao = 0;
 do
 {
     system("cls");
@@ -236,13 +237,13 @@ do
 switch (opcao)
     {
       case 1:
-        Salvar();
+        Salvar(opcao);
         break;
       case 2:
-        Carregar();
+        Carregar(opcao);
         break;
       case 3:
-        main();
+        main(opcao);
         break;  
     }
   }while (opcao != 0);
