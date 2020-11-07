@@ -220,37 +220,9 @@ void Exibir()
         break;
     }
   } while (opcao != 0);
-  
-}
-/* Salvar_Carregar()
-{
-  int opcao = 0;
-do
-{
-    system("cls");
-    cout << "[1] SALVAR ARQUIVO EXTERNO" << endl;
-    cout << "[2] CARREGAR ARQUIVO EXTERNO" << endl;
-    cout << "[3] VOLTAR" << endl;
-    cout << endl;
-    cout << "OPCAO: "; cin >> opcao;
-
-switch (opcao)
-    {
-      case 1:
-        Salvar(opcao);
-        break;
-      case 2:
-        Carregar(opcao);
-        break;
-      case 3:
-        main(opcao);
-        break;  
-    }
-  }while (opcao != 0);
-
 }
 
-/*void Salvar()
+void Salvar()
 {
   system("cls");
   cout << "PROGRAMA PARA SALVAR ARQUIVO EXTERNO" << endl;
@@ -278,33 +250,52 @@ switch (opcao)
 
   fclose(arquivo);
   system("pause");
-
-  // COTELLI
-  // FILE *arq;
-  // char nome_arq[50];
-  // cout<<"Nome do arquivo externo: "; cin>>nome_arq;
-  // strcat(nome_arq,".txt");
-  // arq = fopen(nome_arq,"w");
-}*/
-
-/*void carregar()
-{
-  system("cls");
-  cout << "PROGRAMA PARA CARREGAR ARQUIVO EXTERNO" << endl;
-  cout << "CARREGAR ARQUIVO" << endl;
-
-  FILE *arquivo;
-  char nome_arquivo[50];
-
-  cout << "Nome do arquivo externo: "; cin >> nome_arquivo;
-  arquivo = fopen(nome_arquivo, "r");
-  if (arquivo == NULL)
-      cout << "ERRO AO CARREGAR ARQUIVO EXTERNO" << endl;
-  else
-
-
 }
-*/
+
+void Menu_arquivo_externo()
+{
+  int opcao = 0;
+  do
+  {
+    system("cls");
+    cout << "[1] SALVAR ARQUIVO EXTERNO" << endl;
+    cout << "[2] CARREGAR ARQUIVO EXTERNO" << endl;
+    cout << "[3] VOLTAR" << endl;
+    cout << endl;
+    cout << "OPCAO: "; cin >> opcao;
+
+    switch (opcao)
+    {
+      case 1:
+        Salvar();
+        break;
+      case 2:
+        // Carregar(opcao);
+        break;
+      case 3:
+        return;
+        break;  
+    }
+  } while (opcao != 0);
+}
+
+
+// void carregar()
+// {
+//   system("cls");
+//   cout << "PROGRAMA PARA CARREGAR ARQUIVO EXTERNO" << endl;
+//   cout << "CARREGAR ARQUIVO" << endl;
+
+//   FILE *arquivo;
+//   char nome_arquivo[50];
+
+//   cout << "Nome do arquivo externo: "; cin >> nome_arquivo;
+//   arquivo = fopen(nome_arquivo, "r");
+//   if (arquivo == NULL)
+//     cout << "ERRO AO CARREGAR ARQUIVO EXTERNO" << endl;
+//   else
+
+// }
 
 int main()
 {
@@ -332,7 +323,7 @@ int main()
       Exibir();
       break;
     case 3:
-      // Salvar_Carregar();
+       Menu_arquivo_externo();
       break;
     }
   } while (op != 0);
