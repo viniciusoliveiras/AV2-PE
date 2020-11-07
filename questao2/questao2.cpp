@@ -49,7 +49,7 @@ typedef struct {
 DADOS aluno[NUMERO_ALUNO];
 
 float notas[NUMERO_ALUNO][4];
-int counter = 0, quant_aluno[6];
+int counter = 0, quant_aluno[4];
 
 void Adicionar()
 {
@@ -81,24 +81,21 @@ void Adicionar()
     cout << "INSIRA A NOTA DA AV3: ";
     cin >> notas[counter][2];
 
-    float *av1 = &notas[counter][0], *av2 = &notas[counter][1], *av3 = &notas[counter][2], *media = &notas[counter][3];
+    float *av1 = &notas[counter][0], *av2 = &notas[counter][1], *av3 = &notas[counter][2], media;
 
-    if (av3 > av1 && av2 > av1)
-    {
-      av1 = av3;
-    }
+    if (*av3 > *av1 && *av2 > *av1)
+      media = notas[counter][3] = (*av3 + *av2) / 2;
+
     else if (av3 > av2 && av1 > av2)
-    {
-      av2 = av3;
-    }
-    else if (av1 == av2)
-      av1 = av3;
+      media = notas[counter][3] = (*av3 + *av1) / 2;
 
-    cout << "MAIOR NOTA 1: " << av1 << endl;
-    cout << "MAIOR NOTA 2: " << av2 << endl;
+    else if (av1 == av2 && av1 < av3)
+      media = notas[counter][3] = (*av3 + *av1) / 2;
 
-    notas[counter][3] = (av1 + av2) / 2;
-    cout << "MEDIA: " << notas[counter][3] << endl << endl;
+    else
+      media = notas[counter][3] = (*av1 + *av2) / 2;
+
+    cout << "MEDIA: " << media << endl << endl;
 
     counter++;
     system("pause");
@@ -134,7 +131,6 @@ void aluno_aprovado(int opcao_usuario)
         printf("\n\tAluno: %d\n", aluno[i].matricula);
         printf("\tMedia: %2.f\n", notas[i][3]);
         quant_aluno[1]++;
-        quant_aluno[4]++;
       }
       else if (i == NUMERO_ALUNO)
       {
@@ -226,6 +222,32 @@ void Exibir()
   } while (opcao != 0);
   
 }
+/* Salvar_Carregar()
+{
+do
+{
+    system("cls");
+    cout << "[1] SALVAR ARQUIVO EXTERNO" << endl;
+    cout << "[2] CARREGAR ARQUIVO EXTERNO" << endl;
+    cout << "[3] VOLTAR" << endl;
+    cout << endl;
+    cout << "OPCAO: "; cin >> opcao;
+
+switch (opcao)
+    {
+      case 1:
+        Salvar();
+        break;
+      case 2:
+        Carregar();
+        break;
+      case 3:
+        main();
+        break;  
+    }
+  }while (opcao != 0);
+
+}
 
 /*void Salvar()
 {
@@ -242,12 +264,12 @@ void Exibir()
   arquivo = fopen(nome_arquivo, "w");
 
   if (arquivo != NULL){
-    fprintf(arquivo,"Alunos reprovados com media inferior a 5: %d\n", quant_aluno[3];);
-    fprintf(arquivo,"Alunos reprovados com media inferior a 7: %d\n", quant_aluno[2];);
-    fprintf(arquivo,"Alunos reprovados: %d\n");
-    fprintf(arquivo,"Alunos aprovados com media superior a 7: %d\n", quant_aluno[1];);
-    fprintf(arquivo,"Alunos aprovados com media superior a 9: %d\n", quant_aluno[0];);
-    fprintf(arquivo,"Alunos aprovados: %d\n");
+    fprintf(arquivo,"Alunos reprovados com media inferior a 5: %d\n", quant_aluno[3]);
+    fprintf(arquivo,"Alunos reprovados com media inferior a 7: %d\n", quant_aluno[2]);
+    fprintf(arquivo,"Alunos reprovados: %d\n", quant_aluno[2]);
+    fprintf(arquivo,"Alunos aprovados com media superior a 7: %d\n", quant_aluno[1]);
+    fprintf(arquivo,"Alunos aprovados com media superior a 9: %d\n", quant_aluno[0]);
+    fprintf(arquivo,"Alunos aprovados: %d\n", quant_aluno[1]);
     fprintf(arquivo,"Todos os Alunos: %d\n", counter);
   }
   else
@@ -263,6 +285,25 @@ void Exibir()
   // strcat(nome_arq,".txt");
   // arq = fopen(nome_arq,"w");
 }*/
+
+/*void carregar()
+{
+  system("cls");
+  cout << "PROGRAMA PARA CARREGAR ARQUIVO EXTERNO" << endl;
+  cout << "CARREGAR ARQUIVO" << endl;
+
+  FILE *arquivo;
+  char nome_arquivo[50];
+
+  cout << "Nome do arquivo externo: "; cin >> nome_arquivo;
+  arquivo = fopen(nome_arquivo, "r");
+  if (arquivo == NULL)
+      cout << "ERRO AO CARREGAR ARQUIVO EXTERNO" << endl;
+  else
+
+
+}
+*/
 
 int main()
 {
@@ -290,7 +331,7 @@ int main()
       Exibir();
       break;
     case 3:
-      // Salvar();
+      // Salvar_Carregar();
       break;
     }
   } while (op != 0);
