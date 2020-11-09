@@ -5,10 +5,10 @@
 using namespace std;
 #define NUMERO_ALUNO 3
 
-/*  QUESTÃO 2
-Faça um programa, utilizando o Dev-C++, para armazenar os dados de um aluno(a), contendo os seguintes dados:
+/*  QUEST�O 2
+Fa�a um programa, utilizando o Dev-C++, para armazenar os dados de um aluno(a), contendo os seguintes dados:
 
-Variáveis	            Tipos
+Vari�veis	            Tipos
 Matricula	            inteiro
 Nome	                caractere
 Sexo	                caractere
@@ -16,29 +16,29 @@ Idade	                inteiro
 AV1, AV2, AV3 e Media	real
 (UTILIZE UMA MATRIZ PARA ARMAZENAR AS NOTAS)
 
-O usuário poderá armazenar no máximo 50 alunos. O programa terá a opção de adicionar, exibir ou salvar/carregar os dados. O programa deverá ter as seguintes condições:
+O usu�rio poder� armazenar no m�ximo 50 alunos. O programa ter� a op��o de adicionar, exibir ou salvar/carregar os dados. O programa dever� ter as seguintes condi��es:
 
-  Adicionar:
-Efetua uma pesquisa para saber se o aluno(a) existe ou não no vetor através da matrícula do mesmo:
- • Se existir, informar que o aluno(a) já se encontra presente e não adicione
- • Caso não exista, verifique se o sistema está ou não lotado antes de inseri
-Ao armazenar as notas utilize o mesmo critério de avaliação da UniCarioca para calcular a média, está não deve ser informada pelo aluno (Soma das 2 maiores notas divididos pela quantidade).
+  Adicionar:
+Efetua uma pesquisa para saber se o aluno(a) existe ou n�o no vetor atrav�s da matr�cula do mesmo:
+ � Se existir, informar que o aluno(a) j� se encontra presente e n�o adicione
+ � Caso n�o exista, verifique se o sistema est� ou n�o lotado antes de inseri
+Ao armazenar as notas utilize o mesmo crit�rio de avalia��o da UniCarioca para calcular a m�dia, est� n�o deve ser informada pelo aluno (Soma das 2 maiores notas divididos pela quantidade).
 
-  Exibir:
-O usuário poderá exibir os alunos(as) com os seguintes critérios de média:
- • Alunos reprovados com média inferior a 5
- • Alunos reprovados com média inferior a 7
- • Alunos reprovados
+  Exibir:
+O usu�rio poder� exibir os alunos(as) com os seguintes crit�rios de m�dia:
+ � Alunos reprovados com m�dia inferior a 5
+ � Alunos reprovados com m�dia inferior a 7
+ � Alunos reprovados
 
- • Alunos aprovados com média superior ou igual a 7
- • Alunos aprovados com média superior ou igual a 9
- • Alunos aprovados
- • Todos os alunos
+ � Alunos aprovados com m�dia superior ou igual a 7
+ � Alunos aprovados com m�dia superior ou igual a 9
+ � Alunos aprovados
+ � Todos os alunos
 
-  Salvar/Carregar
-O usuário irá escolher entre salvar ou carregar um arquivo externo
- • Colocar um campo para o usuário informar o nome do arquivo externo, tanto na opção de salvar quanto carregar
- • Ao selecionar a opção de carregar dados, o sistema deve ler todas as informações do arquivo externo e adicionar no programa
+  Salvar/Carregar
+O usu�rio ir� escolher entre salvar ou carregar um arquivo externo
+ � Colocar um campo para o usu�rio informar o nome do arquivo externo, tanto na op��o de salvar quanto carregar
+ � Ao selecionar a op��o de carregar dados, o sistema deve ler todas as informa��es do arquivo externo e adicionar no programa
 */
 
 typedef struct {
@@ -49,14 +49,17 @@ typedef struct {
 DADOS aluno[NUMERO_ALUNO];
 
 float notas[NUMERO_ALUNO][4];
-int counter = 0, quant_aluno[4];
+int counter = 0 /*,quant_aluno[]*/;
 
 void Adicionar()
 {
     system("cls");
     cout << "PROGRAMA DE MATRICULA" << endl << endl;
-    cout << "INSIRA A MATRICULA DO ALUNO A SER ADICIONADO: ";
-    cin >> aluno[counter].matricula;
+    cout << "INSIRA A MATRICULA DO ALUNO A SER ADICIONADO: "; cin >> aluno[counter].matricula;
+    cout << "DIGITE O NOME DO ALUNO: "; cin >> aluno[counter].nome;
+    cout << "IDADE DO ALUNO: "; cin >> aluno[counter].idade;
+    
+    
     for (int i = 0; i < counter; i++)
     {
       if (counter != 0 && aluno[counter].matricula == aluno[i].matricula)
@@ -111,9 +114,9 @@ void aluno_aprovado(int opcao_usuario)
     {
       if (notas[i][3] >= 9)
       {
-        printf("\n\tAluno: %d\n", aluno[i].matricula);
-        printf("\tMedia: %2.f\n", notas[i][3]);
-        quant_aluno[0]++;
+        printf("\nAluno: %d\n", aluno[i].matricula);
+        printf("Media: %0.1f\n\n", notas[i][3]);
+       /* quant_aluno[]++;*/
       }
       else if (i == NUMERO_ALUNO)
       {
@@ -128,9 +131,9 @@ void aluno_aprovado(int opcao_usuario)
     {
       if (notas[i][3] >= 7)
       {
-        printf("\n\tAluno: %d\n", aluno[i].matricula);
-        printf("\tMedia: %2.f\n", notas[i][3]);
-        quant_aluno[1]++;
+        printf("\nAluno: %d\n", aluno[i].matricula);
+        printf("Media: %0.1f\n\n", notas[i][3]);
+        /* quant_aluno[]++;*/
       }
       else if (i == NUMERO_ALUNO)
       {
@@ -151,9 +154,10 @@ void aluno_reprovado(int opcao_usuario)
     {
       if (notas[i][3] < 7)
       {
-        printf("\n\tAluno: %d\n", aluno[i].matricula);
-        printf("\tMedia: %2.f\n", notas[i][3]);
-        quant_aluno[2]++;
+        printf("\nAluno: %d\n", aluno[i].matricula);
+        printf("Media: %0.1f\n\n", notas[i][3]);
+        /* quant_aluno[]++;*/
+        
       }
       else if (i == NUMERO_ALUNO)
       {
@@ -168,9 +172,9 @@ void aluno_reprovado(int opcao_usuario)
     {
       if (notas[i][3] < 5)
       {
-        printf("\n\tAluno: %d\n", aluno[i].matricula);
-        printf("\tMedia: %2.f\n", notas[i][3]);
-        quant_aluno[3]++;
+        printf("\nAluno: %d\n", aluno[i].matricula);
+        printf("Media: %0.1f\n\n", notas[i][3]);
+        /* quant_aluno[]++;*/
       }
       else if (i == NUMERO_ALUNO)
       {
@@ -193,6 +197,7 @@ void Exibir()
     cout << "[3] Alunos reprovados (com media inferior a 7)" << endl;
     cout << "[4] Alunos reprovados com media inferior a 5" << endl;
     cout << "[5] Todos Alunos" << endl;
+    cout << "[0] VOLTAR" << endl;
     cout << endl;
     cout << "OPCAO: ";
     cin >> opcao;
@@ -237,20 +242,49 @@ void Salvar()
   arquivo = fopen(nome_arquivo, "w");
 
   if (arquivo != NULL){
-    fprintf(arquivo,"Alunos reprovados com media inferior a 5: %d\n", quant_aluno[3]);
-    fprintf(arquivo,"Alunos reprovados com media inferior a 7: %d\n", quant_aluno[2]);
-    fprintf(arquivo,"Alunos reprovados: %d\n", quant_aluno[2]);
-    fprintf(arquivo,"Alunos aprovados com media superior a 7: %d\n", quant_aluno[1]);
-    fprintf(arquivo,"Alunos aprovados com media superior a 9: %d\n", quant_aluno[0]);
-    fprintf(arquivo,"Alunos aprovados: %d\n", quant_aluno[1]);
+    fprintf(arquivo,"Alunos reprovados com media inferior a 5: %d\n"/* ,quant_aluno[]++;*/);
+    fprintf(arquivo,"Alunos reprovados com media inferior a 7: %d\n"/* ,quant_aluno[]++;*/);
+    fprintf(arquivo,"Alunos reprovados: %d\n"/* ,quant_aluno[]++;*/);
+    fprintf(arquivo,"Alunos aprovados com media superior a 7: %d\n"/* ,quant_aluno[]++;*/);
+    fprintf(arquivo,"Alunos aprovados com media superior a 9: %d\n"/* ,quant_aluno[]++;*/);
+    fprintf(arquivo,"Alunos aprovados: %d\n"/* ,quant_aluno[]++;*/);
     fprintf(arquivo,"Todos os Alunos: %d\n", counter);
   }
   else
     cout << "ERRO NA GRAVACAO DO ARQUIVO EXTERNO" << endl;
 
   fclose(arquivo);
+  cout << "ARQUIVO SALVO COM SUCESSO" << endl << endl;
   system("pause");
 }
+
+ /*void carregar()
+ {
+   system("cls");
+   cout << "PROGRAMA PARA CARREGAR ARQUIVO EXTERNO" << endl;
+   cout << "CARREGAR ARQUIVO" << endl;
+
+   FILE *arquivo;
+   char nome_arquivo[50];
+
+   cout << "Nome do arquivo externo: "; cin >> nome_arquivo;
+   arquivo = fopen(nome_arquivo, "r");
+   
+   if (arquivo == NULL)
+    	cout << "ERRO AO CARREGAR ARQUIVO EXTERNO" << endl;
+   else
+   		fseek(arquivo, 42, 0); fscanf(arquivo, "%d\n", quant_aluno[]);
+		fseek(arquivo, 42, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
+		fseek(arquivo, 19, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
+		fseek(arquivo, 41, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
+		fseek(arquivo, 41, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
+		fseek(arquivo, 18, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
+		fseek(arquivo, 17, 1); fscanf(arquivo, "%d\n", quant_aluno[]);	
+		
+	fclose(arquivo);
+  	cout << "ARQUIVO EXTERNO CARREGADO" << endl << endl;
+  	system("pause");
+} */
 
 void Menu_arquivo_externo()
 {
@@ -260,7 +294,7 @@ void Menu_arquivo_externo()
     system("cls");
     cout << "[1] SALVAR ARQUIVO EXTERNO" << endl;
     cout << "[2] CARREGAR ARQUIVO EXTERNO" << endl;
-    cout << "[3] VOLTAR" << endl;
+    cout << "[0] VOLTAR" << endl;
     cout << endl;
     cout << "OPCAO: "; cin >> opcao;
 
@@ -270,32 +304,13 @@ void Menu_arquivo_externo()
         Salvar();
         break;
       case 2:
-        // Carregar(opcao);
+        // Carregar();
         break;
-      case 3:
-        return;
-        break;  
+	default:
+		break;  
     }
   } while (opcao != 0);
 }
-
-
-// void carregar()
-// {
-//   system("cls");
-//   cout << "PROGRAMA PARA CARREGAR ARQUIVO EXTERNO" << endl;
-//   cout << "CARREGAR ARQUIVO" << endl;
-
-//   FILE *arquivo;
-//   char nome_arquivo[50];
-
-//   cout << "Nome do arquivo externo: "; cin >> nome_arquivo;
-//   arquivo = fopen(nome_arquivo, "r");
-//   if (arquivo == NULL)
-//     cout << "ERRO AO CARREGAR ARQUIVO EXTERNO" << endl;
-//   else
-
-// }
 
 int main()
 {
@@ -327,5 +342,7 @@ int main()
       break;
     }
   } while (op != 0);
+  
+  getchar();
   return 0;
 }
