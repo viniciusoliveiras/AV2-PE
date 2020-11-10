@@ -6,7 +6,7 @@ using namespace std;
 
 typedef struct {
   int CPF, idade;
-  char nome, sexo;
+  char nome[50], sexo[10];
   float horas_trabalhadas, valor_hora_trabalhada, salario_liquido;
 }FUNCIONARIO;
 
@@ -45,15 +45,15 @@ void adicionar()
   cout << "DIGITE O CPF DO FUNCIONARIO: ";
   cin >> servidor[estreado].CPF;
 
-  quantidade_funcionarios_registrados;
   int problemaExecucao = 0;
 
   possoAdicionar() ? quantidade_funcionarios_registrados += 1 : problemaExecucao = 1;
   if (problemaExecucao == 1) return;
 
+  fflush(stdin); // Limpo o Buffer do teclado
   cout << "\n\tINFORME OS DADOS DO FUNCIONARIO\n\n";
   cout << "NOME: ";
-  cin >> servidor[estreado].nome;
+  fgets(servidor[estreado].nome, 50, stdin); // Armazeno o nome completo, inclusive com espaços.
 
   cout << "SEXO: ";
   cin >> servidor[estreado].sexo;
