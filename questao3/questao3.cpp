@@ -15,20 +15,20 @@ int quantidade_funcionarios_registrados = 0;
 
 float calculaDescontoInss(float salario_mensal)
 {
-  const float oito_por_cento = 1751.82, nove_por_cento = 2919.73, onze_por_cento = 5839.45;
+  const float valor_maximo_de_oito_por_cento = 1751.82, valor_maximo_de_nove_por_cento = 2919.73, valor_maximo_de_onze_por_cento = 5839.45;
   float desconto_do_inss;
 
-  if (salario_mensal < oito_por_cento)
+  if (salario_mensal < valor_maximo_de_oito_por_cento)
     desconto_do_inss = (salario_mensal * 8) / 100;
     
-  else if (salario_mensal < nove_por_cento)
+  else if (salario_mensal < valor_maximo_de_nove_por_cento)
     desconto_do_inss = (salario_mensal * 9) / 100;
     
-  else if (salario_mensal <= onze_por_cento)
+  else if (salario_mensal <= valor_maximo_de_onze_por_cento)
     desconto_do_inss = (salario_mensal * 11) / 100;
 
   else
-    desconto_do_inss = (onze_por_cento * 11) / 100;
+    desconto_do_inss = (valor_maximo_de_onze_por_cento * 11) / 100;
 
   return desconto_do_inss;
 }
