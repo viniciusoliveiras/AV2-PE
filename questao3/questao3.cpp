@@ -70,6 +70,41 @@ void adicionar()
   system("pause");
 }
 
+void pesquisar()
+{
+  system("cls");
+  char opcao_pesquisa;
+  int pesquisa_CPF;
+
+  cout << "PESQUISAR FUNCIONARIOS" << endl << endl;
+  cout << "DIGITE O CPF DO FUNCIONARIO QUE DESEJA PESQUISAR: ";
+  cin >> pesquisa_CPF;
+
+  system("cls");
+  
+  for (int analisado = 0; analisado <= quantidade_funcionarios_registrados; analisado++)
+  {
+    if (servidor[analisado].CPF == pesquisa_CPF)
+    {
+      cout << "\tPESQUISAR FUNCIONARIOS" << endl << endl;
+      cout << "CPF JA CADASTRADO - FUNCIONARIO CONSTA NOS REGISTROS\n" << endl;
+      cout << "   NOME: "<< servidor[analisado].nome;
+      cout << endl;
+      system("pause");
+      break;
+    }
+    else 
+    {
+      cout << "PESQUISAR FUNCIONARIOS" << endl << endl;
+      cout << "    FUNCIONARIO NAO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
+      cin >> opcao_pesquisa;
+
+      if (opcao_pesquisa == 'S' || opcao_pesquisa == 's') adicionar();  
+      break;
+    }
+  }
+}
+
 main()
 {
   int opcao_usuario;
@@ -92,13 +127,16 @@ main()
     case 1:
       adicionar();
       break;
+
+    case 2:
+      pesquisar();
+      break;
     
     default:
       break;
     }
     
   } while (opcao_usuario != 0);
-  
   
   return 0; 
 }
