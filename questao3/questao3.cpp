@@ -13,6 +13,36 @@ typedef struct {
 FUNCIONARIO servidor[NUMERO_DE_FUNCIONARIO];
 int quantidade_funcionarios_registrados = 0;
 
+float calculaDescontoInss(float salario_mensal)
+{
+  const float oito_por_cento = 1751.82, nove_por_cento = 2919.73, onze_por_cento = 5839.45;
+  float desconto_do_inss;
+
+  if (salario_mensal < oito_por_cento)
+    desconto_do_inss = (salario_mensal * 8) / 100;
+    
+  else if (salario_mensal < nove_por_cento)
+    desconto_do_inss = (salario_mensal * 9) / 100;
+    
+  else if (salario_mensal <= onze_por_cento)
+    desconto_do_inss = (salario_mensal * 11) / 100;
+
+  else
+    desconto_do_inss = (onze_por_cento * 11) / 100;
+
+  return desconto_do_inss;
+}
+
+float calculaSalarioLiquido(float horas, float valor_das_horas)
+{
+  const float diaria_de_trabalho = horas * valor_das_horas;
+  const float mes_comercial = 30;
+  const float salario_bruto_mensal = diaria_de_trabalho * mes_comercial;
+  const float salario_liquido_mensal = salario_bruto_mensal - calculaDescontoInss(salario_bruto_mensal);
+
+  return salario_liquido_mensal;
+}
+
 int possoAdicionar()
 {
   int registrado = quantidade_funcionarios_registrados;
@@ -61,11 +91,16 @@ void adicionar()
   cout << "IDADE: ";
   cin >> servidor[estreado].idade;
 
-  cout << "HORAS TRABALHADAS: ";
+  cout << "HORAS TRABALHADAS POR DIA: ";
   cin >> servidor[estreado].horas_trabalhadas;
 
-  cout << "VALOR DA HORA TRABALHADA: ";
+  cout << "VALOR DA HORA TRABALHADA POR DIA: ";
   cin >> servidor[estreado].valor_hora_trabalhada;
+
+  float horas_trabalhadas = servidor[estreado].horas_trabalhadas;
+  float valor_hora_trabalhada = servidor[estreado].valor_hora_trabalhada;
+
+  servidor[estreado].salario_liquido = calculaSalarioLiquido(horas_trabalhadas, valor_hora_trabalhada);
   
   system("pause");
 }
