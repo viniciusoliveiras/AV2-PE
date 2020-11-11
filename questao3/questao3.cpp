@@ -142,12 +142,20 @@ void pesquisar()
 
 void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
 {
+  int mensagem_erro = 1;
+  
   if (opcao_desejada == 1 || opcao_desejada == 2)
   {
     for (int cadastrado = 0; cadastrado < quantidade_funcionarios_registrados; cadastrado++)
     {
       if (servidor[cadastrado].salario_liquido < valor_estabelecido)
+      {
         printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
+        mensagem_erro = 0;
+      }
+
+      if (mensagem_erro)
+        cout << "\tNENHUM FUNCIONARIO FOI ENCONTRADO.\n\t    TENTE UMA OUTRA CATEGORIA" << endl << endl;
     }
   }
   else if (opcao_desejada == 3)
@@ -155,7 +163,13 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
     for (int cadastrado = 0; cadastrado < quantidade_funcionarios_registrados; cadastrado++)
     {
       if (servidor[cadastrado].salario_liquido > valor_estabelecido)
+      {
         printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
+        mensagem_erro = 0;
+      }
+
+      if (mensagem_erro)
+        cout << "\tNENHUM FUNCIONARIO FOI ENCONTRADO.\n\t    TENTE UMA OUTRA CATEGORIA" << endl << endl;
     }
   }
   else
@@ -163,7 +177,13 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
     for (int cadastrado = 0; cadastrado < quantidade_funcionarios_registrados; cadastrado++)
     {
       if (servidor[cadastrado].salario_liquido >= valor_estabelecido)
+      {
         printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
+        mensagem_erro = 0;
+      }
+
+      if (mensagem_erro)
+        cout << "\tNENHUM FUNCIONARIO FOI ENCONTRADO.\n\t    TENTE UMA OUTRA CATEGORIA" << endl << endl;
     }
   }
 
