@@ -33,58 +33,22 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
         cout << salario[cadastrado] << endl;
     }
   }
+
+  system("pause");
 }
 
-void procura(int opcao_escolhida)
+void exibiTodosSalariosFuncionario()
 {
-  const float menor_de_500 = 500, menor_de_1K = 1000, maior_de_4K = 4000, maior_ou_igual_5K = 5000, maior_ou_igual_7K = 7000, maior_ou_igual_10K = 10000;
+  int quantidade_registrado = 20;
   
-  switch (opcao_escolhida)
-  {
-    case 1:
-      cout << "Servido ate 500\n";
-      exibiSalarioFuncionario(opcao_escolhida, menor_de_500);
-      system("pause");
-      break;
-      
-    case 2:
-      cout << "Servido ate 1000\n";
-      exibiSalarioFuncionario(opcao_escolhida, menor_de_1K);
-      system("pause");
-      break;
-      
-    case 3:
-      cout << "Servido acima de 4000\n";
-      exibiSalarioFuncionario(opcao_escolhida, maior_de_4K);
-      system("pause");
-      break;
-      
-    case 5:
-      cout << "Servido acima ou igual a 5000\n";
-      exibiSalarioFuncionario(opcao_escolhida, maior_ou_igual_5K);
-      system("pause");
-      break;
-      
-    case 6:
-      cout << "Servido acima ou igual a 7000\n";
-      exibiSalarioFuncionario(opcao_escolhida, maior_ou_igual_7K);
-      system("pause");
-      break;
-      
-    case 7:
-      cout << "Servido acima ou igual a 10000\n";
-      exibiSalarioFuncionario(opcao_escolhida, maior_ou_igual_10K);
-      system("pause");
-      break;
-    
-    default:
-      break;
-  }
+  for (int cadastrado = 0; cadastrado < quantidade_registrado; cadastrado++)
+    cout << salario[cadastrado] << endl;
 }
 
 main()
 {
   int opcao_exibicao;
+  const float menor_de_500 = 500, menor_de_1K = 1000, maior_de_4K = 4000, maior_ou_igual_5K = 5000, maior_ou_igual_7K = 7000, maior_ou_igual_10K = 10000;
 
   do
   {
@@ -104,37 +68,47 @@ main()
     switch (opcao_exibicao)
     {
       case 1:
-        procura(opcao_exibicao);
+        cout << "Servido ate 500\n";
+        exibiSalarioFuncionario(opcao_exibicao, menor_de_500);
         break;
       
       case 2:
-        procura(opcao_exibicao);
+        cout << "Servido ate 1000\n";
+        exibiSalarioFuncionario(opcao_exibicao, menor_de_1K);
         break;
-
+        
       case 3:
-        procura(opcao_exibicao);
+        cout << "Servido acima de 4000\n";
+        exibiSalarioFuncionario(opcao_exibicao, maior_de_4K);
         break;
-
+        
       case 4:
-        procura(opcao_exibicao);
+        cout << "Servido acima ou igual a 5000\n";
+        exibiSalarioFuncionario(opcao_exibicao, maior_ou_igual_5K);
         break;
-
+        
       case 5:
-        procura(opcao_exibicao);
+        cout << "Servido acima ou igual a 7000\n";
+        exibiSalarioFuncionario(opcao_exibicao, maior_ou_igual_7K);
         break;
-
+        
       case 6:
-        procura(opcao_exibicao);
+        cout << "Servido acima ou igual a 10000\n";
+        exibiSalarioFuncionario(opcao_exibicao, maior_ou_igual_10K);
         break;
 
       case 7:
-        procura(opcao_exibicao);
+        cout << "Todos os servidores\n";
+        exibiTodosSalariosFuncionario();
+        system("pause");
         break;
 
       case 0:
         break; 
       
       default:
+        cout << "\n\t*** OCORREU UM ERRO NA ENTRADA DA OPCAO ***" << endl << endl;
+        system("pause");
         break;
     }
   } while (opcao_exibicao != 0);
