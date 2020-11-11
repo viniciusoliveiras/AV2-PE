@@ -147,7 +147,7 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
     for (int cadastrado = 0; cadastrado < quantidade_funcionarios_registrados; cadastrado++)
     {
       if (servidor[cadastrado].salario_liquido < valor_estabelecido)
-        cout << servidor[cadastrado].nome << " R$ " << servidor[cadastrado].salario_liquido << endl;
+        printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
     }
   }
   else if (opcao_desejada == 3)
@@ -155,7 +155,7 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
     for (int cadastrado = 0; cadastrado < quantidade_funcionarios_registrados; cadastrado++)
     {
       if (servidor[cadastrado].salario_liquido > valor_estabelecido)
-        cout << servidor[cadastrado].nome << " R$ " << servidor[cadastrado].salario_liquido << endl;
+        printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
     }
   }
   else
@@ -163,7 +163,7 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
     for (int cadastrado = 0; cadastrado < quantidade_funcionarios_registrados; cadastrado++)
     {
       if (servidor[cadastrado].salario_liquido >= valor_estabelecido)
-        cout << servidor[cadastrado].nome << " R$ " << servidor[cadastrado].salario_liquido << endl;
+        printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
     }
   }
 
@@ -173,7 +173,7 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
 void exibiTodosSalariosFuncionario()
 {
   for (int cadastrado = 0; cadastrado < quantidade_funcionarios_registrados; cadastrado++)
-    cout << servidor[cadastrado].nome << " R$ " << servidor[cadastrado].salario_liquido << endl;
+    printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
 }
 
 void exibir()
