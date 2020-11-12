@@ -290,6 +290,8 @@ void salvaArquivo()
   if (arquivo == NULL)
   {
     cout << "\n*** ERRO NA GRAVACAO DO ARQUIVO EXTERNO ***" << endl << endl;
+    system("pause");
+    return;
   }
   else
   {
@@ -306,6 +308,7 @@ void salvaArquivo()
   }
 
   fclose(arquivo);
+  cout << "ARQUIVO EXTERNO SALVO COM SUCESSO" << endl << endl;
   system("pause");
 }
 
@@ -317,7 +320,7 @@ void carregaArquivo()
   FILE *arquivo;
   char nome_arquivo[50];
 
-  cout << "Digite o nome do arquivo externo: "; cin >> nome_arquivo;
+  cout << "DIGITE O NOME DO ARQUIVO EXTERNO: "; cin >> nome_arquivo;
   strcat(nome_arquivo,".txt");
 
   arquivo = fopen(nome_arquivo, "a+");
@@ -325,22 +328,25 @@ void carregaArquivo()
   if (arquivo == NULL)
   {
     cout << "\n*** ERRO NO CARREGAMENTO DO ARQUIVO EXTERNO ***" << endl << endl;
+    system("pause");
+    return;
   }
   else
   {
     for (int gravado = 0; gravado < quantidade_funcionarios_registrados; gravado++)
     {
-      fprintf(arquivo, "NOME: %s", servidor[gravado].nome);
-      fprintf(arquivo, "CPF: %d\n", servidor[gravado].CPF);
-      fprintf(arquivo, "SEXO: %s\n", servidor[gravado].sexo);
-      fprintf(arquivo, "IDADE: %d\n", servidor[gravado].idade);
-      fprintf(arquivo, "HORAS TRABALHADAS: %.f\n", servidor[gravado].horas_trabalhadas);
-      fprintf(arquivo, "VALOR HORA TRABALHADA: %.f\n", servidor[gravado].valor_hora_trabalhada);
-      fprintf(arquivo, "SALARIO LIQUIDO: %.2f\n\n", servidor[gravado].salario_liquido);
+      fseek(arquivo, 42, 0); fscanf(arquivo, "%s\n", servidor[gravado].nome);
+      fseek(arquivo, 42, 1); fscanf(arquivo, "%d\n", servidor[gravado].CPF);
+      fseek(arquivo, 19, 1); fscanf(arquivo, "%s\n", servidor[gravado].sexo);
+      fseek(arquivo, 41, 1); fscanf(arquivo, "%d\n", servidor[gravado].idade);
+      fseek(arquivo, 41, 1); fscanf(arquivo, "%f\n", servidor[gravado].horas_trabalhadas);
+      fseek(arquivo, 18, 1); fscanf(arquivo, "%f\n", servidor[gravado].valor_hora_trabalhada);
+      fseek(arquivo, 17, 1); fscanf(arquivo, "%f\n", servidor[gravado].salario_liquido);
     }
   }
 
   fclose(arquivo);
+  cout << "ARQUIVO EXTERNO CARREGADO COM SUCESSO" << endl << endl;
   system("pause");
 }
 
