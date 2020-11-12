@@ -242,12 +242,13 @@ void Salvar()
   arquivo = fopen(nome_arquivo, "a+");
 
   if (arquivo != NULL){
-    for (int i = 0; i < counter; i++)
+    for (int armazenado = 0; armazenado < counter; armazenado++)
     {
-      fprintf(arquivo,": %d\n",aluno[i].matricula);
-      fprintf(arquivo,": %d\n",aluno[i].nome);
-      fprintf(arquivo,": %d\n",aluno[i].idade);
-      fprintf(arquivo,": %d\n\n",aluno[i].sexo);
+      fprintf(arquivo,"MATRICULA: %d\n",aluno[armazenado].matricula);
+      fprintf(arquivo,"NOME: %s\n",aluno[armazenado].nome);
+      fprintf(arquivo,"IDADE: %d\n",aluno[armazenado].idade);
+      fprintf(arquivo,"SEXO: %s\n",aluno[armazenado].sexo);
+      fprintf(arquivo,"MEDIA: %f\n\n",notas[armazenado][3]);
     }
   }
   else
