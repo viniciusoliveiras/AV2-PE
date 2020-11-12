@@ -49,7 +49,7 @@ typedef struct {
 DADOS aluno[NUMERO_ALUNO];
 
 float notas[NUMERO_ALUNO][4];
-int counter = 0, quant_aluno[4];
+int counter = 0, quant_aluno[4] = {0, 0, 0, 0};
 
 void Adicionar()
 {
@@ -234,7 +234,7 @@ void Salvar()
   cout << "Digite o nome do arquivo externo: "; cin >> nome_arquivo;
   strcat (nome_arquivo,".txt");
 
-  arquivo = fopen(nome_arquivo, "w");
+  arquivo = fopen(nome_arquivo, "a+");
 
   if (arquivo != NULL){
     fprintf(arquivo,"Alunos reprovados com media inferior a 5: %d\n", quant_aluno[3]);
@@ -270,7 +270,7 @@ void Menu_arquivo_externo()
         Salvar();
         break;
       case 2:
-        // Carregar(opcao);
+        // Carregar();
         break;
       case 3:
         return;
@@ -279,8 +279,7 @@ void Menu_arquivo_externo()
   } while (opcao != 0);
 }
 
-
-// void carregar()
+// void Carregar()
 // {
 //   system("cls");
 //   cout << "PROGRAMA PARA CARREGAR ARQUIVO EXTERNO" << endl;
@@ -291,10 +290,21 @@ void Menu_arquivo_externo()
 
 //   cout << "Nome do arquivo externo: "; cin >> nome_arquivo;
 //   arquivo = fopen(nome_arquivo, "r");
+
 //   if (arquivo == NULL)
 //     cout << "ERRO AO CARREGAR ARQUIVO EXTERNO" << endl;
 //   else
+//     fseek(arquivo, 42, 0); fscanf(arquivo, "%d\n", quant_aluno[]);
+//     fseek(arquivo, 42, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
+//     fseek(arquivo, 19, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
+//     fseek(arquivo, 41, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
+//     fseek(arquivo, 41, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
+//     fseek(arquivo, 18, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
+//     fseek(arquivo, 17, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
 
+//   fclose(arquivo);
+//     cout << "ARQUIVO EXTERNO CARREGADO" << endl << endl;
+//     system("pause");
 // }
 
 int main()
