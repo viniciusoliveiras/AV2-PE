@@ -309,6 +309,41 @@ void salvaArquivo()
   system("pause");
 }
 
+void carregaArquivo()
+{
+  cout << "MENU DE SALVAMENTO OU CARREGAMENTO" << endl;
+  cout << "\tCARREGAR ARQUIVO" << endl << endl;
+
+  FILE *arquivo;
+  char nome_arquivo[50];
+
+  cout << "Digite o nome do arquivo externo: "; cin >> nome_arquivo;
+  strcat(nome_arquivo,".txt");
+
+  arquivo = fopen(nome_arquivo, "a+");
+
+  if (arquivo == NULL)
+  {
+    cout << "\n*** ERRO NO CARREGAMENTO DO ARQUIVO EXTERNO ***" << endl << endl;
+  }
+  else
+  {
+    for (int gravado = 0; gravado < quantidade_funcionarios_registrados; gravado++)
+    {
+      fprintf(arquivo, "NOME: %s", servidor[gravado].nome);
+      fprintf(arquivo, "CPF: %d\n", servidor[gravado].CPF);
+      fprintf(arquivo, "SEXO: %s\n", servidor[gravado].sexo);
+      fprintf(arquivo, "IDADE: %d\n", servidor[gravado].idade);
+      fprintf(arquivo, "HORAS TRABALHADAS: %.f\n", servidor[gravado].horas_trabalhadas);
+      fprintf(arquivo, "VALOR HORA TRABALHADA: %.f\n", servidor[gravado].valor_hora_trabalhada);
+      fprintf(arquivo, "SALARIO LIQUIDO: %.2f\n\n", servidor[gravado].salario_liquido);
+    }
+  }
+
+  fclose(arquivo);
+  system("pause");
+}
+
 void salvarCarregar()
 {
   int opcao_carregar_salvar;
