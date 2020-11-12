@@ -49,14 +49,17 @@ typedef struct {
 DADOS aluno[NUMERO_ALUNO];
 
 float notas[NUMERO_ALUNO][4];
-int counter = 0, quant_aluno[4] = {0, 0, 0, 0};
+int counter = 0 /*,quant_aluno[]*/;
 
 void Adicionar()
 {
     system("cls");
     cout << "PROGRAMA DE MATRICULA" << endl << endl;
-    cout << "INSIRA A MATRICULA DO ALUNO A SER ADICIONADO: ";
-    cin >> aluno[counter].matricula;
+    cout << "INSIRA A MATRICULA DO ALUNO A SER ADICIONADO: "; cin >> aluno[counter].matricula;
+    cout << "DIGITE O NOME DO ALUNO: "; cin >> aluno[counter].nome;
+    cout << "IDADE DO ALUNO: "; cin >> aluno[counter].idade;
+    
+    
     for (int i = 0; i < counter; i++)
     {
       if (counter != 0 && aluno[counter].matricula == aluno[i].matricula)
@@ -111,9 +114,9 @@ void aluno_aprovado(int opcao_usuario)
     {
       if (notas[i][3] >= 9)
       {
-        printf("\n\tAluno: %d\n", aluno[i].matricula);
-        printf("\tMedia: %2.f\n", notas[i][3]);
-        quant_aluno[0]++;
+        printf("\nAluno: %d\n", aluno[i].matricula);
+        printf("Media: %.1f\n\n", notas[i][3]);
+       /* quant_aluno[]++;*/
       }
       else if (i == NUMERO_ALUNO)
       {
@@ -128,9 +131,9 @@ void aluno_aprovado(int opcao_usuario)
     {
       if (notas[i][3] >= 7)
       {
-        printf("\n\tAluno: %d\n", aluno[i].matricula);
-        printf("\tMedia: %2.f\n", notas[i][3]);
-        quant_aluno[1]++;
+        printf("\nAluno: %d\n", aluno[i].matricula);
+        printf("Media: %.1f\n\n", notas[i][3]);
+        /* quant_aluno[]++;*/
       }
       else if (i == NUMERO_ALUNO)
       {
@@ -151,9 +154,10 @@ void aluno_reprovado(int opcao_usuario)
     {
       if (notas[i][3] < 7)
       {
-        printf("\n\tAluno: %d\n", aluno[i].matricula);
-        printf("\tMedia: %2.f\n", notas[i][3]);
-        quant_aluno[2]++;
+        printf("\nAluno: %d\n", aluno[i].matricula);
+        printf("Media: %.1f\n\n", notas[i][3]);
+        /* quant_aluno[]++;*/
+        
       }
       else if (i == NUMERO_ALUNO)
       {
@@ -168,9 +172,9 @@ void aluno_reprovado(int opcao_usuario)
     {
       if (notas[i][3] < 5)
       {
-        printf("\n\tAluno: %d\n", aluno[i].matricula);
-        printf("\tMedia: %2.f\n", notas[i][3]);
-        quant_aluno[3]++;
+        printf("\nAluno: %d\n", aluno[i].matricula);
+        printf("Media: %.1f\n\n", notas[i][3]);
+        /* quant_aluno[]++;*/
       }
       else if (i == NUMERO_ALUNO)
       {
@@ -193,6 +197,7 @@ void Exibir()
     cout << "[3] Alunos reprovados (com media inferior a 7)" << endl;
     cout << "[4] Alunos reprovados com media inferior a 5" << endl;
     cout << "[5] Todos Alunos" << endl;
+    cout << "[0] VOLTAR" << endl;
     cout << endl;
     cout << "OPCAO: ";
     cin >> opcao;
@@ -237,20 +242,49 @@ void Salvar()
   arquivo = fopen(nome_arquivo, "a+");
 
   if (arquivo != NULL){
-    fprintf(arquivo,"Alunos reprovados com media inferior a 5: %d\n", quant_aluno[3]);
-    fprintf(arquivo,"Alunos reprovados com media inferior a 7: %d\n", quant_aluno[2]);
-    fprintf(arquivo,"Alunos reprovados: %d\n", quant_aluno[2]);
-    fprintf(arquivo,"Alunos aprovados com media superior a 7: %d\n", quant_aluno[1]);
-    fprintf(arquivo,"Alunos aprovados com media superior a 9: %d\n", quant_aluno[0]);
-    fprintf(arquivo,"Alunos aprovados: %d\n", quant_aluno[1]);
-    fprintf(arquivo,"Todos os Alunos: %d\n", counter);
+    for (int i = 0; i < counter; i++)
+    {
+      fprintf(arquivo,": %d\n",aluno[i].matricula);
+      fprintf(arquivo,": %d\n",aluno[i].nome);
+      fprintf(arquivo,": %d\n",aluno[i].idade);
+      fprintf(arquivo,": %d\n\n",aluno[i].sexo);
+    }
   }
   else
     cout << "ERRO NA GRAVACAO DO ARQUIVO EXTERNO" << endl;
 
   fclose(arquivo);
+  cout << "ARQUIVO SALVO COM SUCESSO" << endl << endl;
   system("pause");
 }
+
+ /*void carregar()
+ {
+   system("cls");
+   cout << "PROGRAMA PARA CARREGAR ARQUIVO EXTERNO" << endl;
+   cout << "CARREGAR ARQUIVO" << endl;
+
+   FILE *arquivo;
+   char nome_arquivo[50];
+
+   cout << "Nome do arquivo externo: "; cin >> nome_arquivo;
+   arquivo = fopen(nome_arquivo, "r");
+   
+   if (arquivo == NULL)
+    	cout << "ERRO AO CARREGAR ARQUIVO EXTERNO" << endl;
+   else
+   		fseek(arquivo, 42, 0); fscanf(arquivo, "%d\n", quant_aluno[]);
+		fseek(arquivo, 42, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
+		fseek(arquivo, 19, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
+		fseek(arquivo, 41, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
+		fseek(arquivo, 41, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
+		fseek(arquivo, 18, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
+		fseek(arquivo, 17, 1); fscanf(arquivo, "%d\n", quant_aluno[]);	
+		
+	fclose(arquivo);
+  	cout << "ARQUIVO EXTERNO CARREGADO" << endl << endl;
+  	system("pause");
+} */
 
 void Menu_arquivo_externo()
 {
@@ -260,7 +294,7 @@ void Menu_arquivo_externo()
     system("cls");
     cout << "[1] SALVAR ARQUIVO EXTERNO" << endl;
     cout << "[2] CARREGAR ARQUIVO EXTERNO" << endl;
-    cout << "[3] VOLTAR" << endl;
+    cout << "[0] VOLTAR" << endl;
     cout << endl;
     cout << "OPCAO: "; cin >> opcao;
 
@@ -272,40 +306,11 @@ void Menu_arquivo_externo()
       case 2:
         // Carregar();
         break;
-      case 3:
-        return;
-        break;  
+	default:
+		break;  
     }
   } while (opcao != 0);
 }
-
-// void Carregar()
-// {
-//   system("cls");
-//   cout << "PROGRAMA PARA CARREGAR ARQUIVO EXTERNO" << endl;
-//   cout << "CARREGAR ARQUIVO" << endl;
-
-//   FILE *arquivo;
-//   char nome_arquivo[50];
-
-//   cout << "Nome do arquivo externo: "; cin >> nome_arquivo;
-//   arquivo = fopen(nome_arquivo, "r");
-
-//   if (arquivo == NULL)
-//     cout << "ERRO AO CARREGAR ARQUIVO EXTERNO" << endl;
-//   else
-//     fseek(arquivo, 42, 0); fscanf(arquivo, "%d\n", quant_aluno[]);
-//     fseek(arquivo, 42, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
-//     fseek(arquivo, 19, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
-//     fseek(arquivo, 41, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
-//     fseek(arquivo, 41, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
-//     fseek(arquivo, 18, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
-//     fseek(arquivo, 17, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
-
-//   fclose(arquivo);
-//     cout << "ARQUIVO EXTERNO CARREGADO" << endl << endl;
-//     system("pause");
-// }
 
 int main()
 {
@@ -337,5 +342,7 @@ int main()
       break;
     }
   } while (op != 0);
+  
+  getchar();
   return 0;
 }
