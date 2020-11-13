@@ -5,6 +5,7 @@
 using namespace std; 
 #define NUMERO_DE_FUNCIONARIO 3
 
+void adicionar();
 void carregaArquivo();
 
 typedef struct {
@@ -128,11 +129,17 @@ void pesquisar()
   {
     cout << "  NENHUM FUNCIONARIO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
     cin >> opcao_pesquisa;
-    if (opcao_pesquisa == 'S' || opcao_pesquisa == 's') adicionar();
+    if (opcao_pesquisa == 'S' || opcao_pesquisa == 's') {
+      adicionar();
+      return;
+    }
 
     cout << "DESEJA CARREGAR DADOS A PARTIR DE UM ARQUIVO EXTERNO? (S/n): ";
     cin >> opcao_pesquisa;
-    if (opcao_pesquisa == 'S' || opcao_pesquisa == 's') carregaArquivo();
+    if (opcao_pesquisa == 'S' || opcao_pesquisa == 's') {
+      carregaArquivo();
+      return;
+    }
 
     return;
   }
@@ -148,8 +155,8 @@ void pesquisar()
     {
       cout << "\tPESQUISAR FUNCIONARIOS" << endl << endl;
       cout << "CPF JA CADASTRADO - FUNCIONARIO CONSTA NOS REGISTROS\n" << endl;
-      cout << "   NOME: "<< servidor[analisado].nome;
-      cout << endl;
+      cout << "\tNOME: "<< servidor[analisado].nome;
+      cout << endl <<endl;
       system("pause");
       break;
     }
@@ -238,11 +245,17 @@ void exibir()
 
       cout << "  NENHUM FUNCIONARIO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
       cin >> opcao_exibir;
-      if (opcao_exibir == 'S' || opcao_exibir == 's') adicionar();
+      if (opcao_exibir == 'S' || opcao_exibir == 's') {
+        adicionar();
+        return;
+      }
 
       cout << "DESEJA CARREGAR DADOS A PARTIR DE UM ARQUIVO EXTERNO? (S/n): ";
       cin >> opcao_exibir;
-      if (opcao_exibir == 'S' || opcao_exibir == 's') carregaArquivo();
+      if (opcao_exibir == 'S' || opcao_exibir == 's') {
+        carregaArquivo();
+        return;
+      }
 
       return;
     }
@@ -253,7 +266,7 @@ void exibir()
     cout << "[4] FUNCIONARIOS COM SALARIO SUPERIOR OU IGUAL A R$ 5000" << endl;
     cout << "[5] FUNCIONARIOS COM SALARIO SUPERIOR OU IGUAL A R$ 7000" << endl;
     cout << "[6] FUNCIONARIOS COM SALARIO SUPERIOR OU IGUAL A R$ 10000" << endl;
-    cout << "[7] TODOS OS FUNCIONARIOS" << endl;
+    cout << "[7] TODOS OS FUNCIONARIOS" << endl << endl;
     cout << "[0] VOLTAR" << endl << endl;
     cout << "OPCAO: ";
     cin >> opcao_exibicao;
@@ -313,7 +326,7 @@ void salvaArquivo()
 {
   system("cls");
   cout << "MENU DE SALVAMENTO OU CARREGAMENTO" << endl;
-  cout << "\t  SALVAR ARQUIVO" << endl << endl;
+  cout << "\t *SALVAR ARQUIVO*" << endl << endl;
 
   if (quantidade_funcionarios_registrados == 0)
   {
@@ -321,11 +334,17 @@ void salvaArquivo()
 
     cout << "  NENHUM FUNCIONARIO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
     cin >> opcao_salvamento;
-    if (opcao_salvamento == 'S' || opcao_salvamento == 's') adicionar();  
+    if (opcao_salvamento == 'S' || opcao_salvamento == 's') {
+      adicionar();
+      return;
+    }
 
     cout << "DESEJA CARREGAR DADOS A PARTIR DE UM ARQUIVO EXTERNO? (S/n): ";
     cin >> opcao_salvamento;
-    if (opcao_salvamento == 'S' || opcao_salvamento == 's') carregaArquivo();
+    if (opcao_salvamento == 'S' || opcao_salvamento == 's') {
+      carregaArquivo();
+      return;
+    }
 
     return;
   }
@@ -360,7 +379,7 @@ void salvaArquivo()
   }
 
   fclose(arquivo);
-  cout << "ARQUIVO EXTERNO SALVO COM SUCESSO" << endl << endl;
+  cout << "\n*** ARQUIVO EXTERNO SALVO COM SUCESSO ***" << endl << endl;
   system("pause");
 }
 
@@ -387,7 +406,7 @@ void carregaArquivo()
 {
   system("cls");
   cout << "MENU DE SALVAMENTO OU CARREGAMENTO" << endl;
-  cout << "\tCARREGAR ARQUIVO" << endl << endl;
+  cout << "\t*CARREGAR ARQUIVO*" << endl << endl;
 
   char nome_arquivo[50];
 
@@ -443,34 +462,38 @@ void salvarCarregar()
 {
   int opcao_carregar_salvar;
   
-  system("cls");
-  cout << "MENU DE SALVAMENTO OU CARREGAMENTO" << endl;
-  cout << "[1] SALVAR ARQUIVO" << endl;
-  cout << "[2] CARREGAR ARQUIVO" << endl;
-  cout << "[0] VOLTAR" << endl << endl;
-  cout << "OPCAO: ";
-  cin >> opcao_carregar_salvar;
-
-  system("cls");
-  
-  switch (opcao_carregar_salvar)
+  do
   {
-    case 1:
-      salvaArquivo();
-      break;
-      
-    case 2: 
-      carregaArquivo();
-      break;
-      
-    case 0:
-      break;
+    system("cls");
+    cout << "MENU DE SALVAMENTO OU CARREGAMENTO" << endl << endl;
+    cout << "[1] SALVAR ARQUIVO" << endl;
+    cout << "[2] CARREGAR ARQUIVO" << endl << endl;
+    cout << "[0] VOLTAR" << endl << endl;
+    cout << "OPCAO: ";
+    cin >> opcao_carregar_salvar;
+
+    system("cls");
     
-    default:
-      cout << "\n\t*** OCORREU UM ERRO NA ENTRADA DA OPCAO ***" << endl << endl;
-      system("pause");
-      break;
-  }
+    switch (opcao_carregar_salvar)
+    {
+      case 1:
+        salvaArquivo();
+        break;
+        
+      case 2: 
+        carregaArquivo();
+        break;
+        
+      case 0:
+        break;
+      
+      default:
+        cout << "\n\t*** OCORREU UM ERRO NA ENTRADA DA OPCAO ***" << endl << endl;
+        system("pause");
+        break;
+    }
+  } while (opcao_carregar_salvar != 0);
+  
 }
 
 main()
@@ -484,7 +507,7 @@ main()
     cout << "[1] ADICIONAR" << endl;
     cout << "[2] PESQUISAR" << endl;
     cout << "[3] EXIBIR" << endl;
-    cout << "[4] SALVAR / CARREGAR" << endl;
+    cout << "[4] SALVAR / CARREGAR" << endl << endl;
     cout << "[0] SAIR" << endl;
     cout << endl;
     cout << "OPCAO: ";
@@ -508,7 +531,13 @@ main()
       salvarCarregar();
       break;
     
+    case 0:
+      break;
+
     default:
+      system("cls");
+      cout << "\n\t*** OCORREU UM ERRO NA ENTRADA DA OPCAO ***" << endl << endl;
+      system("pause");
       break;
     }
     
