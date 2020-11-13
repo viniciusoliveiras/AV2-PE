@@ -349,7 +349,7 @@ void carregaArquivo()
       }
       else
       {
-        fseek(arquivo, 6, SEEK_CUR); fscanf(arquivo, "\n\n%s\n", servidor[gravado].nome);
+        fseek(arquivo, 6, SEEK_CUR); fscanf(arquivo, "%s\n", servidor[gravado].nome);
         fseek(arquivo, 5, SEEK_CUR); fscanf(arquivo, "%d\n", &servidor[gravado].CPF);
         fseek(arquivo, 6, SEEK_CUR); fscanf(arquivo, "%s\n", servidor[gravado].sexo);
         fseek(arquivo, 7, SEEK_CUR); fscanf(arquivo, "%d\n", &servidor[gravado].idade);
