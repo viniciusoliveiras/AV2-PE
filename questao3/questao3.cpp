@@ -335,13 +335,13 @@ void carregaArquivo()
   {
     for (int gravado = 0; gravado < quantidade_funcionarios_registrados; gravado++)
     {
-      fseek(arquivo, 42, 0); fscanf(arquivo, "%s\n", servidor[gravado].nome);
-      fseek(arquivo, 42, 1); fscanf(arquivo, "%d\n", servidor[gravado].CPF);
-      fseek(arquivo, 19, 1); fscanf(arquivo, "%s\n", servidor[gravado].sexo);
-      fseek(arquivo, 41, 1); fscanf(arquivo, "%d\n", servidor[gravado].idade);
-      fseek(arquivo, 41, 1); fscanf(arquivo, "%f\n", servidor[gravado].horas_trabalhadas);
-      fseek(arquivo, 18, 1); fscanf(arquivo, "%f\n", servidor[gravado].valor_hora_trabalhada);
-      fseek(arquivo, 17, 1); fscanf(arquivo, "%f\n", servidor[gravado].salario_liquido);
+      fseek(arquivo, 6, SEEK_SET); fscanf(arquivo, "%s\n", servidor[gravado].nome);
+      fseek(arquivo, 5, SEEK_CUR); fscanf(arquivo, "%d\n", servidor[gravado].CPF);
+      fseek(arquivo, 6, SEEK_CUR); fscanf(arquivo, "%s\n", servidor[gravado].sexo);
+      fseek(arquivo, 7, SEEK_CUR); fscanf(arquivo, "%d\n", servidor[gravado].idade);
+      fseek(arquivo, 19, SEEK_CUR); fscanf(arquivo, "%f\n", servidor[gravado].horas_trabalhadas);
+      fseek(arquivo, 23, SEEK_CUR); fscanf(arquivo, "%f\n", servidor[gravado].valor_hora_trabalhada);
+      fseek(arquivo, 17, SEEK_CUR); fscanf(arquivo, "%f\n", servidor[gravado].salario_liquido);
     }
   }
 
@@ -371,7 +371,7 @@ void salvarCarregar()
       break;
       
     case 2: 
-      // carregaArquivo();
+      carregaArquivo();
       break;
       
     case 0:
