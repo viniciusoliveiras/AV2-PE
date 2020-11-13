@@ -5,6 +5,8 @@
 using namespace std; 
 #define NUMERO_DE_FUNCIONARIO 3
 
+void carregaArquivo();
+
 typedef struct {
   int CPF, idade, ID;
   char nome[50], sexo[10];
@@ -74,7 +76,7 @@ int verificaCPF(int registrado)
 void adicionar()
 {
   system("cls");
-  cout << "ADICIONAR FUNCIONARIO" << endl;
+  cout << "MENU DE ADICIONAR FUNCIONARIOS" << endl << endl;
   int estreado = quantidade_funcionarios_registrados;
   int problemaExecucao = 0;
 
@@ -110,6 +112,7 @@ void adicionar()
   servidor[estreado].salario_liquido = calculaSalarioLiquido(horas_trabalhadas, valor_hora_trabalhada);
   servidor[estreado].ID = estreado;
   
+  cout << endl;
   system("pause");
 }
 
@@ -119,7 +122,21 @@ void pesquisar()
   char opcao_pesquisa;
   int pesquisa_CPF;
 
-  cout << "PESQUISAR FUNCIONARIOS" << endl << endl;
+  cout << "MENU DE PESQUISA" << endl << endl;
+
+  if (quantidade_funcionarios_registrados == 0)
+  {
+    cout << "  NENHUM FUNCIONARIO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
+    cin >> opcao_pesquisa;
+    if (opcao_pesquisa == 'S' || opcao_pesquisa == 's') adicionar();
+
+    cout << "DESEJA CARREGAR DADOS A PARTIR DE UM ARQUIVO EXTERNO? (S/n): ";
+    cin >> opcao_pesquisa;
+    if (opcao_pesquisa == 'S' || opcao_pesquisa == 's') carregaArquivo();
+
+    return;
+  }
+
   cout << "DIGITE O CPF DO FUNCIONARIO QUE DESEJA PESQUISAR: ";
   cin >> pesquisa_CPF;
 
@@ -163,7 +180,7 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
       }
 
       if (mensagem_erro)
-        cout << "\tNENHUM FUNCIONARIO FOI ENCONTRADO.\n\t    TENTE UMA OUTRA CATEGORIA" << endl << endl;
+        cout << "   NENHUM FUNCIONARIO FOI ENCONTRADO.\n       TENTE UMA OUTRA CATEGORIA" << endl << endl;
     }
   }
   else if (opcao_desejada == 3)
@@ -177,7 +194,7 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
       }
 
       if (mensagem_erro)
-        cout << "\tNENHUM FUNCIONARIO FOI ENCONTRADO.\n\t    TENTE UMA OUTRA CATEGORIA" << endl << endl;
+        cout << "  \tNENHUM FUNCIONARIO FOI ENCONTRADO.\n\t    TENTE UMA OUTRA CATEGORIA" << endl << endl;
     }
   }
   else
@@ -191,7 +208,7 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
       }
 
       if (mensagem_erro)
-        cout << "\tNENHUM FUNCIONARIO FOI ENCONTRADO.\n\t    TENTE UMA OUTRA CATEGORIA" << endl << endl;
+        cout << "  \tNENHUM FUNCIONARIO FOI ENCONTRADO.\n\t    TENTE UMA OUTRA CATEGORIA" << endl << endl;
     }
   }
 
@@ -213,7 +230,23 @@ void exibir()
   do
   {
     system("cls");
-    cout << "MENU DE EXIBICAO DOS FUNCIONARIOS \n" << endl;
+    cout << "MENU DE EXIBICAO DOS FUNCIONARIOS" << endl << endl;
+
+    if (quantidade_funcionarios_registrados == 0)
+    {
+      char opcao_exibir;
+
+      cout << "  NENHUM FUNCIONARIO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
+      cin >> opcao_exibir;
+      if (opcao_exibir == 'S' || opcao_exibir == 's') adicionar();
+
+      cout << "DESEJA CARREGAR DADOS A PARTIR DE UM ARQUIVO EXTERNO? (S/n): ";
+      cin >> opcao_exibir;
+      if (opcao_exibir == 'S' || opcao_exibir == 's') carregaArquivo();
+
+      return;
+    }
+
     cout << "[1] FUNCIONARIOS COM SALARIO INFERIOR A R$ 500" << endl;
     cout << "[2] FUNCIONARIOS COM SALARIO INFERIOR A R$ 1000" << endl;
     cout << "[3] FUNCIONARIOS COM SALARIO SUPERIOR A R$ 4000" << endl;
@@ -226,12 +259,6 @@ void exibir()
     cin >> opcao_exibicao;
 
     system("cls");
-    if (quantidade_funcionarios_registrados == 0)
-    {
-      cout << "\t\t*** MENSAGEM DE ERRO ***\n\tNAO HA NENHUM FUNCIONARIO REGISTRADO NO SISTEMA\n\nPOR FAVOR ADICIONE UM NOVO FUNCIONARIO OU CARREGUE OS DADOS DE UM ARQUIVO EXTERNO\n\n";
-      system("pause");
-      return;
-    }
 
     switch (opcao_exibicao)
     {
@@ -284,8 +311,24 @@ void exibir()
 
 void salvaArquivo()
 {
+  system("cls");
   cout << "MENU DE SALVAMENTO OU CARREGAMENTO" << endl;
-  cout << "\tSALVAR ARQUIVO" << endl << endl;
+  cout << "\t  SALVAR ARQUIVO" << endl << endl;
+
+  if (quantidade_funcionarios_registrados == 0)
+  {
+    char opcao_salvamento;
+
+    cout << "  NENHUM FUNCIONARIO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
+    cin >> opcao_salvamento;
+    if (opcao_salvamento == 'S' || opcao_salvamento == 's') adicionar();  
+
+    cout << "DESEJA CARREGAR DADOS A PARTIR DE UM ARQUIVO EXTERNO? (S/n): ";
+    cin >> opcao_salvamento;
+    if (opcao_salvamento == 'S' || opcao_salvamento == 's') carregaArquivo();
+
+    return;
+  }
 
   FILE *arquivo;
   char nome_arquivo[50];
@@ -342,6 +385,7 @@ int atualizaQuantidade(char *nome)
 
 void carregaArquivo()
 {
+  system("cls");
   cout << "MENU DE SALVAMENTO OU CARREGAMENTO" << endl;
   cout << "\tCARREGAR ARQUIVO" << endl << endl;
 
@@ -350,10 +394,8 @@ void carregaArquivo()
   cout << "DIGITE O NOME DO ARQUIVO EXTERNO: "; cin >> nome_arquivo;
   strcat(nome_arquivo,".txt");
 
-  quantidade_funcionarios_registrados = atualizaQuantidade(nome_arquivo); // GAMBIARRA
   FILE *arquivo;
   arquivo = fopen(nome_arquivo, "r");
-
 
   if (arquivo == NULL)
   {
@@ -363,6 +405,8 @@ void carregaArquivo()
   }
   else
   {
+    quantidade_funcionarios_registrados = atualizaQuantidade(nome_arquivo); // GAMBIARRA
+
     for (int gravado = 0; gravado < quantidade_funcionarios_registrados; gravado++)
     {
       if (gravado == 0)
