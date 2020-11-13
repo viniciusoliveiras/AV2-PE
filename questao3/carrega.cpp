@@ -13,7 +13,7 @@ int main()
   }
 
   struct cadastro c;
-  fseek(f, sizeof(struct cadastro), SEEK_SET);
+  fseek(f, 0*sizeof(struct cadastro), SEEK_SET);
   fread(&c, sizeof(struct cadastro), 1, f);
   printf("%s\n%s\n%d\n", c.nome, c.rua, c.idade);
 

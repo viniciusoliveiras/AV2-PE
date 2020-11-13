@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct cadastro{ char nome[20], rua[20]; int idade;};
+typedef struct { char nome[20], rua[20]; int idade;}cadastro;
 int main()
 {
   FILE *f = fopen("arquivo.txt","wb");
@@ -12,14 +12,14 @@ int main()
     exit(1);
   }
 
-  struct cadastro cad[4] = {
-    "Ricardo","Rua 1", 31,
-    "Carlos", "Rua 2", 28,
-    "Ana", "Rua 3", 45,
-    "Bianca", "Rua 4", 32
+  cadastro cad[4] = {
+    "MATEUS","Rua 1", 22,
+    "RHUAN", "Rua 2", 21,
+    "VINI REI DELAS", "Rua 3", 21,
+    "GABRIEL", "Rua 4", 21
   };
 
-  fwrite(cad, sizeof(struct cadastro), 4, f);
+  fwrite(cad, sizeof(cadastro), 4, f);
   fclose(f);
 
   system("pause");
