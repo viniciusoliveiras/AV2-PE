@@ -297,7 +297,7 @@ void salvaArquivo()
   }
   else
   {
-    for (int gravado = 0; gravado < quantidade_funcionarios_registrados; gravado++)
+    for (int gravado = 0; gravado <= quantidade_funcionarios_registrados; gravado++)
     {
       fprintf(arquivo, "NOME: %s\n", servidor[gravado].nome);
       fprintf(arquivo, "CPF: %d\n", servidor[gravado].CPF);
