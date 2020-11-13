@@ -323,7 +323,9 @@ void carregaArquivo()
   cout << "DIGITE O NOME DO ARQUIVO EXTERNO: "; cin >> nome_arquivo;
   strcat(nome_arquivo,".txt");
 
-  arquivo = fopen(nome_arquivo, "a+");
+  arquivo = fopen(nome_arquivo, "r");
+
+  quantidade_funcionarios_registrados = 2; // GAMBIARRA
 
   if (arquivo == NULL)
   {
@@ -335,13 +337,27 @@ void carregaArquivo()
   {
     for (int gravado = 0; gravado < quantidade_funcionarios_registrados; gravado++)
     {
-      fseek(arquivo, 6, SEEK_SET); fscanf(arquivo, "%s\n", servidor[gravado].nome);
-      fseek(arquivo, 5, SEEK_CUR); fscanf(arquivo, "%d\n", servidor[gravado].CPF);
-      fseek(arquivo, 6, SEEK_CUR); fscanf(arquivo, "%s\n", servidor[gravado].sexo);
-      fseek(arquivo, 7, SEEK_CUR); fscanf(arquivo, "%d\n", servidor[gravado].idade);
-      fseek(arquivo, 19, SEEK_CUR); fscanf(arquivo, "%f\n", servidor[gravado].horas_trabalhadas);
-      fseek(arquivo, 23, SEEK_CUR); fscanf(arquivo, "%f\n", servidor[gravado].valor_hora_trabalhada);
-      fseek(arquivo, 17, SEEK_CUR); fscanf(arquivo, "%f\n", servidor[gravado].salario_liquido);
+      if (gravado == 0)
+      {
+        fseek(arquivo, 6, SEEK_SET); fscanf(arquivo, "%s\n", servidor[gravado].nome);
+        fseek(arquivo, 5, SEEK_CUR); fscanf(arquivo, "%d\n", &servidor[gravado].CPF);
+        fseek(arquivo, 6, SEEK_CUR); fscanf(arquivo, "%s\n", servidor[gravado].sexo);
+        fseek(arquivo, 7, SEEK_CUR); fscanf(arquivo, "%d\n", &servidor[gravado].idade);
+        fseek(arquivo, 19, SEEK_CUR); fscanf(arquivo, "%f\n", &servidor[gravado].horas_trabalhadas);
+        fseek(arquivo, 23, SEEK_CUR); fscanf(arquivo, "%f\n", &servidor[gravado].valor_hora_trabalhada);
+        fseek(arquivo, 17, SEEK_CUR); fscanf(arquivo, "%f\n", &servidor[gravado].salario_liquido);
+      }
+      else
+      {
+        fseek(arquivo, 6, SEEK_CUR); fscanf(arquivo, "\n\n%s\n", servidor[gravado].nome);
+        fseek(arquivo, 5, SEEK_CUR); fscanf(arquivo, "%d\n", &servidor[gravado].CPF);
+        fseek(arquivo, 6, SEEK_CUR); fscanf(arquivo, "%s\n", servidor[gravado].sexo);
+        fseek(arquivo, 7, SEEK_CUR); fscanf(arquivo, "%d\n", &servidor[gravado].idade);
+        fseek(arquivo, 19, SEEK_CUR); fscanf(arquivo, "%f\n", &servidor[gravado].horas_trabalhadas);
+        fseek(arquivo, 23, SEEK_CUR); fscanf(arquivo, "%f\n", &servidor[gravado].valor_hora_trabalhada);
+        fseek(arquivo, 17, SEEK_CUR); fscanf(arquivo, "%f\n", &servidor[gravado].salario_liquido);
+      }
+      
     }
   }
 
