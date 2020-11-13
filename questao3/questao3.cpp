@@ -6,7 +6,7 @@ using namespace std;
 #define NUMERO_DE_FUNCIONARIO 3
 
 typedef struct {
-  int CPF, idade;
+  int CPF, idade, ID;
   char nome[50], sexo[10];
   float horas_trabalhadas, valor_hora_trabalhada, salario_liquido;
 }FUNCIONARIO;
@@ -77,6 +77,7 @@ void adicionar()
   cin >> servidor[estreado].CPF;
 
   int problemaExecucao = 0;
+  servidor[estreado].ID = quantidade_funcionarios_registrados;
 
   possoAdicionar() ? quantidade_funcionarios_registrados += 1 : problemaExecucao = 1;
   if (problemaExecucao == 1) return;
@@ -193,8 +194,9 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
 
 void exibiTodosSalariosFuncionario()
 {
-  for (int cadastrado = 0; cadastrado < quantidade_funcionarios_registrados; cadastrado++)
+  for (int cadastrado = 0; cadastrado <= quantidade_funcionarios_registrados; cadastrado++)
     printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
+  printf("\n\n TESTE QUANTIDADE: %d\n\n",quantidade_funcionarios_registrados);
 }
 
 void exibir()
@@ -285,7 +287,7 @@ void salvaArquivo()
   cout << "Digite o nome do arquivo externo: "; cin >> nome_arquivo;
   strcat(nome_arquivo,".txt");
 
-  arquivo = fopen(nome_arquivo, "a+");
+  arquivo = fopen(nome_arquivo, "w+");
 
   if (arquivo == NULL)
   {
@@ -303,7 +305,8 @@ void salvaArquivo()
       fprintf(arquivo, "IDADE: %d\n", servidor[gravado].idade);
       fprintf(arquivo, "HORAS TRABALHADAS: %.f\n", servidor[gravado].horas_trabalhadas);
       fprintf(arquivo, "VALOR HORA TRABALHADA: %.f\n", servidor[gravado].valor_hora_trabalhada);
-      fprintf(arquivo, "SALARIO LIQUIDO: %.2f\n\n", servidor[gravado].salario_liquido);
+      fprintf(arquivo, "SALARIO LIQUIDO: %.2f\n", servidor[gravado].salario_liquido);
+      fprintf(arquivo, "ID: %d\n\n", servidor[gravado].ID);
     }
   }
 
@@ -312,20 +315,39 @@ void salvaArquivo()
   system("pause");
 }
 
+int atualizaQuantidade(char *nome)
+{
+  int tamanho_total;
+  FILE *id;
+  id = fopen(nome, "r");
+  if (id == NULL)
+  {
+    cout << "\n*** ERRO NO CARREGAMENTO DO ARQUIVO EXTERNO ***" << endl << endl;
+    system("pause");
+  }
+  else
+  {
+    fseek(id, -5, SEEK_END);
+    fscanf(id, "%d", &tamanho_total);
+  }
+  fclose(id);
+  return tamanho_total;
+}
+
 void carregaArquivo()
 {
   cout << "MENU DE SALVAMENTO OU CARREGAMENTO" << endl;
   cout << "\tCARREGAR ARQUIVO" << endl << endl;
 
-  FILE *arquivo;
   char nome_arquivo[50];
 
   cout << "DIGITE O NOME DO ARQUIVO EXTERNO: "; cin >> nome_arquivo;
   strcat(nome_arquivo,".txt");
 
+  quantidade_funcionarios_registrados = atualizaQuantidade(nome_arquivo); // GAMBIARRA
+  FILE *arquivo;
   arquivo = fopen(nome_arquivo, "r");
 
-  quantidade_funcionarios_registrados = 2; // GAMBIARRA
 
   if (arquivo == NULL)
   {
@@ -335,7 +357,7 @@ void carregaArquivo()
   }
   else
   {
-    for (int gravado = 0; gravado < quantidade_funcionarios_registrados; gravado++)
+    for (int gravado = 0; gravado <= quantidade_funcionarios_registrados; gravado++)
     {
       if (gravado == 0)
       {
@@ -349,7 +371,7 @@ void carregaArquivo()
       }
       else
       {
-        fseek(arquivo, 6, SEEK_CUR); fscanf(arquivo, "%s\n", servidor[gravado].nome);
+        fseek(arquivo, 15, SEEK_CUR); fscanf(arquivo, "%s\n", servidor[gravado].nome);
         fseek(arquivo, 5, SEEK_CUR); fscanf(arquivo, "%d\n", &servidor[gravado].CPF);
         fseek(arquivo, 6, SEEK_CUR); fscanf(arquivo, "%s\n", servidor[gravado].sexo);
         fseek(arquivo, 7, SEEK_CUR); fscanf(arquivo, "%d\n", &servidor[gravado].idade);
