@@ -46,18 +46,6 @@ float calculaSalarioLiquido(float horas, float valor_das_horas)
 
 int possoAdicionar()
 {
-  int registrado = quantidade_funcionarios_registrados;
-  
-  for (int analisado = 0; analisado < registrado; analisado++)
-  {
-    if (servidor[analisado].CPF == servidor[registrado].CPF)
-    {
-      cout << "\nCPF JA CADASTRADO - FUNCIONARIO CONSTA NOS REGISTROS\n" << endl;
-      system("pause");
-      return 0;
-    }
-  }
-
   if (quantidade_funcionarios_registrados >= NUMERO_DE_FUNCIONARIO)
   {
     cout << "\n[ERROR 500] NAO E POSSIVEL ADICIONAR NOVOS FUNCIONARIOS. LIMITE ATINGIDO\n" << endl;
@@ -68,22 +56,39 @@ int possoAdicionar()
   return 1;
 }
 
+int verificaCPF(int registrado)
+{
+  for (int analisado = 0; analisado < registrado; analisado++)
+  {
+    if (servidor[analisado].CPF == servidor[registrado].CPF)
+    {
+      cout << "\nCPF JA CADASTRADO - FUNCIONARIO CONSTA NOS REGISTROS\n" << endl;
+      system("pause");
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
 void adicionar()
 {
-  int estreado = quantidade_funcionarios_registrados;
   system("cls");
-  cout << "ADICIONAR FUNCIONARIO" << endl << endl;
+  cout << "ADICIONAR FUNCIONARIO" << endl;
+  int estreado = quantidade_funcionarios_registrados;
+  int problemaExecucao = 0;
+
+  possoAdicionar() ? quantidade_funcionarios_registrados += 1 : problemaExecucao = 1;
+  if (problemaExecucao) return;
+
+  cout << "\tINFORME OS DADOS DO FUNCIONARIO\n\n";
   cout << "DIGITE O CPF DO FUNCIONARIO: ";
   cin >> servidor[estreado].CPF;
 
-  int problemaExecucao = 0;
-  servidor[estreado].ID = quantidade_funcionarios_registrados;
-
-  possoAdicionar() ? quantidade_funcionarios_registrados += 1 : problemaExecucao = 1;
-  if (problemaExecucao == 1) return;
+  problemaExecucao = verificaCPF(estreado);
+  if (problemaExecucao) return;
 
   fflush(stdin); // Limpo o Buffer do teclado
-  cout << "\n\tINFORME OS DADOS DO FUNCIONARIO\n\n";
   cout << "NOME: ";
   cin >> servidor[estreado].nome; // Armazeno o primeiro nome.
 
@@ -103,6 +108,7 @@ void adicionar()
   float valor_hora_trabalhada = servidor[estreado].valor_hora_trabalhada;
 
   servidor[estreado].salario_liquido = calculaSalarioLiquido(horas_trabalhadas, valor_hora_trabalhada);
+  servidor[estreado].ID = estreado;
   
   system("pause");
 }
@@ -119,7 +125,7 @@ void pesquisar()
 
   system("cls");
   
-  for (int analisado = 0; analisado <= quantidade_funcionarios_registrados; analisado++)
+  for (int analisado = 0; analisado < quantidade_funcionarios_registrados; analisado++)
   {
     if (servidor[analisado].CPF == pesquisa_CPF)
     {
@@ -194,7 +200,7 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
 
 void exibiTodosSalariosFuncionario()
 {
-  for (int cadastrado = 0; cadastrado <= quantidade_funcionarios_registrados; cadastrado++)
+  for (int cadastrado = 0; cadastrado < quantidade_funcionarios_registrados; cadastrado++)
     printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
   printf("\n\n TESTE QUANTIDADE: %d\n\n",quantidade_funcionarios_registrados);
 }
@@ -297,7 +303,7 @@ void salvaArquivo()
   }
   else
   {
-    for (int gravado = 0; gravado <= quantidade_funcionarios_registrados; gravado++)
+    for (int gravado = 0; gravado < quantidade_funcionarios_registrados; gravado++)
     {
       fprintf(arquivo, "NOME: %s\n", servidor[gravado].nome);
       fprintf(arquivo, "CPF: %d\n", servidor[gravado].CPF);
@@ -331,7 +337,7 @@ int atualizaQuantidade(char *nome)
     fscanf(id, "%d", &tamanho_total);
   }
   fclose(id);
-  return tamanho_total;
+  return tamanho_total + 1;
 }
 
 void carregaArquivo()
@@ -357,7 +363,7 @@ void carregaArquivo()
   }
   else
   {
-    for (int gravado = 0; gravado <= quantidade_funcionarios_registrados; gravado++)
+    for (int gravado = 0; gravado < quantidade_funcionarios_registrados; gravado++)
     {
       if (gravado == 0)
       {
@@ -368,18 +374,19 @@ void carregaArquivo()
         fseek(arquivo, 19, SEEK_CUR); fscanf(arquivo, "%f\n", &servidor[gravado].horas_trabalhadas);
         fseek(arquivo, 23, SEEK_CUR); fscanf(arquivo, "%f\n", &servidor[gravado].valor_hora_trabalhada);
         fseek(arquivo, 17, SEEK_CUR); fscanf(arquivo, "%f\n", &servidor[gravado].salario_liquido);
+        fseek(arquivo, 4, SEEK_CUR); fscanf(arquivo, "%d\n", &servidor[gravado].ID);
       }
       else
       {
-        fseek(arquivo, 15, SEEK_CUR); fscanf(arquivo, "%s\n", servidor[gravado].nome);
+        fseek(arquivo, 6, SEEK_CUR); fscanf(arquivo, "%s\n", servidor[gravado].nome);
         fseek(arquivo, 5, SEEK_CUR); fscanf(arquivo, "%d\n", &servidor[gravado].CPF);
         fseek(arquivo, 6, SEEK_CUR); fscanf(arquivo, "%s\n", servidor[gravado].sexo);
         fseek(arquivo, 7, SEEK_CUR); fscanf(arquivo, "%d\n", &servidor[gravado].idade);
         fseek(arquivo, 19, SEEK_CUR); fscanf(arquivo, "%f\n", &servidor[gravado].horas_trabalhadas);
         fseek(arquivo, 23, SEEK_CUR); fscanf(arquivo, "%f\n", &servidor[gravado].valor_hora_trabalhada);
         fseek(arquivo, 17, SEEK_CUR); fscanf(arquivo, "%f\n", &servidor[gravado].salario_liquido);
+        fseek(arquivo, 4, SEEK_CUR); fscanf(arquivo, "%d\n", &servidor[gravado].ID);
       }
-      
     }
   }
 
