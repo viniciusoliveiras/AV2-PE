@@ -84,7 +84,7 @@ void adicionar()
   fflush(stdin); // Limpo o Buffer do teclado
   cout << "\n\tINFORME OS DADOS DO FUNCIONARIO\n\n";
   cout << "NOME: ";
-  fgets(servidor[estreado].nome, 50, stdin); // Armazeno o nome completo, inclusive com espaços.
+  cin >> servidor[estreado].nome; // Armazeno o primeiro nome.
 
   cout << "SEXO: ";
   cin >> servidor[estreado].sexo;
@@ -297,7 +297,7 @@ void salvaArquivo()
   {
     for (int gravado = 0; gravado < quantidade_funcionarios_registrados; gravado++)
     {
-      fprintf(arquivo, "NOME: %s", servidor[gravado].nome);
+      fprintf(arquivo, "NOME: %s\n", servidor[gravado].nome);
       fprintf(arquivo, "CPF: %d\n", servidor[gravado].CPF);
       fprintf(arquivo, "SEXO: %s\n", servidor[gravado].sexo);
       fprintf(arquivo, "IDADE: %d\n", servidor[gravado].idade);
