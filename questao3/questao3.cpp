@@ -164,16 +164,21 @@ void pesquisar()
   
   for (int analisado = 0; analisado < quantidade_funcionarios_registrados; analisado++)
   {
+    int funcionario_nao_encontrado = (quantidade_funcionarios_registrados - 1);
+    
     if (servidor[analisado].CPF == pesquisa_CPF)
     {
       cout << "\tPESQUISAR FUNCIONARIOS" << endl << endl;
       cout << "CPF JA CADASTRADO - FUNCIONARIO CONSTA NOS REGISTROS\n" << endl;
-      cout << "\tNOME: "<< servidor[analisado].nome;
-      cout << endl <<endl;
+      cout << "\tNOME: "<< servidor[analisado].nome << endl;
+      cout << "\tIDADE: "<< servidor[analisado].idade << endl;
+      cout << "\tSEXO: "<< servidor[analisado].sexo << endl;
+      cout << "\tSALARIO BRUTO: R$ "<< (servidor[analisado].horas_trabalhadas * servidor[analisado].valor_hora_trabalhada) * 30 << endl;
+      cout << "\tSALARIO LIQUIDO: R$ "<< servidor[analisado].salario_liquido << endl << endl;
       system("pause");
       break;
     }
-    else 
+    else if (analisado == funcionario_nao_encontrado)
     {
       cout << "PESQUISAR FUNCIONARIOS" << endl << endl;
       cout << "    FUNCIONARIO NAO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
