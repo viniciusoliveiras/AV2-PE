@@ -198,10 +198,10 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
         printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
         mensagem_erro = 0;
       }
-
-      if (mensagem_erro)
-        cout << "   NENHUM FUNCIONARIO FOI ENCONTRADO.\n       TENTE UMA OUTRA CATEGORIA" << endl << endl;
     }
+
+    if (mensagem_erro)
+      cout << "   NENHUM FUNCIONARIO FOI ENCONTRADO.\n       TENTE UMA OUTRA CATEGORIA" << endl << endl;
   }
   else if (opcao_desejada == 3)
   {
@@ -212,10 +212,10 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
         printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
         mensagem_erro = 0;
       }
-
-      if (mensagem_erro)
-        cout << "  \tNENHUM FUNCIONARIO FOI ENCONTRADO.\n\t    TENTE UMA OUTRA CATEGORIA" << endl << endl;
     }
+
+    if (mensagem_erro)
+      cout << "  \tNENHUM FUNCIONARIO FOI ENCONTRADO.\n\t    TENTE UMA OUTRA CATEGORIA" << endl << endl;
   }
   else
   {
@@ -226,10 +226,10 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
         printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
         mensagem_erro = 0;
       }
-
-      if (mensagem_erro)
-        cout << "  \tNENHUM FUNCIONARIO FOI ENCONTRADO.\n\t    TENTE UMA OUTRA CATEGORIA" << endl << endl;
     }
+
+    if (mensagem_erro)
+      cout << "  \tNENHUM FUNCIONARIO FOI ENCONTRADO.\n\t    TENTE UMA OUTRA CATEGORIA" << endl << endl;
   }
 
   system("pause");
@@ -239,7 +239,7 @@ void exibiTodosSalariosFuncionario()
 {
   for (int cadastrado = 0; cadastrado < quantidade_funcionarios_registrados; cadastrado++)
     printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
-  printf("\n\n TESTE QUANTIDADE: %d\n\n",quantidade_funcionarios_registrados);
+  // printf("\n\n TESTE QUANTIDADE: %d\n\n",quantidade_funcionarios_registrados);
 }
 
 void exibir()
@@ -429,7 +429,7 @@ void carregaArquivo()
   }
 
   fclose(arquivo);
-  cout << "ARQUIVO EXTERNO CARREGADO COM SUCESSO" << endl << endl;
+  cout << "\n*** ARQUIVO EXTERNO CARREGADO COM SUCESSO ***" << endl << endl;
   system("pause");
 }
 
