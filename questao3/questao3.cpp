@@ -17,6 +17,32 @@ typedef struct {
 FUNCIONARIO servidor[NUMERO_DE_FUNCIONARIO];
 int quantidade_funcionarios_registrados = 0;
 
+int carregarOuCriarFuncionario()
+{
+  if (quantidade_funcionarios_registrados == 0)
+  {
+    char opcao_tentativa;
+
+    cout << "  NENHUM FUNCIONARIO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
+    cin >> opcao_tentativa;
+    if (opcao_tentativa == 'S' || opcao_tentativa == 's') 
+    {
+      adicionar();
+      return 1;
+    }
+
+    cout << "DESEJA CARREGAR DADOS A PARTIR DE UM ARQUIVO EXTERNO? (S/n): ";
+    cin >> opcao_tentativa;
+    if (opcao_tentativa == 'S' || opcao_tentativa == 's') 
+    {
+      carregaArquivo();
+      return 1;
+    }
+  }
+
+  return 1;
+}
+
 float calculaDescontoInss(float salario_mensal)
 {
   const float valor_maximo_de_oito_por_cento = 1751.82, valor_maximo_de_nove_por_cento = 2919.73, valor_maximo_de_onze_por_cento = 5839.45;
@@ -125,24 +151,7 @@ void pesquisar()
 
   cout << "MENU DE PESQUISA" << endl << endl;
 
-  if (quantidade_funcionarios_registrados == 0)
-  {
-    cout << "  NENHUM FUNCIONARIO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
-    cin >> opcao_pesquisa;
-    if (opcao_pesquisa == 'S' || opcao_pesquisa == 's') {
-      adicionar();
-      return;
-    }
-
-    cout << "DESEJA CARREGAR DADOS A PARTIR DE UM ARQUIVO EXTERNO? (S/n): ";
-    cin >> opcao_pesquisa;
-    if (opcao_pesquisa == 'S' || opcao_pesquisa == 's') {
-      carregaArquivo();
-      return;
-    }
-
-    return;
-  }
+  if (carregarOuCriarFuncionario()) return;
 
   cout << "DIGITE O CPF DO FUNCIONARIO QUE DESEJA PESQUISAR: ";
   cin >> pesquisa_CPF;
@@ -239,26 +248,7 @@ void exibir()
     system("cls");
     cout << "MENU DE EXIBICAO DOS FUNCIONARIOS" << endl << endl;
 
-    if (quantidade_funcionarios_registrados == 0)
-    {
-      char opcao_exibir;
-
-      cout << "  NENHUM FUNCIONARIO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
-      cin >> opcao_exibir;
-      if (opcao_exibir == 'S' || opcao_exibir == 's') {
-        adicionar();
-        return;
-      }
-
-      cout << "DESEJA CARREGAR DADOS A PARTIR DE UM ARQUIVO EXTERNO? (S/n): ";
-      cin >> opcao_exibir;
-      if (opcao_exibir == 'S' || opcao_exibir == 's') {
-        carregaArquivo();
-        return;
-      }
-
-      return;
-    }
+    if (carregarOuCriarFuncionario()) return;
 
     cout << "[1] FUNCIONARIOS COM SALARIO INFERIOR A R$ 500" << endl;
     cout << "[2] FUNCIONARIOS COM SALARIO INFERIOR A R$ 1000" << endl;
@@ -328,26 +318,7 @@ void salvaArquivo()
   cout << "MENU DE SALVAMENTO OU CARREGAMENTO" << endl;
   cout << "\t *SALVAR ARQUIVO*" << endl << endl;
 
-  if (quantidade_funcionarios_registrados == 0)
-  {
-    char opcao_salvamento;
-
-    cout << "  NENHUM FUNCIONARIO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
-    cin >> opcao_salvamento;
-    if (opcao_salvamento == 'S' || opcao_salvamento == 's') {
-      adicionar();
-      return;
-    }
-
-    cout << "DESEJA CARREGAR DADOS A PARTIR DE UM ARQUIVO EXTERNO? (S/n): ";
-    cin >> opcao_salvamento;
-    if (opcao_salvamento == 'S' || opcao_salvamento == 's') {
-      carregaArquivo();
-      return;
-    }
-
-    return;
-  }
+  if (carregarOuCriarFuncionario()) return;
 
   FILE *arquivo;
   char nome_arquivo[50];
