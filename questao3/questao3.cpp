@@ -83,10 +83,10 @@ int possoAdicionar()
   {
     cout << "\n[ERROR 500] NAO E POSSIVEL ADICIONAR NOVOS FUNCIONARIOS. LIMITE ATINGIDO\n" << endl;
     system("pause");
-    return 0;
+    return 1;
   }
 
-  return 1;
+  return 0;
 }
 
 int verificaCPF(int registrado)
@@ -111,7 +111,7 @@ void adicionar()
   int estreado = quantidade_funcionarios_registrados;
   int problemaExecucao = 0;
 
-  possoAdicionar() ? quantidade_funcionarios_registrados += 1 : problemaExecucao = 1;
+  problemaExecucao = possoAdicionar();
   if (problemaExecucao) return;
 
   cout << "\tINFORME OS DADOS DO FUNCIONARIO\n\n";
@@ -120,6 +120,7 @@ void adicionar()
 
   problemaExecucao = verificaCPF(estreado);
   if (problemaExecucao) return;
+  else quantidade_funcionarios_registrados += 1;
 
   fflush(stdin); // Limpo o Buffer do teclado
   cout << "NOME: ";
@@ -244,7 +245,7 @@ void exibiTodosSalariosFuncionario()
 {
   for (int cadastrado = 0; cadastrado < quantidade_funcionarios_registrados; cadastrado++)
     printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
-  // printf("\n\n TESTE QUANTIDADE: %d\n\n",quantidade_funcionarios_registrados);
+  printf("\n\n TESTE QUANTIDADE: %d\n\n",quantidade_funcionarios_registrados);
 }
 
 void exibir()
