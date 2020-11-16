@@ -5,42 +5,6 @@
 using namespace std;
 #define NUMERO_ALUNO 3
 
-/*  QUESTÃO 2
-Faça um programa, utilizando o Dev-C++, para armazenar os dados de um aluno(a), contendo os seguintes dados:
-
-Variáveis	            Tipos
-Matricula	            inteiro
-Nome	                caractere
-Sexo	                caractere
-Idade	                inteiro
-AV1, AV2, AV3 e Media	real
-(UTILIZE UMA MATRIZ PARA ARMAZENAR AS NOTAS)
-
-O usuário poderá armazenar no máximo 50 alunos. O programa terá a opção de adicionar, exibir ou salvar/carregar os dados. O programa deverá ter as seguintes condições:
-
-  Adicionar:
-Efetua uma pesquisa para saber se o aluno(a) existe ou não no vetor através da matrícula do mesmo:
- • Se existir, informar que o aluno(a) já se encontra presente e não adicione
- • Caso não exista, verifique se o sistema está ou não lotado antes de inseri
-Ao armazenar as notas utilize o mesmo critério de avaliação da UniCarioca para calcular a média, está não deve ser informada pelo aluno (Soma das 2 maiores notas divididos pela quantidade).
-
-  Exibir:
-O usuário poderá exibir os alunos(as) com os seguintes critérios de média:
- • Alunos reprovados com média inferior a 5
- • Alunos reprovados com média inferior a 7
- • Alunos reprovados
-
- • Alunos aprovados com média superior ou igual a 7
- • Alunos aprovados com média superior ou igual a 9
- • Alunos aprovados
- • Todos os alunos
-
-  Salvar/Carregar
-O usuário irá escolher entre salvar ou carregar um arquivo externo
- • Colocar um campo para o usuário informar o nome do arquivo externo, tanto na opção de salvar quanto carregar
- • Ao selecionar a opção de carregar dados, o sistema deve ler todas as informações do arquivo externo e adicionar no programa
-*/
-
 typedef struct {
   char nome[20], sexo[20];
   int matricula, idade;
@@ -49,7 +13,7 @@ typedef struct {
 DADOS aluno[NUMERO_ALUNO];
 
 float notas[NUMERO_ALUNO][4];
-int counter = 0 /*,quant_aluno[]*/;
+int counter = 0;
 
 void Adicionar()
 {
@@ -116,7 +80,6 @@ void aluno_aprovado(int opcao_usuario)
       {
         printf("\nAluno: %d\n", aluno[i].matricula);
         printf("Media: %.1f\n\n", notas[i][3]);
-       /* quant_aluno[]++;*/
       }
       else if (i == NUMERO_ALUNO)
       {
@@ -133,7 +96,6 @@ void aluno_aprovado(int opcao_usuario)
       {
         printf("\nAluno: %d\n", aluno[i].matricula);
         printf("Media: %.1f\n\n", notas[i][3]);
-        /* quant_aluno[]++;*/
       }
       else if (i == NUMERO_ALUNO)
       {
@@ -156,8 +118,6 @@ void aluno_reprovado(int opcao_usuario)
       {
         printf("\nAluno: %d\n", aluno[i].matricula);
         printf("Media: %.1f\n\n", notas[i][3]);
-        /* quant_aluno[]++;*/
-        
       }
       else if (i == NUMERO_ALUNO)
       {
@@ -174,7 +134,6 @@ void aluno_reprovado(int opcao_usuario)
       {
         printf("\nAluno: %d\n", aluno[i].matricula);
         printf("Media: %.1f\n\n", notas[i][3]);
-        /* quant_aluno[]++;*/
       }
       else if (i == NUMERO_ALUNO)
       {
