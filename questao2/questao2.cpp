@@ -13,59 +13,92 @@ typedef struct {
 DADOS aluno[NUMERO_ALUNO];
 
 float notas[NUMERO_ALUNO][4];
-int counter = 0;
+int quantidade_alunos_registrados = 0;
+
+int possoAdicionar()
+{
+  if (quantidade_alunos_registrados >= NUMERO_ALUNO)
+  {
+    cout << "\n[ERROR] SISTEMA LOTADO" << endl;
+    system("pause");
+    return 0;
+  }
+
+  return 1;
+}
+
+int verificaMatricula(int registrado)
+{
+  for (int analisado = 0; analisado < registrado; analisado++)
+  {
+    if (aluno[analisado].matricula == aluno[registrado].matricula)
+    {
+      cout << "\nALUNO JA ESTA PRESENTE NO SISTEMA" << endl;
+      system("pause");
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
+float calculaMedia(float av1, float av2, float av3)
+{
+  float media;
+  
+  if (av3 > av1 && av2 > av1)
+    media = (av3 + av2) / 2;
+
+  else if (av3 > av2 && av1 > av2)
+    media = (av3 + av1) / 2;
+
+  else if (av1 == av2 && av1 < av3)
+    media = (av3 + av1) / 2;
+
+  else
+    media = (av1 + av2) / 2;
+  
+  return media;
+}
 
 void Adicionar()
 {
-    system("cls");
-    cout << "PROGRAMA DE MATRICULA" << endl << endl;
-    cout << "INSIRA A MATRICULA DO ALUNO A SER ADICIONADO: "; cin >> aluno[counter].matricula;
-    cout << "DIGITE O NOME DO ALUNO: "; cin >> aluno[counter].nome;
-    cout << "IDADE DO ALUNO: "; cin >> aluno[counter].idade;
-    
-    
-    for (int i = 0; i < counter; i++)
-    {
-      if (counter != 0 && aluno[counter].matricula == aluno[i].matricula)
-      {
-        cout << "\nALUNO JA ESTA PRESENTE NO SISTEMA" << endl;
-        system("pause");
-        return;
-      }
-    }
+  system("cls");
+  cout << "PROGRAMA DE MATRICULA" << endl << endl;
+  int novato = quantidade_alunos_registrados;
+  int problemaExecucao = 0;
 
-    if (counter >= NUMERO_ALUNO)
-    {
-      cout << "\n[ERROR] SISTEMA LOTADO" << endl;
-      system("pause");
-      return;
-    }
+  possoAdicionar() ? quantidade_alunos_registrados += 1 : problemaExecucao = 1;
+  if (problemaExecucao) return;
+  
+  cout << "INSIRA A MATRICULA DO ALUNO A SER ADICIONADO: ";
+  cin >> aluno[novato].matricula;
 
-    cout << "INSIRA A NOTA DA AV1: ";
-    cin >> notas[counter][0];
-    cout << "INSIRA A NOTA DA AV2: ";
-    cin >> notas[counter][1];
-    cout << "INSIRA A NOTA DA AV3: ";
-    cin >> notas[counter][2];
+  problemaExecucao = verificaMatricula(novato);
+  if (problemaExecucao) return;
 
-    float *av1 = &notas[counter][0], *av2 = &notas[counter][1], *av3 = &notas[counter][2], *media = &notas[counter][3];
+  fflush(stdin); // Limpo o Buffer do teclado
+  cout << "DIGITE O NOME DO ALUNO: ";
+  cin >> aluno[novato].nome;
 
-    if (*av3 > *av1 && *av2 > *av1)
-      *media = (*av3 + *av2) / 2;
+  cout << "IDADE DO ALUNO: ";
+  cin >> aluno[novato].idade;
 
-    else if (av3 > av2 && av1 > av2)
-      *media = (*av3 + *av1) / 2;
+  cout << "INSIRA A NOTA DA AV1: ";
+  cin >> notas[novato][0];
 
-    else if (av1 == av2 && av1 < av3)
-      *media = (*av3 + *av1) / 2;
+  cout << "INSIRA A NOTA DA AV2: ";
+  cin >> notas[novato][1];
 
-    else
-      *media = (*av1 + *av2) / 2;
+  cout << "INSIRA A NOTA DA AV3: ";
+  cin >> notas[novato][2];
 
-    cout << "MEDIA: " << *media << endl << endl;
+  float av1 = notas[novato][0], av2 = notas[novato][1], av3 = notas[novato][2]; 
+  float media = notas[novato][3] = calculaMedia(av1, av2, av3);
 
-    counter++;
-    system("pause");
+  cout << "MEDIA: " << media << endl << endl;
+
+  system("pause");
 }
 
 void aluno_aprovado(int opcao_usuario)
@@ -201,7 +234,7 @@ void Salvar()
   arquivo = fopen(nome_arquivo, "a+");
 
   if (arquivo != NULL){
-    for (int armazenado = 0; armazenado < counter; armazenado++)
+    for (int armazenado = 0; armazenado < quantidade_alunos_registrados; armazenado++)
     {
       fprintf(arquivo,"MATRICULA: %d\n",aluno[armazenado].matricula);
       fprintf(arquivo,"NOME: %s\n",aluno[armazenado].nome);
@@ -274,34 +307,44 @@ void Menu_arquivo_externo()
 
 int main()
 {
-  int op;
+  int opcao_usuario;
 
   do
   {
     system("cls");
-    cout << "PROGRAMA DE MATRICULA" << endl;
-    cout << endl;
+    cout << "PROGRAMA DE MATRICULA" << endl << endl;
     cout << "[1] ADICIONAR" << endl;
     cout << "[2] EXIBIR" << endl;
-    cout << "[3] SALVAR / CARREGAR" << endl;
-    cout << "[0] SAIR" << endl;
-    cout << endl;
+    cout << "[3] SALVAR / CARREGAR" << endl << endl;
+    cout << "[0] SAIR" << endl << endl;
     cout << "OPCAO: ";
-    cin >> op;
+    cin >> opcao_usuario;
 
-    switch (op)
+    switch (opcao_usuario)
     {
-    case 1:
-      Adicionar();
-      break;
-    case 2:
-      Exibir();
-      break;
-    case 3:
-       Menu_arquivo_externo();
-      break;
+      case 1:
+        Adicionar();
+        break;
+
+      case 2:
+        Exibir();
+        break;
+
+      case 3:
+        Menu_arquivo_externo();
+        break;
+
+      case 0:
+        break;
+
+      default:
+        system("cls");
+        cout << "\n\t*** OCORREU UM ERRO NA ENTRADA DA OPCAO ***" << endl << endl;
+        system("pause");
+        break;
     }
-  } while (op != 0);
+
+  } while (opcao_usuario != 0);
   
   getchar();
   return 0;
