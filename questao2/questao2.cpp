@@ -21,10 +21,10 @@ int possoAdicionar()
   {
     cout << "\n[ERROR] SISTEMA LOTADO" << endl;
     system("pause");
-    return 0;
+    return 1;
   }
 
-  return 1;
+  return 0;
 }
 
 int verificaMatricula(int registrado)
@@ -68,7 +68,7 @@ void Adicionar()
   int novato = quantidade_alunos_registrados;
   int problemaExecucao = 0;
 
-  possoAdicionar() ? quantidade_alunos_registrados += 1 : problemaExecucao = 1;
+  problemaExecucao = possoAdicionar();
   if (problemaExecucao) return;
   
   cout << "INSIRA A MATRICULA DO ALUNO A SER ADICIONADO: ";
@@ -76,6 +76,7 @@ void Adicionar()
 
   problemaExecucao = verificaMatricula(novato);
   if (problemaExecucao) return;
+  else quantidade_alunos_registrados += 1;
 
   fflush(stdin); // Limpo o Buffer do teclado
   cout << "DIGITE O NOME DO ALUNO: ";
