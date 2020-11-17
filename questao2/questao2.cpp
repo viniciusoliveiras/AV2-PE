@@ -7,13 +7,43 @@ using namespace std;
 
 typedef struct {
   char nome[20], sexo[20];
-  int matricula, idade;
+  int matricula, idade, ID;
 } DADOS;
 
 DADOS aluno[NUMERO_ALUNO];
 
 float notas[NUMERO_ALUNO][4];
 int quantidade_alunos_registrados = 0;
+
+int carregarOuCriarFuncionario()
+{
+  if (quantidade_alunos_registrados == 0)
+  {
+    char opcao_tentativa;
+
+    cout << "  NENHUM ALUNO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
+    cin >> opcao_tentativa;
+    if (opcao_tentativa == 'S' || opcao_tentativa == 's') 
+    {
+      Adicionar();
+      return 1;
+    }
+
+    cout << "DESEJA CARREGAR DADOS A PARTIR DE UM ARQUIVO EXTERNO? (S/n): ";
+    cin >> opcao_tentativa;
+    if (opcao_tentativa == 'S' || opcao_tentativa == 's') 
+    {
+      // Carregar();
+      return 1;
+    }
+  }
+  else
+  {
+    return 0;
+  }
+  
+  return 1;
+}
 
 int possoAdicionar()
 {
@@ -96,6 +126,8 @@ void Adicionar()
 
   float av1 = notas[novato][0], av2 = notas[novato][1], av3 = notas[novato][2]; 
   float media = notas[novato][3] = calculaMedia(av1, av2, av3);
+
+  aluno[novato].ID = novato;
 
   cout << "MEDIA: " << media << endl << endl;
 
@@ -241,7 +273,9 @@ void Salvar()
 {
   system("cls");
   cout << "PROGRAMA PARA SALVAR ARQUIVO EXTERNO" << endl;
-  cout << "SALVAR ARQUIVO" << endl;
+  cout << "\t *SALVAR ARQUIVO*" << endl << endl;
+
+  if (carregarOuCriarFuncionario()) return;
   
   FILE *arquivo;
   char nome_arquivo[50];
@@ -249,27 +283,36 @@ void Salvar()
   cout << "Digite o nome do arquivo externo: "; cin >> nome_arquivo;
   strcat (nome_arquivo,".txt");
 
-  arquivo = fopen(nome_arquivo, "a+");
+  arquivo = fopen(nome_arquivo, "w+");
 
-  if (arquivo != NULL){
-    for (int armazenado = 0; armazenado < quantidade_alunos_registrados; armazenado++)
-    {
-      fprintf(arquivo,"MATRICULA: %d\n",aluno[armazenado].matricula);
-      fprintf(arquivo,"NOME: %s\n",aluno[armazenado].nome);
-      fprintf(arquivo,"IDADE: %d\n",aluno[armazenado].idade);
-      fprintf(arquivo,"SEXO: %s\n",aluno[armazenado].sexo);
-      fprintf(arquivo,"MEDIA: %f\n\n",notas[armazenado][3]);
-    }
+  if (arquivo == NULL)
+  {
+    cout << "ERRO NA GRAVACAO DO ARQUIVO EXTERNO" << endl;
+    system("pause");
+    return;
   }
   else
-    cout << "ERRO NA GRAVACAO DO ARQUIVO EXTERNO" << endl;
+  {
+    for (int armazenado = 0; armazenado < quantidade_alunos_registrados; armazenado++)
+    {
+      fprintf(arquivo, "NOME: %s\n", aluno[armazenado].nome);
+      fprintf(arquivo, "MATRICULA: %d\n", aluno[armazenado].matricula);
+      fprintf(arquivo, "IDADE: %d\n", aluno[armazenado].idade);
+      fprintf(arquivo, "SEXO: %s\n", aluno[armazenado].sexo);
+      fprintf(arquivo, "AV1: %.1f\n", notas[armazenado][0]);
+      fprintf(arquivo, "AV2: %.1f\n", notas[armazenado][1]);
+      fprintf(arquivo, "AV3: %.1f\n", notas[armazenado][2]);
+      fprintf(arquivo, "MEDIA: %.1f\n", notas[armazenado][3]);
+      fprintf(arquivo, "ID: %d\n\n", aluno[armazenado].ID);
+    }
+  }
 
   fclose(arquivo);
-  cout << "ARQUIVO SALVO COM SUCESSO" << endl << endl;
+  cout << "\n*** ARQUIVO SALVO COM SUCESSO ***" << endl << endl;
   system("pause");
 }
 
- /*void carregar()
+ /*void Carregar()
  {
    system("cls");
    cout << "PROGRAMA PARA CARREGAR ARQUIVO EXTERNO" << endl;
