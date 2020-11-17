@@ -347,11 +347,12 @@ void Carregar()
   cout << "PROGRAMA PARA CARREGAR ARQUIVO EXTERNO" << endl;
   cout << "CARREGAR ARQUIVO" << endl;
 
-  FILE *arquivo;
   char nome_arquivo[50];
 
-  cout << "Nome do arquivo externo: ";
-  cin >> nome_arquivo;
+  cout << "Nome do arquivo externo: "; cin >> nome_arquivo;
+  strcat(nome_arquivo,".txt");
+
+  FILE *arquivo;
   arquivo = fopen(nome_arquivo, "r");
 
   if (arquivo == NULL)
