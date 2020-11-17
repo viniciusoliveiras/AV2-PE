@@ -187,7 +187,7 @@ void aluno_reprovado(int opcao_usuario)
 
 void Exibir()
 {
-  int opcao = 0;
+  int opcao_exibir;
   do
   {
     system("cls");
@@ -199,23 +199,23 @@ void Exibir()
     cout << "[5] Todos Alunos" << endl << endl;
     cout << "[0] VOLTAR" << endl << endl;
     cout << "OPCAO: ";
-    cin >> opcao;
-    switch (opcao)
+    cin >> opcao_exibir;
+    switch (opcao_exibir)
     {
       case 1:
-        aluno_aprovado(opcao);
+        aluno_aprovado(opcao_exibir);
         break;
 
       case 2:
-        aluno_aprovado(opcao);
+        aluno_aprovado(opcao_exibir);
         break;
 
       case 3:
-        aluno_reprovado(opcao);
+        aluno_reprovado(opcao_exibir);
         break;
 
       case 4:
-        aluno_reprovado(opcao);
+        aluno_reprovado(opcao_exibir);
         break;
 
       case 5:
@@ -230,12 +230,11 @@ void Exibir()
         break;
 
       default:
-        system("cls");
         cout << "\n\t*** OCORREU UM ERRO NA ENTRADA DA OPCAO ***" << endl << endl;
         system("pause");
         break;
     }
-  } while (opcao != 0);
+  } while (opcao_exibir != 0);
 }
 
 void Salvar()
@@ -300,28 +299,35 @@ void Salvar()
 
 void Menu_arquivo_externo()
 {
-  int opcao = 0;
+  int opcao_arquivo_externo;
+
   do
   {
     system("cls");
     cout << "[1] SALVAR ARQUIVO EXTERNO" << endl;
-    cout << "[2] CARREGAR ARQUIVO EXTERNO" << endl;
-    cout << "[0] VOLTAR" << endl;
-    cout << endl;
-    cout << "OPCAO: "; cin >> opcao;
+    cout << "[2] CARREGAR ARQUIVO EXTERNO" << endl << endl;
+    cout << "[0] VOLTAR" << endl << endl;
+    cout << "OPCAO: "; cin >> opcao_arquivo_externo;
 
-    switch (opcao)
+    switch (opcao_arquivo_externo)
     {
       case 1:
         Salvar();
         break;
+
       case 2:
         // Carregar();
         break;
-	default:
-		break;  
+      
+      case 0:
+        break;
+
+      default:
+        cout << "\n\t*** OCORREU UM ERRO NA ENTRADA DA OPCAO ***" << endl << endl;
+        system("pause");
+        break;  
     }
-  } while (opcao != 0);
+  } while (opcao_arquivo_externo != 0);
 }
 
 int main()
