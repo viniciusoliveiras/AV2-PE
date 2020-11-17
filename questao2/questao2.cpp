@@ -5,7 +5,11 @@
 using namespace std;
 #define NUMERO_ALUNO 3
 
-typedef struct {
+void Adicionar();
+void Carregar();
+
+typedef struct
+{
   char nome[20], sexo[20];
   int matricula, idade, ID;
 } DADOS;
@@ -23,7 +27,7 @@ int carregarOuCriarFuncionario()
 
     cout << "  NENHUM ALUNO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
     cin >> opcao_tentativa;
-    if (opcao_tentativa == 'S' || opcao_tentativa == 's') 
+    if (opcao_tentativa == 'S' || opcao_tentativa == 's')
     {
       Adicionar();
       return 1;
@@ -31,9 +35,9 @@ int carregarOuCriarFuncionario()
 
     cout << "DESEJA CARREGAR DADOS A PARTIR DE UM ARQUIVO EXTERNO? (S/n): ";
     cin >> opcao_tentativa;
-    if (opcao_tentativa == 'S' || opcao_tentativa == 's') 
+    if (opcao_tentativa == 'S' || opcao_tentativa == 's')
     {
-      // Carregar();
+      Carregar();
       return 1;
     }
   }
@@ -41,7 +45,7 @@ int carregarOuCriarFuncionario()
   {
     return 0;
   }
-  
+
   return 1;
 }
 
@@ -75,7 +79,7 @@ int verificaMatricula(int registrado)
 float calculaMedia(float av1, float av2, float av3)
 {
   float media;
-  
+
   if (av3 > av1 && av2 > av1)
     media = (av3 + av2) / 2;
 
@@ -87,7 +91,7 @@ float calculaMedia(float av1, float av2, float av3)
 
   else
     media = (av1 + av2) / 2;
-  
+
   return media;
 }
 
@@ -99,8 +103,9 @@ void Adicionar()
   int problemaExecucao = 0;
 
   problemaExecucao = possoAdicionar();
-  if (problemaExecucao) return;
-  
+  if (problemaExecucao)
+    return;
+
   cout << "INSIRA A MATRICULA DO ALUNO A SER ADICIONADO: ";
   cin >> aluno[novato].matricula;
 
@@ -111,6 +116,9 @@ void Adicionar()
   fflush(stdin); // Limpo o Buffer do teclado
   cout << "DIGITE O NOME DO ALUNO: ";
   cin >> aluno[novato].nome;
+
+  cout << "SEXO DO ALUNO: ";
+  cin >> aluno[novato].sexo;
 
   cout << "IDADE DO ALUNO: ";
   cin >> aluno[novato].idade;
@@ -124,7 +132,7 @@ void Adicionar()
   cout << "INSIRA A NOTA DA AV3: ";
   cin >> notas[novato][2];
 
-  float av1 = notas[novato][0], av2 = notas[novato][1], av3 = notas[novato][2]; 
+  float av1 = notas[novato][0], av2 = notas[novato][1], av3 = notas[novato][2];
   float media = notas[novato][3] = calculaMedia(av1, av2, av3);
 
   aluno[novato].ID = novato;
@@ -139,7 +147,7 @@ void aluno_aprovado(int opcao_usuario)
   system("cls");
 
   int mensagem_erro = 1;
-  
+
   if (opcao_usuario == 1)
   {
     printf("ALUNOS APROVADOS COM MEDIA SUPERIOR OU IGUAL A 9\n");
@@ -181,7 +189,7 @@ void aluno_reprovado(int opcao_usuario)
   system("cls");
 
   int mensagem_erro = 1;
-  
+
   if (opcao_usuario == 3)
   {
     printf("ALUNOS REPROVADOS COM MEDIA INFERIOR A 7\n");
@@ -275,13 +283,15 @@ void Salvar()
   cout << "PROGRAMA PARA SALVAR ARQUIVO EXTERNO" << endl;
   cout << "\t *SALVAR ARQUIVO*" << endl << endl;
 
-  if (carregarOuCriarFuncionario()) return;
-  
+  if (carregarOuCriarFuncionario())
+    return;
+
   FILE *arquivo;
   char nome_arquivo[50];
 
-  cout << "Digite o nome do arquivo externo: "; cin >> nome_arquivo;
-  strcat (nome_arquivo,".txt");
+  cout << "Digite o nome do arquivo externo: ";
+  cin >> nome_arquivo;
+  strcat(nome_arquivo, ".txt");
 
   arquivo = fopen(nome_arquivo, "w+");
 
@@ -312,33 +322,81 @@ void Salvar()
   system("pause");
 }
 
- /*void Carregar()
- {
-   system("cls");
-   cout << "PROGRAMA PARA CARREGAR ARQUIVO EXTERNO" << endl;
-   cout << "CARREGAR ARQUIVO" << endl;
+int atualizaQuantidade(char *nome)
+{
+  int tamanho_total;
+  FILE *id;
+  id = fopen(nome, "r");
+  if (id == NULL)
+  {
+    cout << "\n*** ERRO NO CARREGAMENTO DO ARQUIVO EXTERNO ***" << endl << endl;
+    system("pause");
+  }
+  else
+  {
+    fseek(id, -5, SEEK_END);
+    fscanf(id, "%d", &tamanho_total);
+  }
+  fclose(id);
+  return tamanho_total + 1;
+}
 
-   FILE *arquivo;
-   char nome_arquivo[50];
+void Carregar()
+{
+  system("cls");
+  cout << "PROGRAMA PARA CARREGAR ARQUIVO EXTERNO" << endl;
+  cout << "CARREGAR ARQUIVO" << endl;
 
-   cout << "Nome do arquivo externo: "; cin >> nome_arquivo;
-   arquivo = fopen(nome_arquivo, "r");
-   
-   if (arquivo == NULL)
-    	cout << "ERRO AO CARREGAR ARQUIVO EXTERNO" << endl;
-   else
-   		fseek(arquivo, 42, 0); fscanf(arquivo, "%d\n", quant_aluno[]);
-		fseek(arquivo, 42, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
-		fseek(arquivo, 19, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
-		fseek(arquivo, 41, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
-		fseek(arquivo, 41, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
-		fseek(arquivo, 18, 1); fscanf(arquivo, "%d\n", quant_aluno[]);
-		fseek(arquivo, 17, 1); fscanf(arquivo, "%d\n", quant_aluno[]);	
-		
-	fclose(arquivo);
-  	cout << "ARQUIVO EXTERNO CARREGADO" << endl << endl;
-  	system("pause");
-} */
+  FILE *arquivo;
+  char nome_arquivo[50];
+
+  cout << "Nome do arquivo externo: ";
+  cin >> nome_arquivo;
+  arquivo = fopen(nome_arquivo, "r");
+
+  if (arquivo == NULL)
+  {
+    cout << "\n*** ERRO NO CARREGAMENTO DO ARQUIVO EXTERNO ***" << endl << endl;
+    system("pause");
+    return;
+  }
+  else
+  {
+    quantidade_alunos_registrados = atualizaQuantidade(nome_arquivo);
+    
+    for (int gravado = 0; gravado < quantidade_alunos_registrados; gravado++)
+    {
+      if (gravado == 0)
+      {
+        fseek(arquivo, 6, SEEK_SET); fscanf(arquivo, "%s\n", aluno[gravado].nome);
+        fseek(arquivo, 11, SEEK_CUR); fscanf(arquivo, "%d\n", &aluno[gravado].matricula);
+        fseek(arquivo, 7, SEEK_CUR); fscanf(arquivo, "%d\n", &aluno[gravado].idade);
+        fseek(arquivo, 6, SEEK_CUR); fscanf(arquivo, "%s\n", aluno[gravado].sexo);
+        fseek(arquivo, 5, SEEK_CUR); fscanf(arquivo, "%f\n", &notas[gravado][0]);
+        fseek(arquivo, 5, SEEK_CUR); fscanf(arquivo, "%f\n", &notas[gravado][1]);
+        fseek(arquivo, 5, SEEK_CUR); fscanf(arquivo, "%f\n", &notas[gravado][2]);
+        fseek(arquivo, 7, SEEK_CUR); fscanf(arquivo, "%f\n", &notas[gravado][3]);
+        fseek(arquivo, 4, SEEK_CUR); fscanf(arquivo, "%d\n", &aluno[gravado].ID);
+      }
+      else
+      {
+        fseek(arquivo, 6, SEEK_CUR); fscanf(arquivo, "%s\n", aluno[gravado].nome);
+        fseek(arquivo, 11, SEEK_CUR); fscanf(arquivo, "%d\n", &aluno[gravado].matricula);
+        fseek(arquivo, 7, SEEK_CUR); fscanf(arquivo, "%d\n", &aluno[gravado].idade);
+        fseek(arquivo, 6, SEEK_CUR); fscanf(arquivo, "%s\n", aluno[gravado].sexo);
+        fseek(arquivo, 5, SEEK_CUR); fscanf(arquivo, "%f\n", &notas[gravado][0]);
+        fseek(arquivo, 5, SEEK_CUR); fscanf(arquivo, "%f\n", &notas[gravado][1]);
+        fseek(arquivo, 5, SEEK_CUR); fscanf(arquivo, "%f\n", &notas[gravado][2]);
+        fseek(arquivo, 7, SEEK_CUR); fscanf(arquivo, "%f\n", &notas[gravado][3]);
+        fseek(arquivo, 4, SEEK_CUR); fscanf(arquivo, "%d\n", &aluno[gravado].ID);
+      }
+    }
+  }
+
+  fclose(arquivo);
+  cout << "\n*** ARQUIVO EXTERNO CARREGADO COM SUCESSO ***" << endl << endl;
+  system("pause");
+}
 
 void Menu_arquivo_externo()
 {
@@ -350,25 +408,26 @@ void Menu_arquivo_externo()
     cout << "[1] SALVAR ARQUIVO EXTERNO" << endl;
     cout << "[2] CARREGAR ARQUIVO EXTERNO" << endl << endl;
     cout << "[0] VOLTAR" << endl << endl;
-    cout << "OPCAO: "; cin >> opcao_arquivo_externo;
+    cout << "OPCAO: ";
+    cin >> opcao_arquivo_externo;
 
     switch (opcao_arquivo_externo)
     {
-      case 1:
-        Salvar();
-        break;
+    case 1:
+      Salvar();
+      break;
 
-      case 2:
-        // Carregar();
-        break;
-      
-      case 0:
-        break;
+    case 2:
+      Carregar();
+      break;
 
-      default:
-        cout << "\n\t*** OCORREU UM ERRO NA ENTRADA DA OPCAO ***" << endl << endl;
-        system("pause");
-        break;  
+    case 0:
+      break;
+
+    default:
+      cout << "\n\t*** OCORREU UM ERRO NA ENTRADA DA OPCAO ***" << endl << endl;
+      system("pause");
+      break;
     }
   } while (opcao_arquivo_externo != 0);
 }
@@ -390,30 +449,30 @@ int main()
 
     switch (opcao_usuario)
     {
-      case 1:
-        Adicionar();
-        break;
+    case 1:
+      Adicionar();
+      break;
 
-      case 2:
-        Exibir();
-        break;
+    case 2:
+      Exibir();
+      break;
 
-      case 3:
-        Menu_arquivo_externo();
-        break;
+    case 3:
+      Menu_arquivo_externo();
+      break;
 
-      case 0:
-        break;
+    case 0:
+      break;
 
-      default:
-        system("cls");
-        cout << "\n\t*** OCORREU UM ERRO NA ENTRADA DA OPCAO ***" << endl << endl;
-        system("pause");
-        break;
+    default:
+      system("cls");
+      cout << "\n\t*** OCORREU UM ERRO NA ENTRADA DA OPCAO ***" << endl << endl;
+      system("pause");
+      break;
     }
 
   } while (opcao_usuario != 0);
-  
+
   getchar();
   return 0;
 }
