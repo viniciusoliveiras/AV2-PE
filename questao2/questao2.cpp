@@ -105,37 +105,41 @@ void Adicionar()
 void aluno_aprovado(int opcao_usuario)
 {
   system("cls");
+
+  int mensagem_erro = 1;
+  
   if (opcao_usuario == 1)
   {
     printf("ALUNOS APROVADOS COM MEDIA SUPERIOR OU IGUAL A 9\n");
-    for (int i = 0; i < NUMERO_ALUNO; i++)
+
+    for (int cadastrado = 0; cadastrado < quantidade_alunos_registrados; cadastrado++)
     {
-      if (notas[i][3] >= 9)
+      if (notas[cadastrado][3] >= 9)
       {
-        printf("\nAluno: %d\n", aluno[i].matricula);
-        printf("Media: %.1f\n\n", notas[i][3]);
-      }
-      else if (i == NUMERO_ALUNO)
-      {
-        printf("NENHUM ALUNO ENCONTRADO");
+        printf("\nAluno: %d\n", aluno[cadastrado].matricula);
+        printf("Media: %.1f\n\n", notas[cadastrado][3]);
+        mensagem_erro = 0;
       }
     }
+
+    if (mensagem_erro)
+      cout << "NENHUM ALUNO ENCONTRADO";
   }
   else if (opcao_usuario == 2)
   {
     printf("ALUNOS APROVADOS COM MEDIA SUPERIOR OU IGUAL A 7\n");
-    for (int i = 0; i < NUMERO_ALUNO; i++)
+    for (int cadastrado = 0; cadastrado < quantidade_alunos_registrados; cadastrado++)
     {
-      if (notas[i][3] >= 7)
+      if (notas[cadastrado][3] >= 7)
       {
-        printf("\nAluno: %d\n", aluno[i].matricula);
-        printf("Media: %.1f\n\n", notas[i][3]);
-      }
-      else if (i == NUMERO_ALUNO)
-      {
-        printf("NENHUM ALUNO ENCONTRADO");
+        printf("\nAluno: %d\n", aluno[cadastrado].matricula);
+        printf("Media: %.1f\n\n", notas[cadastrado][3]);
+        mensagem_erro = 0;
       }
     }
+
+    if (mensagem_erro)
+      cout << "NENHUM ALUNO ENCONTRADO";
   }
   system("pause");
 }
@@ -143,37 +147,40 @@ void aluno_aprovado(int opcao_usuario)
 void aluno_reprovado(int opcao_usuario)
 {
   system("cls");
+
+  int mensagem_erro = 1;
+  
   if (opcao_usuario == 3)
   {
     printf("ALUNOS REPROVADOS COM MEDIA INFERIOR A 7\n");
-    for (int i = 0; i < NUMERO_ALUNO; i++)
+    for (int cadastrado = 0; cadastrado < quantidade_alunos_registrados; cadastrado++)
     {
-      if (notas[i][3] < 7)
+      if (notas[cadastrado][3] < 7)
       {
-        printf("\nAluno: %d\n", aluno[i].matricula);
-        printf("Media: %.1f\n\n", notas[i][3]);
-      }
-      else if (i == NUMERO_ALUNO)
-      {
-        printf("NENHUM ALUNO ENCONTRADO");
+        printf("\nAluno: %d\n", aluno[cadastrado].matricula);
+        printf("Media: %.1f\n\n", notas[cadastrado][3]);
+        mensagem_erro = 0;
       }
     }
+
+    if (mensagem_erro)
+      cout << "NENHUM ALUNO ENCONTRADO";
   }
   else if (opcao_usuario == 4)
   {
     printf("ALUNOS REPROVADOS COM MEDIA INFERIOR A 5\n");
-    for (int i = 0; i < NUMERO_ALUNO; i++)
+    for (int cadastrado = 0; cadastrado < quantidade_alunos_registrados; cadastrado++)
     {
-      if (notas[i][3] < 5)
+      if (notas[cadastrado][3] < 5)
       {
-        printf("\nAluno: %d\n", aluno[i].matricula);
-        printf("Media: %.1f\n\n", notas[i][3]);
-      }
-      else if (i == NUMERO_ALUNO)
-      {
-        printf("NENHUM ALUNO ENCONTRADO");
+        printf("\nAluno: %d\n", aluno[cadastrado].matricula);
+        printf("Media: %.1f\n\n", notas[cadastrado][3]);
+        mensagem_erro = 0;
       }
     }
+
+    if (mensagem_erro)
+      cout << "NENHUM ALUNO ENCONTRADO";
   }
   system("pause");
 }
@@ -189,9 +196,8 @@ void Exibir()
     cout << "[2] Alunos aprovados (com media superior ou igual 7)" << endl;
     cout << "[3] Alunos reprovados (com media inferior a 7)" << endl;
     cout << "[4] Alunos reprovados com media inferior a 5" << endl;
-    cout << "[5] Todos Alunos" << endl;
-    cout << "[0] VOLTAR" << endl;
-    cout << endl;
+    cout << "[5] Todos Alunos" << endl << endl;
+    cout << "[0] VOLTAR" << endl << endl;
     cout << "OPCAO: ";
     cin >> opcao;
     switch (opcao)
@@ -199,22 +205,34 @@ void Exibir()
       case 1:
         aluno_aprovado(opcao);
         break;
+
       case 2:
         aluno_aprovado(opcao);
         break;
+
       case 3:
         aluno_reprovado(opcao);
         break;
+
       case 4:
         aluno_reprovado(opcao);
         break;
+
       case 5:
         system("cls");
         printf("TODOS OS ALUNOS\n");
-        for (int i = 0; i < NUMERO_ALUNO; i++)
-          printf("\n\tAluno: %d\n", aluno[i].matricula);
+        for (int cadastrado = 0; cadastrado < quantidade_alunos_registrados; cadastrado++)
+          printf("\n\tAluno: %d\n", aluno[cadastrado].matricula);
         system("pause");
+        break;
+
+      case 0:
+        break;
+
       default:
+        system("cls");
+        cout << "\n\t*** OCORREU UM ERRO NA ENTRADA DA OPCAO ***" << endl << endl;
+        system("pause");
         break;
     }
   } while (opcao != 0);
