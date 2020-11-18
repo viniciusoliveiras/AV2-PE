@@ -19,7 +19,7 @@ DADOS aluno[NUMERO_ALUNO];
 float notas[NUMERO_ALUNO][4];
 int quantidade_alunos_registrados = 0;
 
-int carregarOuCriarFuncionario()
+int carregarOuCriarAluno()
 {
   if (quantidade_alunos_registrados == 0)
   {
@@ -28,23 +28,15 @@ int carregarOuCriarFuncionario()
     cout << "  NENHUM ALUNO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
     cin >> opcao_tentativa;
     if (opcao_tentativa == 'S' || opcao_tentativa == 's')
-    {
       Adicionar();
-      return 1;
-    }
 
     cout << "DESEJA CARREGAR DADOS A PARTIR DE UM ARQUIVO EXTERNO? (S/n): ";
     cin >> opcao_tentativa;
     if (opcao_tentativa == 'S' || opcao_tentativa == 's')
-    {
       Carregar();
-      return 1;
-    }
   }
   else
-  {
     return 0;
-  }
 
   return 1;
 }
@@ -67,7 +59,7 @@ int verificaMatricula(int registrado)
   {
     if (aluno[analisado].matricula == aluno[registrado].matricula)
     {
-      cout << "\nALUNO JA ESTA PRESENTE NO SISTEMA" << endl;
+      cout << "\nALUNO JA ESTA PRESENTE NO SISTEMA" << endl << endl;
       system("pause");
       return 1;
     }
@@ -98,7 +90,7 @@ float calculaMedia(float av1, float av2, float av3)
 void Adicionar()
 {
   system("cls");
-  cout << "PROGRAMA DE MATRICULA" << endl << endl;
+  cout << "MENU ADICIONAR NOVO ALUNO" << endl << endl;
   int novato = quantidade_alunos_registrados;
   int problemaExecucao = 0;
 
@@ -163,7 +155,7 @@ void aluno_aprovado(int opcao_usuario)
     }
 
     if (mensagem_erro)
-      cout << "NENHUM ALUNO ENCONTRADO";
+      cout << "\n\tNENHUM ALUNO ENCONTRADO" << endl << endl;
   }
   else if (opcao_usuario == 2)
   {
@@ -179,7 +171,7 @@ void aluno_aprovado(int opcao_usuario)
     }
 
     if (mensagem_erro)
-      cout << "NENHUM ALUNO ENCONTRADO";
+      cout << "\n\tNENHUM ALUNO ENCONTRADO" << endl << endl;
   }
   system("pause");
 }
@@ -204,7 +196,7 @@ void aluno_reprovado(int opcao_usuario)
     }
 
     if (mensagem_erro)
-      cout << "NENHUM ALUNO ENCONTRADO";
+      cout << "\n\tNENHUM ALUNO ENCONTRADO" << endl << endl;
   }
   else if (opcao_usuario == 4)
   {
@@ -220,7 +212,7 @@ void aluno_reprovado(int opcao_usuario)
     }
 
     if (mensagem_erro)
-      cout << "NENHUM ALUNO ENCONTRADO";
+      cout << "\n\tNENHUM ALUNO ENCONTRADO" << endl << endl;
   }
   system("pause");
 }
@@ -231,7 +223,10 @@ void Exibir()
   do
   {
     system("cls");
-    cout << "EXIBIR APROVADOS E REPROVADOS\n" << endl;
+    cout << "EXIBIR APROVADOS E REPROVADOS" << endl << endl;
+
+    if (carregarOuCriarAluno()) return;
+    
     cout << "[1] Alunos aprovados com media superior ou igual a 9" << endl;
     cout << "[2] Alunos aprovados (com media superior ou igual 7)" << endl;
     cout << "[3] Alunos reprovados (com media inferior a 7)" << endl;
@@ -283,8 +278,7 @@ void Salvar()
   cout << "PROGRAMA PARA SALVAR ARQUIVO EXTERNO" << endl;
   cout << "\t *SALVAR ARQUIVO*" << endl << endl;
 
-  if (carregarOuCriarFuncionario())
-    return;
+  if (carregarOuCriarAluno()) return;
 
   FILE *arquivo;
   char nome_arquivo[50];
@@ -297,7 +291,7 @@ void Salvar()
 
   if (arquivo == NULL)
   {
-    cout << "ERRO NA GRAVACAO DO ARQUIVO EXTERNO" << endl;
+    cout << "\n*** ERRO NA GRAVACAO DO ARQUIVO EXTERNO ***" << endl << endl;
     system("pause");
     return;
   }
@@ -345,7 +339,7 @@ void Carregar()
 {
   system("cls");
   cout << "PROGRAMA PARA CARREGAR ARQUIVO EXTERNO" << endl;
-  cout << "CARREGAR ARQUIVO" << endl;
+  cout << "\t *CARREGAR ARQUIVO*" << endl << endl;
 
   char nome_arquivo[50];
 
@@ -406,6 +400,7 @@ void Menu_arquivo_externo()
   do
   {
     system("cls");
+    cout << "MENU DE SALVAMENTO OU CARREGAMENTO" << endl << endl;
     cout << "[1] SALVAR ARQUIVO EXTERNO" << endl;
     cout << "[2] CARREGAR ARQUIVO EXTERNO" << endl << endl;
     cout << "[0] VOLTAR" << endl << endl;
@@ -466,7 +461,6 @@ int main()
       break;
 
     default:
-      system("cls");
       cout << "\n\t*** OCORREU UM ERRO NA ENTRADA DA OPCAO ***" << endl << endl;
       system("pause");
       break;
