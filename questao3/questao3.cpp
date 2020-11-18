@@ -26,23 +26,15 @@ int carregarOuCriarFuncionario()
     cout << "  NENHUM FUNCIONARIO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
     cin >> opcao_tentativa;
     if (opcao_tentativa == 'S' || opcao_tentativa == 's') 
-    {
       adicionar();
-      return 1;
-    }
 
     cout << "DESEJA CARREGAR DADOS A PARTIR DE UM ARQUIVO EXTERNO? (S/n): ";
     cin >> opcao_tentativa;
     if (opcao_tentativa == 'S' || opcao_tentativa == 's') 
-    {
       carregaArquivo();
-      return 1;
-    }
   }
   else
-  {
     return 0;
-  }
   
   return 1;
 }
@@ -107,7 +99,7 @@ int verificaCPF(int registrado)
 void adicionar()
 {
   system("cls");
-  cout << "MENU DE ADICIONAR FUNCIONARIOS" << endl << endl;
+  cout << "MENU PARA ADICIONAR UM NOVO FUNCIONARIO" << endl << endl;
   int estreado = quantidade_funcionarios_registrados;
   int problemaExecucao = 0;
 
@@ -174,8 +166,8 @@ void pesquisar()
       cout << "\tNOME: "<< servidor[analisado].nome << endl;
       cout << "\tIDADE: "<< servidor[analisado].idade << endl;
       cout << "\tSEXO: "<< servidor[analisado].sexo << endl;
-      cout << "\tSALARIO BRUTO: R$ "<< (servidor[analisado].horas_trabalhadas * servidor[analisado].valor_hora_trabalhada) * 30 << endl;
-      cout << "\tSALARIO LIQUIDO: R$ "<< servidor[analisado].salario_liquido << endl << endl;
+      printf("\tSALARIO BRUTO: R$ %.2f\n", (servidor[analisado].horas_trabalhadas * servidor[analisado].valor_hora_trabalhada) * 30);
+      printf("\tSALARIO LIQUIDO: R$ %.2f\n\n", servidor[analisado].salario_liquido);
       system("pause");
       break;
     }
@@ -201,7 +193,8 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
     {
       if (servidor[cadastrado].salario_liquido < valor_estabelecido)
       {
-        printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
+        cout << "\tNOME: " << servidor[cadastrado].nome << endl;
+        printf("\tSALARIO LIQUIDO: R$ %.2f\n\n", servidor[cadastrado].salario_liquido);
         mensagem_erro = 0;
       }
     }
@@ -215,7 +208,8 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
     {
       if (servidor[cadastrado].salario_liquido > valor_estabelecido)
       {
-        printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
+        cout << "\tNOME: " << servidor[cadastrado].nome << endl;
+        printf("\tSALARIO LIQUIDO: R$ %.2f\n\n", servidor[cadastrado].salario_liquido);
         mensagem_erro = 0;
       }
     }
@@ -229,7 +223,8 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
     {
       if (servidor[cadastrado].salario_liquido >= valor_estabelecido)
       {
-        printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
+        cout << "\tNOME: " << servidor[cadastrado].nome << endl;
+        printf("\tSALARIO LIQUIDO: R$ %.2f\n\n", servidor[cadastrado].salario_liquido);
         mensagem_erro = 0;
       }
     }
@@ -244,8 +239,12 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
 void exibiTodosSalariosFuncionario()
 {
   for (int cadastrado = 0; cadastrado < quantidade_funcionarios_registrados; cadastrado++)
-    printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
-  printf("\n\n TESTE QUANTIDADE: %d\n\n",quantidade_funcionarios_registrados);
+  {
+    cout << "\tNOME: " << servidor[cadastrado].nome << endl;
+    printf("\tSALARIO LIQUIDO: R$ %.2f\n\n", servidor[cadastrado].salario_liquido);
+  }
+
+  // printf("\n TESTE QUANTIDADE: %d\n\n",quantidade_funcionarios_registrados);
 }
 
 void exibir()
