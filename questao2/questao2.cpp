@@ -142,36 +142,38 @@ void aluno_aprovado(int opcao_usuario)
 
   if (opcao_usuario == 1)
   {
-    printf("ALUNOS APROVADOS COM MEDIA SUPERIOR OU IGUAL A 9\n");
+    printf("ALUNOS APROVADOS COM MEDIA SUPERIOR OU IGUAL A 9\n\n");
 
     for (int cadastrado = 0; cadastrado < quantidade_alunos_registrados; cadastrado++)
     {
       if (notas[cadastrado][3] >= 9)
       {
-        printf("\nAluno: %d\n", aluno[cadastrado].matricula);
-        printf("Media: %.1f\n\n", notas[cadastrado][3]);
+        printf("ALUNO: %s\n", aluno[cadastrado].nome);
+        printf("MATRICULA: %d\n", aluno[cadastrado].matricula);
+        printf("MEDIA: %.1f\n\n", notas[cadastrado][3]);
         mensagem_erro = 0;
       }
     }
 
     if (mensagem_erro)
-      cout << "\n\tNENHUM ALUNO ENCONTRADO" << endl << endl;
+      cout << "\tNENHUM ALUNO ENCONTRADO" << endl << endl;
   }
   else if (opcao_usuario == 2)
   {
-    printf("ALUNOS APROVADOS COM MEDIA SUPERIOR OU IGUAL A 7\n");
+    printf("ALUNOS APROVADOS COM MEDIA SUPERIOR OU IGUAL A 7\n\n");
     for (int cadastrado = 0; cadastrado < quantidade_alunos_registrados; cadastrado++)
     {
       if (notas[cadastrado][3] >= 7)
       {
-        printf("\nAluno: %d\n", aluno[cadastrado].matricula);
-        printf("Media: %.1f\n\n", notas[cadastrado][3]);
+        printf("ALUNO: %s\n", aluno[cadastrado].nome);
+        printf("MATRICULA: %d\n", aluno[cadastrado].matricula);
+        printf("MEDIA: %.1f\n\n", notas[cadastrado][3]);
         mensagem_erro = 0;
       }
     }
 
     if (mensagem_erro)
-      cout << "\n\tNENHUM ALUNO ENCONTRADO" << endl << endl;
+      cout << "\tNENHUM ALUNO ENCONTRADO" << endl << endl;
   }
   system("pause");
 }
@@ -184,35 +186,37 @@ void aluno_reprovado(int opcao_usuario)
 
   if (opcao_usuario == 3)
   {
-    printf("ALUNOS REPROVADOS COM MEDIA INFERIOR A 7\n");
+    printf("ALUNOS REPROVADOS COM MEDIA INFERIOR A 7\n\n");
     for (int cadastrado = 0; cadastrado < quantidade_alunos_registrados; cadastrado++)
     {
       if (notas[cadastrado][3] < 7)
       {
-        printf("\nAluno: %d\n", aluno[cadastrado].matricula);
-        printf("Media: %.1f\n\n", notas[cadastrado][3]);
+        printf("ALUNO: %s\n", aluno[cadastrado].nome);
+        printf("MATRICULA: %d\n", aluno[cadastrado].matricula);
+        printf("MEDIA: %.1f\n\n", notas[cadastrado][3]);
         mensagem_erro = 0;
       }
     }
 
     if (mensagem_erro)
-      cout << "\n\tNENHUM ALUNO ENCONTRADO" << endl << endl;
+      cout << "\tNENHUM ALUNO ENCONTRADO" << endl << endl;
   }
   else if (opcao_usuario == 4)
   {
-    printf("ALUNOS REPROVADOS COM MEDIA INFERIOR A 5\n");
+    printf("ALUNOS REPROVADOS COM MEDIA INFERIOR A 5\n\n");
     for (int cadastrado = 0; cadastrado < quantidade_alunos_registrados; cadastrado++)
     {
       if (notas[cadastrado][3] < 5)
       {
-        printf("\nAluno: %d\n", aluno[cadastrado].matricula);
-        printf("Media: %.1f\n\n", notas[cadastrado][3]);
+        printf("ALUNO: %s\n", aluno[cadastrado].nome);
+        printf("MATRICULA: %d\n", aluno[cadastrado].matricula);
+        printf("MEDIA: %.1f\n\n", notas[cadastrado][3]);
         mensagem_erro = 0;
       }
     }
 
     if (mensagem_erro)
-      cout << "\n\tNENHUM ALUNO ENCONTRADO" << endl << endl;
+      cout << "\tNENHUM ALUNO ENCONTRADO" << endl << endl;
   }
   system("pause");
 }
