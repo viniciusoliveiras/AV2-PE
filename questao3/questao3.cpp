@@ -26,23 +26,15 @@ int carregarOuCriarFuncionario()
     cout << "  NENHUM FUNCIONARIO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
     cin >> opcao_tentativa;
     if (opcao_tentativa == 'S' || opcao_tentativa == 's') 
-    {
       adicionar();
-      return 1;
-    }
 
     cout << "DESEJA CARREGAR DADOS A PARTIR DE UM ARQUIVO EXTERNO? (S/n): ";
     cin >> opcao_tentativa;
     if (opcao_tentativa == 'S' || opcao_tentativa == 's') 
-    {
       carregaArquivo();
-      return 1;
-    }
   }
   else
-  {
     return 0;
-  }
   
   return 1;
 }
@@ -107,7 +99,7 @@ int verificaCPF(int registrado)
 void adicionar()
 {
   system("cls");
-  cout << "MENU DE ADICIONAR FUNCIONARIOS" << endl << endl;
+  cout << "MENU PARA ADICIONAR UM NOVO FUNCIONARIO" << endl << endl;
   int estreado = quantidade_funcionarios_registrados;
   int problemaExecucao = 0;
 
