@@ -1,17 +1,43 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 #include<iostream> 
 using namespace std; 
 #define NUMERO_DE_FUNCIONARIO 3
 
+void adicionar();
+void carregaArquivo();
+
 typedef struct {
-  int CPF, idade;
+  int CPF, idade, ID;
   char nome[50], sexo[10];
   float horas_trabalhadas, valor_hora_trabalhada, salario_liquido;
 }FUNCIONARIO;
 
 FUNCIONARIO servidor[NUMERO_DE_FUNCIONARIO];
 int quantidade_funcionarios_registrados = 0;
+
+int carregarOuCriarFuncionario()
+{
+  if (quantidade_funcionarios_registrados == 0)
+  {
+    char opcao_tentativa;
+
+    cout << "  NENHUM FUNCIONARIO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
+    cin >> opcao_tentativa;
+    if (opcao_tentativa == 'S' || opcao_tentativa == 's') 
+      adicionar();
+
+    cout << "DESEJA CARREGAR DADOS A PARTIR DE UM ARQUIVO EXTERNO? (S/n): ";
+    cin >> opcao_tentativa;
+    if (opcao_tentativa == 'S' || opcao_tentativa == 's') 
+      carregaArquivo();
+  }
+  else
+    return 0;
+  
+  return 1;
+}
 
 float calculaDescontoInss(float salario_mensal)
 {
@@ -45,45 +71,52 @@ float calculaSalarioLiquido(float horas, float valor_das_horas)
 
 int possoAdicionar()
 {
-  int registrado = quantidade_funcionarios_registrados;
-  
+  if (quantidade_funcionarios_registrados >= NUMERO_DE_FUNCIONARIO)
+  {
+    cout << "\n[ERROR 500] NAO E POSSIVEL ADICIONAR NOVOS FUNCIONARIOS. LIMITE ATINGIDO\n" << endl;
+    system("pause");
+    return 1;
+  }
+
+  return 0;
+}
+
+int verificaCPF(int registrado)
+{
   for (int analisado = 0; analisado < registrado; analisado++)
   {
     if (servidor[analisado].CPF == servidor[registrado].CPF)
     {
       cout << "\nCPF JA CADASTRADO - FUNCIONARIO CONSTA NOS REGISTROS\n" << endl;
       system("pause");
-      return 0;
+      return 1;
     }
   }
 
-  if (quantidade_funcionarios_registrados >= NUMERO_DE_FUNCIONARIO)
-  {
-    cout << "\n[ERROR 500] NAO E POSSIVEL ADICIONAR NOVOS FUNCIONARIOS. LIMITE ATINGIDO\n" << endl;
-    system("pause");
-    return 0;
-  }
-
-  return 1;
+  return 0;
 }
 
 void adicionar()
 {
-  int estreado = quantidade_funcionarios_registrados;
   system("cls");
-  cout << "ADICIONAR FUNCIONARIO" << endl << endl;
+  cout << "MENU PARA ADICIONAR UM NOVO FUNCIONARIO" << endl << endl;
+  int estreado = quantidade_funcionarios_registrados;
+  int problemaExecucao = 0;
+
+  problemaExecucao = possoAdicionar();
+  if (problemaExecucao) return;
+
+  cout << "\tINFORME OS DADOS DO FUNCIONARIO\n\n";
   cout << "DIGITE O CPF DO FUNCIONARIO: ";
   cin >> servidor[estreado].CPF;
 
-  int problemaExecucao = 0;
-
-  possoAdicionar() ? quantidade_funcionarios_registrados += 1 : problemaExecucao = 1;
-  if (problemaExecucao == 1) return;
+  problemaExecucao = verificaCPF(estreado);
+  if (problemaExecucao) return;
+  else quantidade_funcionarios_registrados += 1;
 
   fflush(stdin); // Limpo o Buffer do teclado
-  cout << "\n\tINFORME OS DADOS DO FUNCIONARIO\n\n";
   cout << "NOME: ";
-  fgets(servidor[estreado].nome, 50, stdin); // Armazeno o nome completo, inclusive com espaços.
+  cin >> servidor[estreado].nome; // Armazeno o primeiro nome.
 
   cout << "SEXO: ";
   cin >> servidor[estreado].sexo;
@@ -101,7 +134,9 @@ void adicionar()
   float valor_hora_trabalhada = servidor[estreado].valor_hora_trabalhada;
 
   servidor[estreado].salario_liquido = calculaSalarioLiquido(horas_trabalhadas, valor_hora_trabalhada);
+  servidor[estreado].ID = estreado;
   
+  cout << endl;
   system("pause");
 }
 
@@ -111,24 +146,32 @@ void pesquisar()
   char opcao_pesquisa;
   int pesquisa_CPF;
 
-  cout << "PESQUISAR FUNCIONARIOS" << endl << endl;
+  cout << "MENU DE PESQUISA" << endl << endl;
+
+  if (carregarOuCriarFuncionario()) return;
+
   cout << "DIGITE O CPF DO FUNCIONARIO QUE DESEJA PESQUISAR: ";
   cin >> pesquisa_CPF;
 
   system("cls");
   
-  for (int analisado = 0; analisado <= quantidade_funcionarios_registrados; analisado++)
+  for (int analisado = 0; analisado < quantidade_funcionarios_registrados; analisado++)
   {
+    int funcionario_nao_encontrado = (quantidade_funcionarios_registrados - 1);
+    
     if (servidor[analisado].CPF == pesquisa_CPF)
     {
       cout << "\tPESQUISAR FUNCIONARIOS" << endl << endl;
       cout << "CPF JA CADASTRADO - FUNCIONARIO CONSTA NOS REGISTROS\n" << endl;
-      cout << "   NOME: "<< servidor[analisado].nome;
-      cout << endl;
+      cout << "\tNOME: "<< servidor[analisado].nome << endl;
+      cout << "\tIDADE: "<< servidor[analisado].idade << endl;
+      cout << "\tSEXO: "<< servidor[analisado].sexo << endl;
+      printf("\tSALARIO BRUTO: R$ %.2f\n", (servidor[analisado].horas_trabalhadas * servidor[analisado].valor_hora_trabalhada) * 30);
+      printf("\tSALARIO LIQUIDO: R$ %.2f\n\n", servidor[analisado].salario_liquido);
       system("pause");
       break;
     }
-    else 
+    else if (analisado == funcionario_nao_encontrado)
     {
       cout << "PESQUISAR FUNCIONARIOS" << endl << endl;
       cout << "    FUNCIONARIO NAO ESTA CADASTRADO.\n\nDESEJA FAZER UM NOVO CADASTRO ? (S/n): ";
@@ -150,13 +193,14 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
     {
       if (servidor[cadastrado].salario_liquido < valor_estabelecido)
       {
-        printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
+        cout << "\tNOME: " << servidor[cadastrado].nome << endl;
+        printf("\tSALARIO LIQUIDO: R$ %.2f\n\n", servidor[cadastrado].salario_liquido);
         mensagem_erro = 0;
       }
-
-      if (mensagem_erro)
-        cout << "\tNENHUM FUNCIONARIO FOI ENCONTRADO.\n\t    TENTE UMA OUTRA CATEGORIA" << endl << endl;
     }
+
+    if (mensagem_erro)
+      cout << "   NENHUM FUNCIONARIO FOI ENCONTRADO.\n       TENTE UMA OUTRA CATEGORIA" << endl << endl;
   }
   else if (opcao_desejada == 3)
   {
@@ -164,13 +208,14 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
     {
       if (servidor[cadastrado].salario_liquido > valor_estabelecido)
       {
-        printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
+        cout << "\tNOME: " << servidor[cadastrado].nome << endl;
+        printf("\tSALARIO LIQUIDO: R$ %.2f\n\n", servidor[cadastrado].salario_liquido);
         mensagem_erro = 0;
       }
-
-      if (mensagem_erro)
-        cout << "\tNENHUM FUNCIONARIO FOI ENCONTRADO.\n\t    TENTE UMA OUTRA CATEGORIA" << endl << endl;
     }
+
+    if (mensagem_erro)
+      cout << "  \tNENHUM FUNCIONARIO FOI ENCONTRADO.\n\t    TENTE UMA OUTRA CATEGORIA" << endl << endl;
   }
   else
   {
@@ -178,13 +223,14 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
     {
       if (servidor[cadastrado].salario_liquido >= valor_estabelecido)
       {
-        printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
+        cout << "\tNOME: " << servidor[cadastrado].nome << endl;
+        printf("\tSALARIO LIQUIDO: R$ %.2f\n\n", servidor[cadastrado].salario_liquido);
         mensagem_erro = 0;
       }
-
-      if (mensagem_erro)
-        cout << "\tNENHUM FUNCIONARIO FOI ENCONTRADO.\n\t    TENTE UMA OUTRA CATEGORIA" << endl << endl;
     }
+
+    if (mensagem_erro)
+      cout << "  \tNENHUM FUNCIONARIO FOI ENCONTRADO.\n\t    TENTE UMA OUTRA CATEGORIA" << endl << endl;
   }
 
   system("pause");
@@ -193,7 +239,12 @@ void exibiSalarioFuncionario(int opcao_desejada, float valor_estabelecido)
 void exibiTodosSalariosFuncionario()
 {
   for (int cadastrado = 0; cadastrado < quantidade_funcionarios_registrados; cadastrado++)
-    printf("\t%s\t R$ %.2f\n\n", servidor[cadastrado].nome, servidor[cadastrado].salario_liquido);
+  {
+    cout << "\tNOME: " << servidor[cadastrado].nome << endl;
+    printf("\tSALARIO LIQUIDO: R$ %.2f\n\n", servidor[cadastrado].salario_liquido);
+  }
+
+  // printf("\n TESTE QUANTIDADE: %d\n\n",quantidade_funcionarios_registrados);
 }
 
 void exibir()
@@ -204,25 +255,22 @@ void exibir()
   do
   {
     system("cls");
-    cout << "MENU DE EXIBICAO DOS FUNCIONARIOS \n" << endl;
+    cout << "MENU DE EXIBICAO DOS FUNCIONARIOS" << endl << endl;
+
+    if (carregarOuCriarFuncionario()) return;
+
     cout << "[1] FUNCIONARIOS COM SALARIO INFERIOR A R$ 500" << endl;
     cout << "[2] FUNCIONARIOS COM SALARIO INFERIOR A R$ 1000" << endl;
     cout << "[3] FUNCIONARIOS COM SALARIO SUPERIOR A R$ 4000" << endl;
     cout << "[4] FUNCIONARIOS COM SALARIO SUPERIOR OU IGUAL A R$ 5000" << endl;
     cout << "[5] FUNCIONARIOS COM SALARIO SUPERIOR OU IGUAL A R$ 7000" << endl;
     cout << "[6] FUNCIONARIOS COM SALARIO SUPERIOR OU IGUAL A R$ 10000" << endl;
-    cout << "[7] TODOS OS FUNCIONARIOS" << endl;
+    cout << "[7] TODOS OS FUNCIONARIOS" << endl << endl;
     cout << "[0] VOLTAR" << endl << endl;
     cout << "OPCAO: ";
     cin >> opcao_exibicao;
 
     system("cls");
-    if (quantidade_funcionarios_registrados == 0)
-    {
-      cout << "\t\t*** MENSAGEM DE ERRO ***\n\tNAO HA NENHUM FUNCIONARIO REGISTRADO NO SISTEMA\n\nPOR FAVOR ADICIONE UM NOVO FUNCIONARIO OU CARREGUE OS DADOS DE UM ARQUIVO EXTERNO\n\n";
-      system("pause");
-      return;
-    }
 
     switch (opcao_exibicao)
     {
@@ -273,6 +321,161 @@ void exibir()
   } while (opcao_exibicao != 0);
 }
 
+void salvaArquivo()
+{
+  system("cls");
+  cout << "MENU DE SALVAMENTO OU CARREGAMENTO" << endl;
+  cout << "\t *SALVAR ARQUIVO*" << endl << endl;
+
+  if (carregarOuCriarFuncionario()) return;
+
+  FILE *arquivo;
+  char nome_arquivo[50];
+
+  cout << "Digite o nome do arquivo externo: "; cin >> nome_arquivo;
+  strcat(nome_arquivo,".txt");
+
+  arquivo = fopen(nome_arquivo, "w+");
+
+  if (arquivo == NULL)
+  {
+    cout << "\n*** ERRO NA GRAVACAO DO ARQUIVO EXTERNO ***" << endl << endl;
+    system("pause");
+    return;
+  }
+  else
+  {
+    for (int gravado = 0; gravado < quantidade_funcionarios_registrados; gravado++)
+    {
+      fprintf(arquivo, "NOME: %s\n", servidor[gravado].nome);
+      fprintf(arquivo, "CPF: %d\n", servidor[gravado].CPF);
+      fprintf(arquivo, "SEXO: %s\n", servidor[gravado].sexo);
+      fprintf(arquivo, "IDADE: %d\n", servidor[gravado].idade);
+      fprintf(arquivo, "HORAS TRABALHADAS: %.f\n", servidor[gravado].horas_trabalhadas);
+      fprintf(arquivo, "VALOR HORA TRABALHADA: %.f\n", servidor[gravado].valor_hora_trabalhada);
+      fprintf(arquivo, "SALARIO LIQUIDO: %.2f\n", servidor[gravado].salario_liquido);
+      fprintf(arquivo, "ID: %d\n\n", servidor[gravado].ID);
+    }
+  }
+
+  fclose(arquivo);
+  cout << "\n*** ARQUIVO EXTERNO SALVO COM SUCESSO ***" << endl << endl;
+  system("pause");
+}
+
+int atualizaQuantidade(char *nome)
+{
+  int tamanho_total;
+  FILE *id;
+  id = fopen(nome, "r");
+  if (id == NULL)
+  {
+    cout << "\n*** ERRO NO CARREGAMENTO DO ARQUIVO EXTERNO ***" << endl << endl;
+    system("pause");
+  }
+  else
+  {
+    fseek(id, -5, SEEK_END);
+    fscanf(id, "%d", &tamanho_total);
+  }
+  fclose(id);
+  return tamanho_total + 1;
+}
+
+void carregaArquivo()
+{
+  system("cls");
+  cout << "MENU DE SALVAMENTO OU CARREGAMENTO" << endl;
+  cout << "\t*CARREGAR ARQUIVO*" << endl << endl;
+
+  char nome_arquivo[50];
+
+  cout << "DIGITE O NOME DO ARQUIVO EXTERNO: "; cin >> nome_arquivo;
+  strcat(nome_arquivo,".txt");
+
+  FILE *arquivo;
+  arquivo = fopen(nome_arquivo, "r");
+
+  if (arquivo == NULL)
+  {
+    cout << "\n*** ERRO NO CARREGAMENTO DO ARQUIVO EXTERNO ***" << endl << endl;
+    system("pause");
+    return;
+  }
+  else
+  {
+    quantidade_funcionarios_registrados = atualizaQuantidade(nome_arquivo); // GAMBIARRA
+
+    for (int gravado = 0; gravado < quantidade_funcionarios_registrados; gravado++)
+    {
+      if (gravado == 0)
+      {
+        fseek(arquivo, 6, SEEK_SET); fscanf(arquivo, "%s\n", servidor[gravado].nome);
+        fseek(arquivo, 5, SEEK_CUR); fscanf(arquivo, "%d\n", &servidor[gravado].CPF);
+        fseek(arquivo, 6, SEEK_CUR); fscanf(arquivo, "%s\n", servidor[gravado].sexo);
+        fseek(arquivo, 7, SEEK_CUR); fscanf(arquivo, "%d\n", &servidor[gravado].idade);
+        fseek(arquivo, 19, SEEK_CUR); fscanf(arquivo, "%f\n", &servidor[gravado].horas_trabalhadas);
+        fseek(arquivo, 23, SEEK_CUR); fscanf(arquivo, "%f\n", &servidor[gravado].valor_hora_trabalhada);
+        fseek(arquivo, 17, SEEK_CUR); fscanf(arquivo, "%f\n", &servidor[gravado].salario_liquido);
+        fseek(arquivo, 4, SEEK_CUR); fscanf(arquivo, "%d\n", &servidor[gravado].ID);
+      }
+      else
+      {
+        fseek(arquivo, 6, SEEK_CUR); fscanf(arquivo, "%s\n", servidor[gravado].nome);
+        fseek(arquivo, 5, SEEK_CUR); fscanf(arquivo, "%d\n", &servidor[gravado].CPF);
+        fseek(arquivo, 6, SEEK_CUR); fscanf(arquivo, "%s\n", servidor[gravado].sexo);
+        fseek(arquivo, 7, SEEK_CUR); fscanf(arquivo, "%d\n", &servidor[gravado].idade);
+        fseek(arquivo, 19, SEEK_CUR); fscanf(arquivo, "%f\n", &servidor[gravado].horas_trabalhadas);
+        fseek(arquivo, 23, SEEK_CUR); fscanf(arquivo, "%f\n", &servidor[gravado].valor_hora_trabalhada);
+        fseek(arquivo, 17, SEEK_CUR); fscanf(arquivo, "%f\n", &servidor[gravado].salario_liquido);
+        fseek(arquivo, 4, SEEK_CUR); fscanf(arquivo, "%d\n", &servidor[gravado].ID);
+      }
+    }
+  }
+
+  fclose(arquivo);
+  cout << "\n*** ARQUIVO EXTERNO CARREGADO COM SUCESSO ***" << endl << endl;
+  system("pause");
+}
+
+void salvarCarregar()
+{
+  int opcao_carregar_salvar;
+  
+  do
+  {
+    system("cls");
+    cout << "MENU DE SALVAMENTO OU CARREGAMENTO" << endl << endl;
+    cout << "[1] SALVAR ARQUIVO" << endl;
+    cout << "[2] CARREGAR ARQUIVO" << endl << endl;
+    cout << "[0] VOLTAR" << endl << endl;
+    cout << "OPCAO: ";
+    cin >> opcao_carregar_salvar;
+
+    system("cls");
+    
+    switch (opcao_carregar_salvar)
+    {
+      case 1:
+        salvaArquivo();
+        break;
+        
+      case 2: 
+        carregaArquivo();
+        break;
+        
+      case 0:
+        break;
+      
+      default:
+        cout << "\n\t*** OCORREU UM ERRO NA ENTRADA DA OPCAO ***" << endl << endl;
+        system("pause");
+        break;
+    }
+  } while (opcao_carregar_salvar != 0);
+  
+}
+
 main()
 {
   int opcao_usuario;
@@ -284,7 +487,7 @@ main()
     cout << "[1] ADICIONAR" << endl;
     cout << "[2] PESQUISAR" << endl;
     cout << "[3] EXIBIR" << endl;
-    cout << "[4] SALVAR / CARREGAR" << endl;
+    cout << "[4] SALVAR / CARREGAR" << endl << endl;
     cout << "[0] SAIR" << endl;
     cout << endl;
     cout << "OPCAO: ";
@@ -303,8 +506,18 @@ main()
     case 3:
       exibir();
       break;
+
+    case 4:
+      salvarCarregar();
+      break;
     
+    case 0:
+      break;
+
     default:
+      system("cls");
+      cout << "\n\t*** OCORREU UM ERRO NA ENTRADA DA OPCAO ***" << endl << endl;
+      system("pause");
       break;
     }
     
